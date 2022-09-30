@@ -43,20 +43,21 @@ function Footer() {
             <h1 className="text-xl text-gray-600 font-bold">Contact Us</h1>
             <div className="text-gray-700 py-4">
               <p className="flex items-center py-1">
-                <i class="ri-map-pin-2-line mr-1"></i> Sahid Chowk, Narayanghat
+                <i className="ri-map-pin-2-line mr-1"></i> Sahid Chowk,
+                Narayanghat
               </p>
 
               <p className="flex items-center py-1">
-                <i class="ri-map-pin-2-line mr-1"></i> Tandi, Chitwan
+                <i className="ri-map-pin-2-line mr-1"></i> Tandi, Chitwan
               </p>
 
               <p className="flex items-center py-1">
-                <i class="ri-phone-line mr-1"></i>{" "}
+                <i className="ri-phone-line mr-1"></i>{" "}
                 <a href="tel:+9779864068268">9864068268</a>, SahidChowk
               </p>
 
               <p className="flex items-center py-1">
-                <i class="ri-phone-line mr-1"></i>{" "}
+                <i className="ri-phone-line mr-1"></i>{" "}
                 <a href="tel:+9779801521884">9801521884</a>, Tandi
               </p>
             </div>
