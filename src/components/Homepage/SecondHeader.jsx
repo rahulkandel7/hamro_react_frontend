@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function SecondHeader() {
   return (
     <>
@@ -5,11 +7,13 @@ function SecondHeader() {
         <div className="w-11/12 mx-auto">
           <div className="flex items-center justify-between">
             <div>
-              <img
-                src="/logo.png"
-                alt="Hamro Electronics Logo"
-                className="w-32"
-              />
+              <NavLink to="/">
+                <img
+                  src="/logo.png"
+                  alt="Hamro Electronics Logo"
+                  className="w-32"
+                />
+              </NavLink>
             </div>
             <div className="relative w-6/12">
               <input
@@ -24,13 +28,17 @@ function SecondHeader() {
               </div>
             </div>
             <div className="flex">
-              <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
-                <i className="ri-shopping-cart-2-line mx-1"></i> cart
-              </button>
+              <NavLink to="/cart">
+                <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
+                  <i className="ri-shopping-cart-2-line mx-1"></i> cart
+                </button>
+              </NavLink>
 
-              <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
-                <i className="ri-heart-3-line mx-1"></i> Wishlist
-              </button>
+              <NavLink to="/wishlist">
+                <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
+                  <i className="ri-heart-3-line mx-1"></i> Wishlist
+                </button>
+              </NavLink>
 
               <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
                 <i className="ri-user-3-line mx-1"></i> Profile

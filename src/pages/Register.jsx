@@ -3,6 +3,7 @@ import SecondHeader from "../components/Homepage/SecondHeader";
 
 import { string, object, number, ref, mixed } from "yup";
 import { Formik } from "formik";
+import { NavLink } from "react-router-dom";
 
 function Register() {
   const registerScheme = object({
@@ -165,12 +166,12 @@ function Register() {
                           <span className="text-gray-400 mx-2">
                             Already Have A Account
                           </span>
-                          <a
-                            href=""
+                          <NavLink
+                            to="/login"
                             className="text-sm text-gray-500 hover:text-gray-700"
                           >
                             Login
-                          </a>
+                          </NavLink>
                         </div>
                       </form>
                     );

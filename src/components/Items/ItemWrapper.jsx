@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 
 import Items from "./Items";
 import "../../css/Items.module.css";
+import { NavLink } from "react-router-dom";
 
 function ItemWrapper(props) {
   return (
@@ -28,22 +29,41 @@ function ItemWrapper(props) {
           modules={[Autoplay, Navigation]}
         >
           <SwiperSlide>
-            <Items item_name="demo" discount_price="1234" price="123" />
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
           </SwiperSlide>
           <SwiperSlide>
-            <Items item_name="demo" price="123" />
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
           </SwiperSlide>
           <SwiperSlide>
-            <Items item_name="demo" discount_price="1234" price="123" />
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
           </SwiperSlide>
           <SwiperSlide>
-            <Items item_name="demo" discount_price="1234" price="123" />
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
           </SwiperSlide>
           <SwiperSlide>
-            <Items item_name="demo" discount_price="1234" price="123" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Items item_name="demo" discount_price="1234" price="123" />
+            <NavLink to="/product/view/1">
+              <Items item_name="demo" discount_price="1234" price="123" />
+            </NavLink>
           </SwiperSlide>
         </Swiper>
       </div>

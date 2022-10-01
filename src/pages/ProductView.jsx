@@ -56,7 +56,7 @@ function ProductView() {
       <NavBar />
       <div className="w-11/12 mx-auto">
         <h4 className="text-sm text-gray-600 py-1">
-          <a to="/">Homepage</a> / Category /{" "}
+          <NavLink to="/">Homepage</NavLink> / Category /{" "}
           <span className="text-indigo-500 hover:text-indigo-600">
             {product.title}
           </span>

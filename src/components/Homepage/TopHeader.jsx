@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function TopHeader() {
   return (
     <>
@@ -32,12 +34,18 @@ function TopHeader() {
           </div>
           <div>
             <div className="flex">
-              <a href="" className="text-gray-500 hover:text-gray-800 mx-1">
+              <NavLink
+                to="/login"
+                className="text-gray-500 hover:text-gray-800 mx-1"
+              >
                 Login
-              </a>
-              <a href="" className="text-gray-500 hover:text-gray-800 mx-1">
+              </NavLink>
+              <NavLink
+                to="/register"
+                className="text-gray-500 hover:text-gray-800 mx-1"
+              >
                 Register
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>

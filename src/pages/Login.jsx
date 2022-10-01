@@ -2,6 +2,7 @@ import Footer from "../components/Footer";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import { string, object } from "yup";
 import { Formik } from "formik";
+import { NavLink } from "react-router-dom";
 
 function Login() {
   const loginScheme = object({
@@ -83,12 +84,12 @@ function Login() {
                           <span className="text-gray-400 mx-2">
                             Don't have a account yet?
                           </span>
-                          <a
-                            href=""
+                          <NavLink
+                            to="/register"
                             className="text-sm text-gray-500 hover:text-gray-700"
                           >
                             Register
-                          </a>
+                          </NavLink>
                         </div>
                       </form>
                     );
