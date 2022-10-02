@@ -10,6 +10,9 @@ import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProductView from "./pages/ProductView";
+import Order from "./pages/Order";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -21,6 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/product/view/:id" element={<ProductView />} />
+        <Route path="/myorder" element={<Order />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
       </Routes>
     </Router>
   </React.StrictMode>
