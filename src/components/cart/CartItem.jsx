@@ -3,10 +3,10 @@ function CartItem() {
     <>
       <div className="flex">
         <div>
-          <img src="/item1.jpeg" alt="Name" className="w-40" />
+          <img src="/item1.jpeg" alt="Name" className="w-20 md:w-40" />
         </div>
         <div className="px-4">
-          <h1 className="text-xl font-semibold ">Product Name</h1>
+          <h1 className=" text-base md:text-xl font-semibold ">Product Name</h1>
           <div className="flex justify-between items-center  my-4">
             <p className="">Quantity:</p>
             <div className="mx-2">

@@ -20,9 +20,9 @@ function Cart() {
       <SecondHeader />
       <NavBar />
       <div className="w-11/12 mx-auto my-10">
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-3 gap-10">
           <div className="col-span-2">
-            <h1 className="text-2xl font-bold">Shopping Cart</h1>
+            <h1 className="text-xl md:text-2xl font-bold">Shopping Cart</h1>
             <hr className="my-2" />
             <CartItem />
             <hr className="my-1" />

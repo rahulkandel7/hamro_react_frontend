@@ -2,7 +2,7 @@ function Footer() {
   return (
     <>
       <div className="w-full bg-gray-50 mt-5 shadow-inner">
-        <div className="grid w-11/12 mx-auto grid-cols-4 py-10">
+        <div className="grid w-11/12 mx-auto md:grid-cols-4 py-10">
           <div>
             <h1 className="text-xl text-gray-600 font-bold">Get Us on</h1>
           </div>

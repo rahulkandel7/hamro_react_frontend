@@ -40,9 +40,11 @@ function SecondHeader() {
                 </button>
               </NavLink>
 
-              <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
-                <i className="ri-user-3-line mx-1"></i> Profile
-              </button>
+              <NavLink to="/profile">
+                <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
+                  <i className="ri-user-3-line mx-1"></i> Profile
+                </button>
+              </NavLink>
             </div>
           </div>
         </div>
