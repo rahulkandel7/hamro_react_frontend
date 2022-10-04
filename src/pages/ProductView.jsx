@@ -61,7 +61,7 @@ function ProductView() {
             {product.title}
           </span>
         </h4>
-        <div className="grid grid-cols-2 my-5 gap-5">
+        <div className="grid md:grid-cols-2 my-5 gap-5">
           <div className="">
             <ReactPanzoom
               src={product.src[index]}
@@ -130,7 +130,7 @@ function ProductView() {
               </button>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex flex-col md:flex-row justify-between">
               <div className="flex items-center">
                 <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                 <i className="ri-star-fill mx-.5 text-yellow-400 "></i>

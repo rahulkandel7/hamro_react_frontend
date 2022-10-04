@@ -21,8 +21,8 @@ function Register() {
     <>
       <SecondHeader />
       <div className="w-11/12 mx-auto">
-        <div className="grid grid-cols-2 my-5 gap-10">
-          <div>
+        <div className="grid md:grid-cols-2 my-5 gap-10">
+          <div className="hidden md:block">
             <img src="/signup.svg" alt="" />
           </div>
           <div>

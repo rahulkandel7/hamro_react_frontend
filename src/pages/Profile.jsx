@@ -8,17 +8,17 @@ function Profile() {
     <div className="bg-gray-50 h-full">
       <SecondHeader />
       <Navbar />
-      <div className="w-9/12 mx-auto bg-white shadow-md rounded-md  my-10 p-10 relative">
+      <div className="w-11/12 md:w-9/12 mx-auto bg-white shadow-md rounded-md  my-10 p-10 relative">
         <div>
           <div className="flex items-center">
             <img
               src="/item1.jpeg"
               alt=""
-              className="w-28 h-28 object-cover rounded-full shadow-md"
+              className="w-16 h-16 md:w-28 md:h-28 object-cover rounded-full shadow-md"
             />
             <div className="px-5">
-              <p className="text-xl font-bold text-gray-800">Demo Name</p>
-              <p className="text-sm text-gray-600">Demo Address</p>
+              <p className="md:text-xl font-bold text-gray-800">Demo Name</p>
+              <p className="text-xs md:text-sm text-gray-600">Demo Address</p>
             </div>
           </div>
 
@@ -66,9 +66,9 @@ function Profile() {
             </div>
           </div>
 
-          <div className="absolute top-5 right-2">
+          <div className="absolute top-2 md:top-5 right-2">
             <NavLink to="/profile/edit">
-              <button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md shadow-md mx-3">
+              <button className="px-4 py-1 md:py-2 bg-indigo-500 hover:bg-indigo-600 md:text-base text-xs text-white rounded-md shadow-md mx-3">
                 Edit Profile
               </button>
             </NavLink>
@@ -76,7 +76,7 @@ function Profile() {
 
           <div className="absolute bottom-5 right-2">
             <NavLink to="/profile/edit">
-              <button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md shadow-md mx-3">
+              <button className="px-4 py-1 md:py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-xs md:text-base rounded-md shadow-md mx-3">
                 My Orders
               </button>
             </NavLink>

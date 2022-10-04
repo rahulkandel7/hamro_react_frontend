@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import MobileNav from "./MobileNav";
 import NavLinks from "./NavLinks";
 
 function NavBar() {
@@ -150,6 +150,8 @@ function NavBar() {
           <></>
         )}
       </div>
+
+      <MobileNav />
 
       <style>{`
         .customgroup:hover .customgroup-content {

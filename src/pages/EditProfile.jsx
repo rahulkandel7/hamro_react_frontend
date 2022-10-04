@@ -26,9 +26,11 @@ function EditProfile() {
       <SecondHeader />
       <NavBar />
       <div className="w-11/12 mx-auto">
-        <h1 className="text-gray-700 text-2xl font-bold">Edit Profile</h1>
+        <h1 className="text-gray-700 text-xl md:text-2xl font-bold">
+          Edit Profile
+        </h1>
         <hr className="my-2" />
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid md:grid-cols-2 gap-10">
           <div>
             <div className="border border-gray-200 rounded-md p-5">
               <Formik

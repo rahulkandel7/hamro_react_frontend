@@ -5,17 +5,17 @@ function SecondHeader() {
     <>
       <div className="w-full bg-white shadow-md ">
         <div className="w-11/12 mx-auto">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between py-1 md:py-0">
             <div>
               <NavLink to="/">
                 <img
                   src="/logo.png"
                   alt="Hamro Electronics Logo"
-                  className="w-32"
+                  className="w-20 md:w-32"
                 />
               </NavLink>
             </div>
-            <div className="relative w-6/12">
+            <div className="relative w-full ml-5 md:ml-0 md:w-6/12">
               <input
                 type="text"
                 name="search"
@@ -27,7 +27,7 @@ function SecondHeader() {
                 <i className="ri-search-2-line text-gray-500"></i>
               </div>
             </div>
-            <div className="flex">
+            <div className="hidden md:flex">
               <NavLink to="/cart">
                 <button className=" text-gray-500 px-4 py-1 rounded-md flex items-center text-lg hover:text-black ">
                   <i className="ri-shopping-cart-2-line mx-1"></i> cart

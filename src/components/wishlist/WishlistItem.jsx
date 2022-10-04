@@ -8,15 +8,17 @@ function WishlistItem(props) {
         </p>
 
         {props.discount_price == null ? (
-          <p className="text-lg text-black px-2 text-center">
+          <p className="text-sm md:text-lg text-black px-2 text-center">
             Rs {props.price}
           </p>
         ) : (
           <div className="flex justify-center items-center">
-            <p className="line-through text-sm text-gray-600">
+            <p className="line-through text-xs md:text-sm text-gray-600">
               Rs {props.discount_price}
             </p>
-            <p className="text-lg text-black px-2">Rs {props.price}</p>
+            <p className="text-sm md:text-lg text-black px-2">
+              Rs {props.price}
+            </p>
           </div>
         )}
         <div className="flex justify-between mx-4 mt-1">

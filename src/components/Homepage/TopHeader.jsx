@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 function TopHeader() {
   return (
     <>
-      <div className="w-11/12 mx-auto py-1">
+      <div className="w-11/12 mx-auto py-1 hidden md:block">
         <div className="flex justify-between text-sm">
           <div className="flex items-center h-full text-gray-500">
             <i className="ri-smartphone-line"></i>
