@@ -14,7 +14,7 @@ function Wishlist() {
           My Wishlist
         </h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 my-10">
+        <div className="grid grid-cols-3 md:grid-cols-5 gap-10 my-10">
           <WishlistItem item_name="demo" price={1234} />
           <WishlistItem />
           <WishlistItem />

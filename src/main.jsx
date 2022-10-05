@@ -13,6 +13,7 @@ import ProductView from "./pages/ProductView";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import Category from "./pages/Category";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/myorder" element={<Order />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/category" element={<Category />} />
       </Routes>
     </Router>
   </React.StrictMode>
