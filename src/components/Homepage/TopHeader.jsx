@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function TopHeader() {
+  const [isLogged, setIsLogged] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLogged(true);
+    }
+  });
+
+  const logout = () => {
+    fetch("/api/v1/logout", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "POST",
+    });
+    localStorage.clear();
+  };
   return (
     <>
       <div className="w-11/12 mx-auto py-1 hidden md:block">
@@ -34,18 +51,29 @@ function TopHeader() {
           </div>
           <div>
             <div className="flex">
-              <NavLink
-                to="/login"
-                className="text-gray-500 hover:text-gray-800 mx-1"
-              >
-                Login
-              </NavLink>
-              <NavLink
-                to="/register"
-                className="text-gray-500 hover:text-gray-800 mx-1"
-              >
-                Register
-              </NavLink>
+              {isLogged ? (
+                <button
+                  className="text-gray-500 hover:text-gray-800 mx-1 flex items-center"
+                  onClick={logout}
+                >
+                  <i className="ri-logout-box-line mx-1"></i> Logout
+                </button>
+              ) : (
+                <div>
+                  <NavLink
+                    to="/login"
+                    className="text-gray-500 hover:text-gray-800 mx-1"
+                  >
+                    Login
+                  </NavLink>
+                  <NavLink
+                    to="/register"
+                    className="text-gray-500 hover:text-gray-800 mx-1"
+                  >
+                    Register
+                  </NavLink>
+                </div>
+              )}
             </div>
           </div>
         </div>

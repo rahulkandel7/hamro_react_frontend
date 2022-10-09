@@ -9,7 +9,7 @@ function Category() {
       <SecondHeader />
       <NavBar />
       <div className="flex w-11/12 mx-auto my-3">
-        <div className="hidden md:block w-6/12 shadow-md px-5 py-2">
+        <div className="hidden md:block w-64 shadow-md px-5 py-2">
           <h1 className="text-2xl text-gray-700 font-bold">Filter By</h1>
           <hr className="my-2" />
           <h3 className="text-gray-500 text-lg">Brands</h3>

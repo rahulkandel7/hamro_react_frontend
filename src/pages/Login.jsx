@@ -2,9 +2,10 @@ import Footer from "../components/Footer";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import { string, object } from "yup";
 import { Formik } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const loginScheme = object({
     email: string().email().required(),
     password: string().required(),
@@ -24,6 +25,23 @@ function Login() {
                 <Formik
                   initialValues={{ email: "", password: "" }}
                   validationSchema={loginScheme}
+                  onSubmit={async (values) => {
+                    const response = await fetch("api/v1/login", {
+                      method: "POST",
+                      body: JSON.stringify(values),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
+
+                    response.json().then((data) => {
+                      console.log(data);
+                      if (data.success === true) {
+                        localStorage.setItem("token", data.token);
+                        navigate("/");
+                      }
+                    });
+                  }}
                 >
                   {({ errors, handleChange, handleSubmit }) => {
                     return (

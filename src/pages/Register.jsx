@@ -3,9 +3,11 @@ import SecondHeader from "../components/Homepage/SecondHeader";
 
 import { string, object, number, ref, mixed } from "yup";
 import { Formik } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
   const registerScheme = object({
     email: string().email().required(),
     name: string().required(),
@@ -16,6 +18,7 @@ function Register() {
       .required("Confirm Password is Required"),
     address: string().required(),
     profile_photo: mixed().required("Profile Photo is Required"),
+    gender: string().required(),
   });
   return (
     <>
@@ -32,11 +35,57 @@ function Register() {
                   Register
                 </h1>
                 <Formik
-                  initialValues={{ email: "", password: "" }}
+                  initialValues={{
+                    email: "",
+                    password: "",
+                    name: "",
+                    mobile: "",
+                    confirm_password: "",
+                    address: "",
+                    profile_photo: "",
+                    gender: "",
+                  }}
                   validationSchema={registerScheme}
                   validateOnChange={false}
+                  onSubmit={async (values) => {
+                    console.log(values);
+                    const formData = new FormData();
+                    formData.append("email", values.email);
+                    formData.append("password", values.password);
+                    formData.append(
+                      "confirm_password",
+                      values.confirm_password
+                    );
+                    formData.append("name", values.name);
+                    formData.append("phone_number", values.mobile);
+                    formData.append("address", values.address);
+                    formData.append("profile_photo", values.profile_photo);
+                    formData.append("gender", values.gender);
+
+                    const response = await fetch("api/v1/register", {
+                      body: formData,
+                      method: "POST",
+                    });
+
+                    response.json().then((data) => {
+                      if (data.token) {
+                        localStorage.setItem("token", data.token);
+                        navigate("/");
+                      }
+                      if (data.details) {
+                        const email = data.details["email"];
+                        console.log(email);
+                      }
+                    });
+                  }}
                 >
-                  {({ errors, handleChange, handleSubmit }) => {
+                  {({
+                    values,
+                    errors,
+                    handleChange,
+                    handleSubmit,
+                    setFieldValue,
+                  }) => {
                     return (
                       <form className="w-10/12" onSubmit={handleSubmit}>
                         <div className="my-5">
@@ -153,6 +202,74 @@ function Register() {
                           <p className="text-red-500 text-sm">
                             {errors.address}
                           </p>
+                        </div>
+
+                        <div className="my-5">
+                          <label
+                            htmlFor="gender"
+                            className="block text-gray-600 py-1 "
+                          >
+                            Select Gender
+                          </label>
+                          <select
+                            name="gender"
+                            id="gender"
+                            onChange={handleChange}
+                            className="outline-none rounded-full shadow-sm focus-visible:shadow-md px-4 py-2 border border-gray-400 focus-visible:border-gray-700 w-full"
+                          >
+                            <option disabled selected>
+                              -- Select Gender --
+                            </option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                          </select>
+
+                          <p className="text-red-500 text-sm">
+                            {errors.gender}
+                          </p>
+                        </div>
+
+                        <div className="my-5">
+                          <div className="mx-2">
+                            <p className="my-2 text-gray-500 ">
+                              Select Profile Picture
+                              <sup className="text-red-600">*</sup>
+                            </p>
+                            <label
+                              htmlFor="profile_photo"
+                              className="my-2 text-gray-500 "
+                            >
+                              <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
+                                {values.profile_photo ? (
+                                  <img
+                                    src={URL.createObjectURL(
+                                      values.profile_photo
+                                    )}
+                                    className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1 object-cover"
+                                    alt=""
+                                  />
+                                ) : (
+                                  <i className="text-6xl text-gray-300 ri-add-line "></i>
+                                )}
+                              </div>
+                            </label>
+                            <input
+                              type="file"
+                              hidden
+                              name="profile_photo"
+                              id="profile_photo"
+                              onChange={(e) => {
+                                setFieldValue(
+                                  "profile_photo",
+                                  e.currentTarget.files[0]
+                                );
+                              }}
+                              className="file:border-none file:bg-red-400 file:text-white file:hover:bg-red-500 w-full file:shadow-gray-100 file:rounded-md file:shadow-md py-2 px-3 outline-none focus-visible:border-gray-600 my-2"
+                            />
+                            <p className="text-sm text-red-500 pb-3">
+                              {errors.profile_photo}
+                            </p>
+                          </div>
                         </div>
 
                         <button
