@@ -48,6 +48,7 @@ function EditCategory() {
                   const formData = new FormData();
                   formData.append("category_name", values.category_name);
                   formData.append("priority", values.priority);
+                  formData.append("_method", "put");
                   formData.append(
                     "photopath",
                     values.photopath !== null
@@ -58,7 +59,7 @@ function EditCategory() {
                   const response = await fetch(
                     `/api/v1/category/${data.data.id}`,
                     {
-                      method: "PUT",
+                      method: "POST",
                       body: formData,
                       headers: {
                         Authorization: `Bearer ${localStorage.getItem(
@@ -72,7 +73,7 @@ function EditCategory() {
                     console.log(data);
                   });
 
-                  // navigate("/admin/category");
+                  navigate("/admin/category");
                 }}
               >
                 {({
