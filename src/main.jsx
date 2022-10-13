@@ -19,6 +19,9 @@ import Dashboard from "./pages/admin/Dashboard";
 import AdminCategory from "./pages/admin/category/Category";
 import AddCategory from "./pages/admin/category/AddCategory";
 import EditCategory from "./pages/admin/category/EditCategory";
+import SubCategory from "./pages/admin/subcategory/SubCategory";
+import AddSubCategory from "./pages/admin/subcategory/AddSubCategory";
+import EditSubCategory from "./pages/admin/subcategory/EditSubCategory";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -43,7 +46,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="create" element={<AddCategory />} />
             <Route path="edit/:id" element={<EditCategory />} />
           </Route>
-          <Route path="subcategory" element={<Dashboard />} />
+          <Route path="subcategory">
+            <Route index element={<SubCategory />} />
+            <Route path="create" element={<AddSubCategory />} />
+            <Route path="edit/:id" element={<EditSubCategory />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

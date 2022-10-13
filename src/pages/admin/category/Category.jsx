@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import ShowDelete from "../../../components/admin/utils/ShowDelete";
+import AddButton from "../../../components/utils/AddButton";
 
 function Category() {
   //* For Fetching Data
@@ -58,6 +59,9 @@ function Category() {
 
   //? Show Data when loaded
   if (data) {
+    const priorityCategory = [...data.data].sort(
+      (a, b) => a.priority - b.priority
+    );
     return (
       <>
         <AdminLayout>
@@ -77,9 +81,7 @@ function Category() {
               <h1 className="text-4xl text-gray-700">Categories</h1>
 
               <NavLink to="create">
-                <button className="px-4 py-1 bg-red-500 hover:bg-red-700 text-white rounded-full shadow-md hover:shadow-lg">
-                  Add Category
-                </button>
+                <AddButton name="Add Category" />
               </NavLink>
             </div>
             <hr className="my-2" />
@@ -112,7 +114,7 @@ function Category() {
                 </thead>
                 <tbody>
                   {search === ""
-                    ? data.data.map((category) => {
+                    ? priorityCategory.map((category) => {
                         return (
                           <tr key={category.id}>
                             <td className="py-2 px-5 text-gray-600">
