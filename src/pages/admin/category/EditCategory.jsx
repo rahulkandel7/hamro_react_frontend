@@ -70,10 +70,10 @@ function EditCategory() {
                   );
 
                   response.json().then((data) => {
-                    console.log(data);
+                    if (data.status) {
+                      navigate("/admin/category");
+                    }
                   });
-
-                  navigate("/admin/category");
                 }}
               >
                 {({

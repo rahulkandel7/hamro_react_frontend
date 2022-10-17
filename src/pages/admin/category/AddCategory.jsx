@@ -36,7 +36,10 @@ function AddCategory() {
                 },
               });
               response.json().then((data) => {
-                if (data.message == "Category Added Successfully") {
+                if (data.details) {
+                  alert(data.details.photopath);
+                }
+                if (data.status) {
                   navigate("/admin/category");
                   sessionStorage.setItem("message", data.message);
                 }

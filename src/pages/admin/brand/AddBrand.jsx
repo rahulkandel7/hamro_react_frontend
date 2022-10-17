@@ -37,7 +37,7 @@ function AddBrand() {
               }).then((res) => {
                 res.json().then((data) => {
                   console.log(data);
-                  if (data.success) {
+                  if (data.status) {
                     navigate("/admin/brand");
                   }
                 });

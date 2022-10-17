@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
@@ -65,7 +65,15 @@ function Category() {
     return (
       <>
         <AdminLayout>
-          {sessionStorage.getItem("message")}
+          {sessionStorage.getItem("message") ? (
+            <div className="fixed top-2 right-3">
+              <div className="bg-rose-500 text-white px-5 py-2 rounded-md shadow-lg">
+                {sessionStorage.getItem("message")}
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
           {isDelete ? (
             <ShowDelete
               delete={deleteCategory}

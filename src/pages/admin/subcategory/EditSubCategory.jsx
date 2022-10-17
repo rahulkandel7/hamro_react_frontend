@@ -69,7 +69,7 @@ function EditSubCategory() {
                   },
                 }).then((res) => {
                   res.json().then((data) => {
-                    if (data.success) {
+                    if (data.status) {
                       navigate("/admin/subcategory");
                     }
                   });

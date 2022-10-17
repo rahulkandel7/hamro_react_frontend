@@ -56,13 +56,11 @@ function EditBrand() {
                     }
                   );
 
-                  console.log(response.text());
-
                   response.json().then((data) => {
-                    console.log(data);
+                    if (data.status) {
+                      navigate("/admin/brand");
+                    }
                   });
-
-                  navigate("/admin/brand");
                 }}
               >
                 {({
