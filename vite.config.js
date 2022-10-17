@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/v1": {
-        target: "http://192.168.1.11:8000",
+        target: "http://192.168.1.92:8000",
       },
     },
   },

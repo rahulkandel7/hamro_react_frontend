@@ -22,6 +22,9 @@ import EditCategory from "./pages/admin/category/EditCategory";
 import SubCategory from "./pages/admin/subcategory/SubCategory";
 import AddSubCategory from "./pages/admin/subcategory/AddSubCategory";
 import EditSubCategory from "./pages/admin/subcategory/EditSubCategory";
+import Brand from "./pages/admin/brand/Brand";
+import AddBrand from "./pages/admin/brand/AddBrand";
+import EditBrand from "./pages/admin/brand/EditBrand";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -50,6 +53,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route index element={<SubCategory />} />
             <Route path="create" element={<AddSubCategory />} />
             <Route path="edit/:id" element={<EditSubCategory />} />
+          </Route>
+          <Route path="brand">
+            <Route index element={<Brand />} />
+            <Route path="create" element={<AddBrand />} />
+            <Route path="edit/:id" element={<EditBrand />} />
           </Route>
         </Route>
       </Routes>
