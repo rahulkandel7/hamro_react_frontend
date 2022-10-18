@@ -112,7 +112,7 @@ function AddProduct() {
 
                   res.json().then((data) => {
                     if (data.status) {
-                      navigate("/distributor/products");
+                      navigate("/admin/products");
                     }
                   });
                 }}
