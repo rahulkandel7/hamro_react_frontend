@@ -11,7 +11,7 @@ function Category() {
     fetch(...args, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
-  const { data, mutate, error } = useSWR("/api/v1/category", fetcher);
+  const { data, mutate, error } = useSWR("/api/v1/product", fetcher);
 
   //* For searching data
   const [search, setSearch] = useState("");
@@ -31,7 +31,7 @@ function Category() {
   //* For Deleteing Category
 
   async function deleteCategory(id) {
-    const category = await fetch(`/api/v1/category/${id}`, {
+    const category = await fetch(`/api/v1/product/${id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -56,21 +56,9 @@ function Category() {
 
   //? Show Data when loaded
   if (data) {
-    const priorityCategory = [...data.data].sort(
-      (a, b) => a.priority - b.priority
-    );
     return (
       <>
         <AdminLayout>
-          {sessionStorage.getItem("message") ? (
-            <div className="fixed top-2 right-3">
-              <div className="bg-rose-500 text-white px-5 py-2 rounded-md shadow-lg">
-                {sessionStorage.getItem("message")}
-              </div>
-            </div>
-          ) : (
-            <div></div>
-          )}
           {isDelete ? (
             <ShowDelete
               delete={deleteCategory}
@@ -83,10 +71,10 @@ function Category() {
 
           <div className="px-10 py-6 w-full">
             <div className="flex justify-between">
-              <h1 className="text-4xl text-gray-700">Categories</h1>
+              <h1 className="text-4xl text-gray-700">Products</h1>
 
               <NavLink to="create">
-                <AddButton name="Add Category" />
+                <AddButton name="Add Product" />
               </NavLink>
             </div>
             <hr className="my-2" />
@@ -111,43 +99,75 @@ function Category() {
               <table className="w-full border border-gray-200 rounded-md shadow-md px-5">
                 <thead className="bg-gray-500 ">
                   <tr className="w-full border border-gray-100 text-white">
-                    <td className="py-2 px-5 ">Order</td>
+                    <td className="py-2 px-5 ">SKU</td>
+                    <td className="py-2 px-5 ">Product Name</td>
+                    <td className="py-2 px-5 ">Product Image</td>
                     <td className="py-2 px-5 ">Category Name</td>
-                    <td className="py-2 px-5 ">Category Photo</td>
-                    <td className="py-2 px-5 ">Action</td>
+                    <td className="py-2 px-5 ">Product Price</td>
+                    <td className="py-2 px-5 ">Product Stock</td>
+                    <td className="py-2 px-5 ">Is Flash Sale </td>
+                    <td className="py-2 px-5 ">Is Deleted</td>
+                    <td className="py-2 px-5 ">Actions</td>
                   </tr>
                 </thead>
                 <tbody>
                   {search === ""
-                    ? priorityCategory.map((category) => {
+                    ? data.data.map((product) => {
                         return (
-                          <tr key={category.id}>
+                          <tr key={product.id}>
                             <td className="py-2 px-5 text-gray-600">
-                              {category.priority}
+                              {product.sku}
                             </td>
                             <td className="py-2 px-5 text-gray-600">
-                              {category.category_name}
+                              {product.name}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
                               <img
-                                src={`http://192.168.1.92:8000/storage/${category.photopath}`}
+                                src={`http://192.168.1.92:8000/storage/${product.photopath1}`}
                                 alt=""
                                 className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                               />
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              <NavLink to={`edit/${category.id}`}>
+                              {product.category_id}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              {product.price}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              {product.stock}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              {product.flashsale ? "Yes" : "No"}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              {product.deleted ? "Yes" : "No"}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              <NavLink to={`edit/${product.id}`}>
                                 <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
-                                  Update Category
+                                  Update
                                 </button>
                               </NavLink>
+
+                              <NavLink to={`edit/${product.id}`}>
+                                <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
+                                  View
+                                </button>
+                              </NavLink>
+
                               <button
                                 className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-700 text-white mx-2"
                                 onClick={() => {
                                   toggleIsDelete();
-                                  setId(category.id);
+                                  setId(product.id);
                                 }}
                               >
                                 Delete
@@ -157,40 +177,67 @@ function Category() {
                         );
                       })
                     : data.data
-                        .filter((category) => {
+                        .filter((product) => {
                           if (search === "") {
-                            return category;
+                            return product;
                           } else if (
-                            category.category_name
+                            product.name
                               .toLowerCase()
                               .includes(search.toLowerCase())
                           ) {
-                            return category;
+                            return product;
                           }
                         })
                         .map((dat) => {
                           return (
                             <tr key={dat.id}>
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.priority}
+                                {dat.sku}
                               </td>
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.category_name}
+                                {dat.name}
                               </td>
                               <td className="py-2 px-5 text-gray-600">
                                 <img
-                                  src={`http://192.168.1.92:8000/storage/${dat.photopath}`}
+                                  src={`http://192.168.1.92:8000/storage/${dat.photopath1}`}
                                   alt=""
                                   className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                                 />
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
+                                {dat.category_id}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
+                                {dat.price}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
+                                {dat.stock}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
+                                {dat.flashsale ? "Yes" : "No"}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
+                                {dat.deleted ? "Yes" : "No"}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
                                 <NavLink to={`edit/${dat.id}`}>
                                   <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
-                                    Update Category
+                                    Update
                                   </button>
                                 </NavLink>
+
+                                <NavLink to={`edit/${dat.id}`}>
+                                  <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
+                                    view
+                                  </button>
+                                </NavLink>
+
                                 <button
                                   className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-700 text-white mx-2"
                                   onClick={() => {

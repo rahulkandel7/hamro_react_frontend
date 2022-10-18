@@ -25,6 +25,8 @@ import EditSubCategory from "./pages/admin/subcategory/EditSubCategory";
 import Brand from "./pages/admin/brand/Brand";
 import AddBrand from "./pages/admin/brand/AddBrand";
 import EditBrand from "./pages/admin/brand/EditBrand";
+import Products from "./pages/admin/product/Products";
+import AddProduct from "./pages/admin/product/AddProduct";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -57,6 +59,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="brand">
             <Route index element={<Brand />} />
             <Route path="create" element={<AddBrand />} />
+            <Route path="edit/:id" element={<EditBrand />} />
+          </Route>
+          <Route path="products">
+            <Route index element={<Products />} />
+            <Route path="create" element={<AddProduct />} />
             <Route path="edit/:id" element={<EditBrand />} />
           </Route>
         </Route>
