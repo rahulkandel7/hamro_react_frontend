@@ -1,9 +1,9 @@
-import NavBar from "../components/Homepage/navbar/NavBar";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import { string, object, number, ref, mixed } from "yup";
 import { Formik } from "formik";
 import { NavLink } from "react-router-dom";
 import Footer from "../components/Footer";
+import Navbar from "../components/Homepage/navbar/NavBar";
 
 function EditProfile() {
   const detailsSchema = object({
@@ -24,9 +24,9 @@ function EditProfile() {
   return (
     <>
       <SecondHeader />
-      <NavBar />
+      <Navbar />
       <div className="w-11/12 mx-auto">
-        <h1 className="text-gray-700 text-xl md:text-2xl font-bold">
+        <h1 className="text-gray-700 text-xl md:text-2xl font-bold mt-7">
           Edit Profile
         </h1>
         <hr className="my-2" />

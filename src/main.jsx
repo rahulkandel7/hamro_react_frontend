@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import "./index.css";
 import "remixicon/fonts/remixicon.css";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+//* User Pages
+import App from "./App";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
@@ -13,8 +14,10 @@ import ProductView from "./pages/ProductView";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import UserSubCategory from "./pages/UserSubCategory";
 import Category from "./pages/Category";
 
+//* Admin Pages
 import Dashboard from "./pages/admin/Dashboard";
 import AdminCategory from "./pages/admin/category/Category";
 import AddCategory from "./pages/admin/category/AddCategory";
@@ -42,26 +45,31 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/myorder" element={<Order />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
-        <Route path="/category" element={<Category />} />
+        <Route path="/category/:id" element={<Category />} />
+        <Route path="/subcategory/:id" element={<UserSubCategory />} />
 
         {/* Admin Route */}
         <Route path="admin">
           <Route path="dashboard" element={<Dashboard />} />
+          {/* Category Route */}
           <Route path="category">
             <Route index element={<AdminCategory />} />
             <Route path="create" element={<AddCategory />} />
             <Route path="edit/:id" element={<EditCategory />} />
           </Route>
+          {/* Sub Category Route */}
           <Route path="subcategory">
             <Route index element={<SubCategory />} />
             <Route path="create" element={<AddSubCategory />} />
             <Route path="edit/:id" element={<EditSubCategory />} />
           </Route>
+          {/* Brand Route */}
           <Route path="brand">
             <Route index element={<Brand />} />
             <Route path="create" element={<AddBrand />} />
             <Route path="edit/:id" element={<EditBrand />} />
           </Route>
+          {/* Products Route */}
           <Route path="products">
             <Route index element={<Products />} />
             <Route path="create" element={<AddProduct />} />

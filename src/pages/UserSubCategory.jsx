@@ -1,16 +1,15 @@
-import { data } from "autoprefixer";
 import { NavLink, useParams } from "react-router-dom";
 import useSWR from "swr";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import Navbar from "../components/Homepage/navbar/Navbar";
 import Items from "../components/Items/Items";
 
-function Category() {
+function UserSubCategory() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const params = useParams();
 
   const { data, error } = useSWR(
-    `/api/v1/category/product/${params.id}`,
+    `/api/v1/subcategory/product/${params.id}`,
     fetcher
   );
 
@@ -89,7 +88,7 @@ function Category() {
           </div>
           <div className="">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
-              {data.category.category_name}
+              {data.sub.subcategory_name}
             </h1>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
               {data.data.map((product) => {
@@ -113,4 +112,4 @@ function Category() {
   }
 }
 
-export default Category;
+export default UserSubCategory;

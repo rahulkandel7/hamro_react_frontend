@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import NavBar from "../components/Homepage/navbar/NavBar";
+
 import SecondHeader from "../components/Homepage/SecondHeader";
 
 import WishlistItem from "../components/wishlist/WishlistItem";

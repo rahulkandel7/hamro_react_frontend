@@ -56,43 +56,24 @@ function ItemWrapper(props) {
             },
           }}
         >
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
+          {props.products !== undefined ? (
+            props.products.map((product) => {
+              return (
+                <SwiperSlide key={product.id}>
+                  <NavLink to={`/product/view/${product.id}`}>
+                    <Items
+                      item_name={product.name}
+                      discount_price={product.discounedprice}
+                      price={product.price}
+                      image={product.photopath1}
+                    />
+                  </NavLink>
+                </SwiperSlide>
+              );
+            })
+          ) : (
+            <></>
+          )}
         </Swiper>
       </div>
     </>

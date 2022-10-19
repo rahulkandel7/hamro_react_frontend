@@ -2,7 +2,7 @@ import { useState } from "react";
 import CartItem from "../components/cart/CartItem";
 import Checkout from "../components/cart/Checkout";
 import Footer from "../components/Footer";
-import NavBar from "../components/Homepage/navbar/NavBar";
+
 import SecondHeader from "../components/Homepage/SecondHeader";
 
 function Cart() {
