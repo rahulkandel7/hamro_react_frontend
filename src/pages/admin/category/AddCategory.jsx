@@ -2,6 +2,7 @@ import { mixed, number, object, string } from "yup";
 import { Formik } from "formik";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddCategory() {
   const navigate = useNavigate();
@@ -37,11 +38,17 @@ function AddCategory() {
               });
               response.json().then((data) => {
                 if (data.details) {
-                  alert(data.details.photopath);
+                  data.details.photopath.map((detail) => {
+                    toast(detail, {
+                      type: "error",
+                    });
+                  });
                 }
                 if (data.status) {
+                  toast(data.message, {
+                    type: "success",
+                  });
                   navigate("/admin/category");
-                  sessionStorage.setItem("message", data.message);
                 }
               });
             }}

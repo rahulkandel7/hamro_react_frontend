@@ -5,6 +5,7 @@ import { string, object, number } from "yup";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AddButton from "../../../components/utils/AddButton";
 import useSWR from "swr";
+import { toast } from "react-toastify";
 
 function AddSubCategory() {
   const subCategorySchema = object({
@@ -58,6 +59,9 @@ function AddSubCategory() {
               }).then((res) => {
                 res.json().then((data) => {
                   if (data.status) {
+                    toast(data.message, {
+                      type: "success",
+                    });
                     navigate("/admin/subcategory");
                   }
                 });

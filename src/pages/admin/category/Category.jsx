@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import ShowDelete from "../../../components/admin/utils/ShowDelete";
@@ -38,7 +39,11 @@ function Category() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(category.json());
+    category.json().then((data) => {
+      toast(data.message, {
+        type: "success",
+      });
+    });
     mutate();
     toggleIsDelete();
   }
@@ -62,15 +67,6 @@ function Category() {
     return (
       <>
         <AdminLayout>
-          {sessionStorage.getItem("message") ? (
-            <div className="fixed top-2 right-3">
-              <div className="bg-rose-500 text-white px-5 py-2 rounded-md shadow-lg">
-                {sessionStorage.getItem("message")}
-              </div>
-            </div>
-          ) : (
-            <div></div>
-          )}
           {isDelete ? (
             <ShowDelete
               delete={deleteCategory}
