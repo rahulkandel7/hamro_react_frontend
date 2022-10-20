@@ -39,8 +39,10 @@ function Category() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     }).then((res) => {
-      toast(res.message, {
-        type: "success",
+      res.json().then((data) => {
+        toast(data.message, {
+          type: "success",
+        });
       });
     });
 
