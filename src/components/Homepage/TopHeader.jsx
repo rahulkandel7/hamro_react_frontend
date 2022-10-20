@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function TopHeader() {
   const [isLogged, setIsLogged] = useState(false);
@@ -9,6 +9,8 @@ function TopHeader() {
     }
   });
 
+  const navigate = useNavigate();
+
   const logout = () => {
     fetch("/api/v1/logout", {
       headers: {
@@ -17,6 +19,7 @@ function TopHeader() {
       method: "POST",
     });
     localStorage.clear();
+    navigate("/");
   };
   return (
     <>

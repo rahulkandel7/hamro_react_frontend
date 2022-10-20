@@ -7,6 +7,7 @@ function Navbar() {
     "/api/v1/fetchCategory",
     fetcher
   );
+
   const { data: subCategoryData, error: subCategoryError } = useSWR(
     "/api/v1/fetchSubCategory",
     fetcher
@@ -26,6 +27,7 @@ function Navbar() {
                   key={category.id}
                   id={category.id}
                   name={category.category_name}
+                  sub={category.sub}
                   subCategories={subCategoryData.data}
                 />
               );

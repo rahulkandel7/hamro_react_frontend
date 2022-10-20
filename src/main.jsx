@@ -4,6 +4,10 @@ import "./index.css";
 import "remixicon/fonts/remixicon.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+//* For toaster
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //* User Pages
 import App from "./App";
 import Cart from "./pages/Cart";
@@ -31,10 +35,13 @@ import EditBrand from "./pages/admin/brand/EditBrand";
 import Products from "./pages/admin/product/Products";
 import AddProduct from "./pages/admin/product/AddProduct";
 import EditProduct from "./pages/admin/product/EditProduct";
+import PageNotFound from "./pages/404";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
+      <ToastContainer />
+
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/cart" element={<Cart />} />
@@ -47,6 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/category/:id" element={<Category />} />
         <Route path="/subcategory/:id" element={<UserSubCategory />} />
+        <Route path="*" element={<PageNotFound />} />
 
         {/* Admin Route */}
         <Route path="admin">

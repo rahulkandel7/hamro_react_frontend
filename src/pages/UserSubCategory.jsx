@@ -13,7 +13,28 @@ function UserSubCategory() {
     fetcher
   );
 
-  if (data) {
+  const { data: brandData, error: brandError } = useSWR(
+    `/api/v1/fetchBrand`,
+    fetcher
+  );
+
+  let dBrands = [];
+
+  if (data && brandData) {
+    {
+      data.data.map((product) => {
+        brandData.data.map((brand) => {
+          if (product.brand_id === brand.id) {
+            dBrands.push(brand);
+          }
+        });
+      });
+    }
+
+    let dBrand = dBrands.filter((item, index) => {
+      return dBrands.indexOf(item) === index;
+    });
+
     return (
       <div>
         <SecondHeader />
@@ -25,45 +46,19 @@ function UserSubCategory() {
             <hr className="my-2" />
             <h3 className="text-gray-500 text-lg">Brands</h3>
             <ul>
-              <li className="py-1">
-                <input
-                  type="checkbox"
-                  name="brands"
-                  id="brands"
-                  className="checked:accent-red-400"
-                />{" "}
-                LG
-              </li>
-
-              <li className="py-1">
-                <input
-                  type="checkbox"
-                  name="brands"
-                  id="brands"
-                  className="checked:accent-red-400"
-                />{" "}
-                CG
-              </li>
-
-              <li className="py-1">
-                <input
-                  type="checkbox"
-                  name="brands"
-                  id="brands"
-                  className="checked:accent-red-400"
-                />{" "}
-                Samsung
-              </li>
-
-              <li className="py-1">
-                <input
-                  type="checkbox"
-                  name="brands"
-                  id="brands"
-                  className="checked:accent-red-400"
-                />{" "}
-                MI
-              </li>
+              {dBrand.map((brand) => {
+                return (
+                  <li className="py-1" key={brand.id}>
+                    <input
+                      type="checkbox"
+                      name="brands"
+                      id="brands"
+                      className="checked:accent-red-400"
+                    />{" "}
+                    {brand.brand_name}
+                  </li>
+                );
+              })}
             </ul>
 
             <hr className="my-2" />
@@ -86,24 +81,32 @@ function UserSubCategory() {
               </li>
             </ul>
           </div>
-          <div className="">
+          <div className="w-fit">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
               {data.sub.subcategory_name}
             </h1>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
-              {data.data.map((product) => {
-                return (
-                  <NavLink to={`/product/view/${product.id}`}>
-                    <Items
-                      item_name={product.name}
-                      price={product.price}
-                      key={product.id}
-                      image={product.photopath1}
-                      discount_price={product.discountedprice}
-                    />
-                  </NavLink>
-                );
-              })}
+              {data.data.length < 1 ? (
+                <div className="col-span-3 md:col-span-5">
+                  <h1 className="text-center text-4xl font-bold text-gray-600">
+                    No Products Yet! Comming Soon New Products
+                  </h1>
+                </div>
+              ) : (
+                data.data.map((product) => {
+                  return (
+                    <NavLink to={`/product/view/${product.id}`}>
+                      <Items
+                        item_name={product.name}
+                        price={product.price}
+                        key={product.id}
+                        image={product.photopath1}
+                        discount_price={product.discountedprice}
+                      />
+                    </NavLink>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

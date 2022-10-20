@@ -40,7 +40,7 @@ function ProductView() {
     }
     images[id].className = "w-32 rounded-md p-2 border m-2 border-indigo-500";
   }
-  if (productData) {
+  if (productData && productsData) {
     const relatedProducts = productsData.data.filter((product) => {
       return product.category_id === productData.data.category_id;
     });
