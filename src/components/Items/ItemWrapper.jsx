@@ -56,43 +56,30 @@ function ItemWrapper(props) {
             },
           }}
         >
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
+          {props.products !== undefined ? (
+            props.products.map((product) => {
+              let off;
 
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
-          <SwiperSlide>
-            <NavLink to="/product/view/1">
-              <Items item_name="demo" discount_price="1234" price="123" />
-            </NavLink>
-          </SwiperSlide>
+              if (product.discountedprice !== undefined) {
+                off = (product.discountedprice / product.price) * 100;
+              }
+              return (
+                <SwiperSlide key={product.id}>
+                  <NavLink to={`/product/view/${product.id}`}>
+                    <Items
+                      item_name={product.name}
+                      discount_price={product.discountedprice}
+                      price={product.price}
+                      image={product.photopath1}
+                      off={Math.floor(off)}
+                    />
+                  </NavLink>
+                </SwiperSlide>
+              );
+            })
+          ) : (
+            <></>
+          )}
         </Swiper>
       </div>
     </>

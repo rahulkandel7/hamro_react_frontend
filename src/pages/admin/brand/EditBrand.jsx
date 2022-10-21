@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
+import { toast } from "react-toastify";
 
 function EditBrand() {
   const brandSchema = object({
@@ -58,6 +59,9 @@ function EditBrand() {
 
                   response.json().then((data) => {
                     if (data.status) {
+                      toast(data.message, {
+                        type: "success",
+                      });
                       navigate("/admin/brand");
                     }
                   });

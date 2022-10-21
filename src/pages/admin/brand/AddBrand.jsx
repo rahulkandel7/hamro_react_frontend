@@ -4,6 +4,7 @@ import { string, object } from "yup";
 
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AddButton from "../../../components/utils/AddButton";
+import { toast } from "react-toastify";
 
 function AddBrand() {
   const brandSchema = object({
@@ -38,6 +39,9 @@ function AddBrand() {
                 res.json().then((data) => {
                   console.log(data);
                   if (data.status) {
+                    toast(data.message, {
+                      type: "success",
+                    });
                     navigate("/admin/brand");
                   }
                 });

@@ -6,6 +6,7 @@ import { useRef } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
 import AdminLayout from "../../../components/admin/AdminLayout";
+import { toast } from "react-toastify";
 
 function AddProduct() {
   //* For Fetching Data
@@ -112,6 +113,9 @@ function AddProduct() {
 
                   res.json().then((data) => {
                     if (data.status) {
+                      toast(data.message, {
+                        type: "success",
+                      });
                       navigate("/admin/products");
                     }
                   });

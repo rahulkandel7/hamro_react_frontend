@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
+import { toast } from "react-toastify";
 
 function EditCategory() {
   const categoryEditSchema = object({
@@ -70,7 +71,17 @@ function EditCategory() {
                   );
 
                   response.json().then((data) => {
+                    if (data.details) {
+                      data.details.photopath.map((detail) => {
+                        toast(detail, {
+                          type: "error",
+                        });
+                      });
+                    }
                     if (data.status) {
+                      toast(data.message, {
+                        type: "success",
+                      });
                       navigate("/admin/category");
                     }
                   });

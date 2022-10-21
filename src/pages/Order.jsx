@@ -1,4 +1,3 @@
-import NavBar from "../components/Homepage/navbar/NavBar";
 import SecondHeader from "../components/Homepage/SecondHeader";
 
 function Order() {

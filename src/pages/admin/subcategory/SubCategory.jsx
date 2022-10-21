@@ -4,6 +4,7 @@ import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import AddButton from "../../../components/utils/AddButton";
 import ShowDelete from "../../../components/admin/utils/ShowDelete";
+import { toast } from "react-toastify";
 
 function SubCategory() {
   //* For Fetching Sub Category Data
@@ -31,7 +32,11 @@ function SubCategory() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(sub.json());
+    sub.json().then((data) => {
+      toast(data.message, {
+        type: "success",
+      });
+    });
 
     mutate();
     toggleIsDelete();

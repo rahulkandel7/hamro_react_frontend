@@ -4,12 +4,15 @@ import { string, object } from "yup";
 import { Formik } from "formik";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
 function Login() {
   const navigate = useNavigate();
   const loginScheme = object({
     email: string().email().required(),
     password: string().required(),
   });
+
   return (
     <>
       <SecondHeader />
@@ -35,8 +38,16 @@ function Login() {
                     });
 
                     response.json().then((data) => {
-                      console.log(data);
+                      if (data.success === false) {
+                        toast(data.message, {
+                          type: "error",
+                        });
+                      }
                       if (data.success === true) {
+                        toast(data.message, {
+                          type: "success",
+                        });
+
                         localStorage.setItem("token", data.token);
                         navigate("/");
                       }

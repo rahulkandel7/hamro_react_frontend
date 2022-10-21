@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import ShowDelete from "../../../components/admin/utils/ShowDelete";
@@ -31,13 +32,20 @@ function Category() {
   //* For Deleteing Category
 
   async function deleteCategory(id) {
-    const category = await fetch(`/api/v1/product/${id}`, {
+    fetch(`/api/v1/product/${id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+    }).then((res) => {
+      res.json().then((data) => {
+        toast(data.message, {
+          type: "success",
+        });
+      });
     });
+
     mutate();
     toggleIsDelete();
   }

@@ -2,7 +2,8 @@ import { useState } from "react";
 import CartItem from "../components/cart/CartItem";
 import Checkout from "../components/cart/Checkout";
 import Footer from "../components/Footer";
-import NavBar from "../components/Homepage/navbar/NavBar";
+import Navbar from "../components/Homepage/navbar/NavBar";
+
 import SecondHeader from "../components/Homepage/SecondHeader";
 
 function Cart() {
@@ -18,7 +19,7 @@ function Cart() {
   return (
     <>
       <SecondHeader />
-      <NavBar />
+      <Navbar />
       <div className="w-11/12 mx-auto my-10">
         <div className="grid md:grid-cols-3 gap-10">
           <div className="col-span-2">

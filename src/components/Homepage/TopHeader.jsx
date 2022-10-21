@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function TopHeader() {
   const [isLogged, setIsLogged] = useState(false);
@@ -15,8 +16,15 @@ function TopHeader() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       method: "POST",
+    }).then((res) => {
+      res.json().then((data) => {
+        toast(data.message, {
+          type: "success",
+        });
+        localStorage.removeItem("token");
+        window.location.href = "/";
+      });
     });
-    localStorage.clear();
   };
   return (
     <>
