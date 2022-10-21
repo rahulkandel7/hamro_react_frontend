@@ -5,6 +5,7 @@ import SecondHeader from "./components/Homepage/SecondHeader";
 import Slideshow from "./components/Homepage/Slideshow";
 import TopHeader from "./components/Homepage/TopHeader";
 import ItemWrapper from "./components/Items/ItemWrapper";
+import ServerError from "./pages/500";
 
 function App() {
   const fetcher = (...args) =>
@@ -18,6 +19,8 @@ function App() {
     "/api/v1/fetchCategory",
     fetcher
   );
+
+  if (categoryError || productError) return <ServerError />;
 
   if (categoryData && productData) {
     return (

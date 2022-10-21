@@ -26,11 +26,13 @@ function Items(props) {
           </div>
         )}
 
-        <div className="absolute top-2 right-2 text-xs ">
-          <p className="bg-indigo-500 text-white rounded-md px-3 py-1">
-            20% OFF
-          </p>
-        </div>
+        {props.off > 0 ? (
+          <div className="absolute top-2 right-2 text-xs ">
+            <p className="bg-indigo-500 text-white rounded-md px-3 py-1">
+              {props.off}% OFF
+            </p>
+          </div>
+        ) : null}
       </div>
     </>
   );

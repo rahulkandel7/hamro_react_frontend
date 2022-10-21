@@ -58,14 +58,20 @@ function ItemWrapper(props) {
         >
           {props.products !== undefined ? (
             props.products.map((product) => {
+              let off;
+
+              if (product.discountedprice !== undefined) {
+                off = (product.discountedprice / product.price) * 100;
+              }
               return (
                 <SwiperSlide key={product.id}>
                   <NavLink to={`/product/view/${product.id}`}>
                     <Items
                       item_name={product.name}
-                      discount_price={product.discounedprice}
+                      discount_price={product.discountedprice}
                       price={product.price}
                       image={product.photopath1}
+                      off={Math.floor(off)}
                     />
                   </NavLink>
                 </SwiperSlide>

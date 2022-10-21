@@ -93,6 +93,10 @@ function Category() {
                 </div>
               ) : (
                 data.data.map((product) => {
+                  let off;
+                  if (product.discountedprice !== undefined) {
+                    off = (product.discountedprice / product.price) * 100;
+                  }
                   return (
                     <NavLink
                       to={`/product/view/${product.id}`}
@@ -104,6 +108,7 @@ function Category() {
                         key={product.id}
                         image={product.photopath1}
                         discount_price={product.discountedprice}
+                        off={Math.floor(off)}
                       />
                     </NavLink>
                   );

@@ -35,7 +35,6 @@ function Wishlist() {
     });
   }
   if (data) {
-    console.log(data);
     return (
       <>
         <SecondHeader />
@@ -47,12 +46,22 @@ function Wishlist() {
 
           <div className="grid grid-cols-3 md:grid-cols-5 gap-10 my-10">
             {data.data.map((wishlist) => {
+              let off;
+
+              if (wishlist.products.discountedprice !== undefined) {
+                off =
+                  (wishlist.products.discountedprice /
+                    wishlist.products.price) *
+                  100;
+              }
+
               return (
                 <WishlistItem
                   item_name={wishlist.products.name}
                   discount_price={wishlist.products.discountedprice}
                   price={wishlist.products.price}
                   delete={() => deleteItem(wishlist.id)}
+                  off={Math.floor(off)}
                 />
               );
             })}
