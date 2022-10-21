@@ -28,6 +28,7 @@ import EditBrand from "./pages/admin/brand/EditBrand";
 import Products from "./pages/admin/product/Products";
 import AddProduct from "./pages/admin/product/AddProduct";
 import EditProduct from "./pages/admin/product/EditProduct";
+import ViewProduct from "./pages/admin/product/ViewProduct";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -66,6 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route index element={<Products />} />
             <Route path="create" element={<AddProduct />} />
             <Route path="edit/:id" element={<EditProduct />} />
+            <Route path="view/:id" element={<ViewProduct />} />
           </Route>
         </Route>
       </Routes>

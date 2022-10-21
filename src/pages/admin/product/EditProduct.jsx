@@ -67,7 +67,7 @@ function EditProduct() {
             <div className="h-fit w-full bg-gray-50  shadow-lg">
               <div className=" p-5 rounded-lg">
                 <h1 className="text-gray-800 py-4 font-semibold text-4xl">
-                  Add Product
+                  Edit Product
                 </h1>
                 <hr />
                 <Formik
