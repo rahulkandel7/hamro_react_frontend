@@ -38,7 +38,6 @@ function Category() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(category.json());
     mutate();
     toggleIsDelete();
   }
@@ -150,27 +149,34 @@ function Category() {
                               {product.deleted ? "Yes" : "No"}
                             </td>
 
-                            <td className="py-2 px-5 text-gray-600">
+                            <td className="py-2 px-5 text-gray-600 flex">
                               <NavLink to={`edit/${product.id}`}>
-                                <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
-                                  Update
+                                <button
+                                  className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2"
+                                  title="edit"
+                                >
+                                  <i class="ri-edit-circle-line"></i>
                                 </button>
                               </NavLink>
 
                               <NavLink to={`edit/${product.id}`}>
-                                <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
-                                  View
+                                <button
+                                  className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-sky-500 hover:bg-sky-700 text-white mx-2"
+                                  title="show"
+                                >
+                                  <i class="ri-eye-2-line"></i>
                                 </button>
                               </NavLink>
 
                               <button
                                 className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-700 text-white mx-2"
+                                title="delete"
                                 onClick={() => {
                                   toggleIsDelete();
                                   setId(product.id);
                                 }}
                               >
-                                Delete
+                                <i class="ri-delete-bin-4-line"></i>
                               </button>
                             </td>
                           </tr>
