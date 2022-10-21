@@ -22,7 +22,7 @@ function WishlistItem(props) {
           </div>
         )}
         <div className="flex justify-between mx-4 mt-1">
-          <button>
+          <button onClick={props.delete}>
             <i className="ri-heart-fill text-red-500 text-xl"></i>
           </button>
 

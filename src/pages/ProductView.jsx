@@ -8,6 +8,7 @@ import ReactPanzoom from "../components/utils/ReactPanZoom";
 import ItemWrapper from "../components/Items/ItemWrapper";
 import Navbar from "../components/Homepage/navbar/Navbar";
 import useSWR from "swr";
+import { toast } from "react-toastify";
 
 function ProductView() {
   const params = useParams();
@@ -40,6 +41,34 @@ function ProductView() {
     }
     images[id].className = "w-32 rounded-md p-2 border m-2 border-indigo-500";
   }
+
+  function addToWishlist(id) {
+    if (localStorage.getItem("token")) {
+      fetch("/api/v1/wishlist", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product_id: id,
+        }),
+      }).then((res) => {
+        res.json().then((data) => {
+          if (data.status) {
+            toast(data.message, {
+              type: "success",
+            });
+          }
+        });
+      });
+    } else {
+      toast("Please Login First", {
+        type: "error",
+      });
+    }
+  }
+
   if (productData && productsData) {
     const relatedProducts = productsData.data.filter((product) => {
       return product.category_id === productData.data.category_id;
@@ -155,7 +184,10 @@ function ProductView() {
                   </p>
                 </div>
 
-                <button className="flex items-center border border-transparent hover:border-indigo-500 p-2 rounded-md">
+                <button
+                  onClick={() => addToWishlist(productData.data.id)}
+                  className="flex items-center border border-transparent hover:border-indigo-500 p-2 rounded-md"
+                >
                   <i className="ri-heart-fill text-pink-600"></i>
                   <p className="capitalize text-xs text-gray-500 pl-1">
                     Add to my wishlist

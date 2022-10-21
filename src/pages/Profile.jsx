@@ -1,6 +1,6 @@
 import SecondHeader from "../components/Homepage/SecondHeader";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Homepage/navbar/NavBar";
 import useSWR from "swr";
@@ -14,6 +14,11 @@ function Profile() {
     }).then((res) => res.json());
 
   const { data, error } = useSWR(`/api/v1/user`, fetcher);
+
+  const navigate = useNavigate();
+  if (error) {
+    navigate("/login");
+  }
   if (data) {
     console.log(data);
     return (
