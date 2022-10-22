@@ -27,9 +27,15 @@ function ProductView() {
   );
 
   const imageRef = useRef();
+  const colorRef = useRef();
+  const sizeRef = useRef();
 
   const [index, setIndex] = useState(0);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
+  //* For Displaying images
   function printIndex(id) {
     let images = imageRef.current.children;
     setIndex(id);
@@ -42,6 +48,36 @@ function ProductView() {
     images[id].className = "w-32 rounded-md p-2 border m-2 border-indigo-500";
   }
 
+  //* For Selecting Color
+  function selectColor(id) {
+    let colors = colorRef.current.children;
+
+    for (let i = 0; i < colors.length; i++) {
+      colors[i].className = colors[i].className.replace(
+        "border border-indigo-500",
+        ""
+      );
+    }
+    colors[id].className =
+      "mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded border border-indigo-500";
+    setColor(colors[id].textContent);
+  }
+
+  //* For Selecting Size
+  function selectSize(id) {
+    let sizes = sizeRef.current.children;
+    for (let i = 0; i < sizes.length; i++) {
+      sizes[i].className = sizes[i].className.replace(
+        "border border-indigo-500",
+        ""
+      );
+    }
+    sizes[id].className =
+      "mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded border border-indigo-500";
+    setSize(sizes[id].textContent);
+  }
+
+  //* For Adding to Wishlist
   function addToWishlist(id) {
     if (localStorage.getItem("token")) {
       fetch("/api/v1/wishlist", {
@@ -69,10 +105,40 @@ function ProductView() {
     }
   }
 
+  //* For Adding to Cart
+  function addToCart(id, price) {
+    fetch("/api/v1/cart", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: id,
+        color: color,
+        size: size,
+        price: price,
+        quantity: quantity,
+        ordered: false,
+      }),
+    }).then((res) => {
+      res.json().then((data) => {
+        if (data.status) {
+          toast(data.message, {
+            type: "success",
+          });
+        }
+      });
+    });
+  }
+
   if (productData && productsData) {
+    //* For Displaying Related Products
     const relatedProducts = productsData.data.filter((product) => {
       return product.category_id === productData.data.category_id;
     });
+
+    //* Storing all images for showing
     const product = [
       `http://192.168.1.92:8000/storage/${productData.data.photopath1}`,
       productData.data.photopath2 !== null
@@ -82,6 +148,12 @@ function ProductView() {
         ? `http://192.168.1.92:8000/storage/${productData.data.photopath3}`
         : null,
     ];
+
+    //? For Color and SIze ----------------------------
+    const color = productData.data.color.split(",");
+    const size = productData.data.size.split(",");
+    //? ----------------------------------------------
+
     return (
       <div>
         <SecondHeader />
@@ -142,12 +214,63 @@ function ProductView() {
                 </span>
               </p>
 
-              <p className="text-gray-400 py-2">
-                Color: <span className="text-gray-800 font-bold px-1">Red</span>
+              <p className="text-gray-400 py-2 " ref={colorRef}>
+                Color:{" "}
+                {color.map((color, index) => {
+                  return (
+                    <span
+                      className=" mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded"
+                      key={index}
+                      onClick={() => selectColor(index)}
+                    >
+                      {color}
+                    </span>
+                  );
+                })}
               </p>
 
-              <p className="text-gray-400 py-2">
-                Size: <span className="text-gray-800 font-bold px-1">4GB</span>
+              <p className="text-gray-400 py-2 " ref={sizeRef}>
+                Size:{" "}
+                {size.map((size, index) => {
+                  return (
+                    <span
+                      className=" mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded"
+                      key={index}
+                      onClick={() => selectSize(index)}
+                    >
+                      {size}
+                    </span>
+                  );
+                })}
+              </p>
+
+              <p className="text-gray-400 py-4 flex">
+                Quantity:{" "}
+                <div className="flex items-center ml-4">
+                  <button
+                    className="p-2 w-7 h-7 items-center flex justify-center text-white rounded-full bg-indigo-500"
+                    onClick={() => {
+                      quantity <= 1 ? 1 : setQuantity(quantity - 1);
+                    }}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    readOnly
+                    value={quantity}
+                    className="w-10 text-center text-gray-600 mx-2 border border-indigo-300 rounded shadow"
+                  />
+
+                  <button
+                    className="p-2 w-7 h-7 items-center flex justify-center text-white rounded-full bg-indigo-500"
+                    onClick={() => {
+                      setQuantity(quantity + 1);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
               </p>
 
               {productData.data.discountedprice !== null ? (
@@ -166,7 +289,17 @@ function ProductView() {
               )}
 
               <div className="flex justify-end my-3">
-                <button className="px-5 rounded-full bg-indigo-500 text-white hover:bg-indigo-700 text-xs ml-4 py-2">
+                <button
+                  className="px-5 rounded-full bg-indigo-500 text-white hover:bg-indigo-700 text-xs ml-4 py-2"
+                  onClick={() =>
+                    productData.data.discountedprice !== null
+                      ? addToCart(
+                          productData.data.id,
+                          productData.data.discountedprice
+                        )
+                      : addToCart(productData.data.id, productData.data.price)
+                  }
+                >
                   <i className="ri-add-line"></i> Add to Cart
                 </button>
               </div>

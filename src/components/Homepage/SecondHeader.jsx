@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function SecondHeader() {
+  const [search, setSearch] = useState("");
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/v1/products")
+      .then((res) => res.json())
+      .then((data) => setProducts(data.data));
+  });
   return (
     <>
       <div className="w-full bg-white shadow-md ">
@@ -20,6 +29,7 @@ function SecondHeader() {
                 type="text"
                 name="search"
                 id="search"
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="I'm looking for....."
                 className="w-full border-gray-400 focus-visible:border-amber-400 border rounded-md py-1 px-5 outline-none "
               />
