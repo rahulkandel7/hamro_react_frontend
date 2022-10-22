@@ -85,6 +85,17 @@ function Sidebar() {
             <i className="ri-product-hunt-line mr-2"></i>Product
           </NavLink>
 
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "border-l-4  border-l-red-500 px-3 my-5 text-red-500 flex items-center"
+                : " flex px-3 my-5 items-center hover:text-red-500"
+            }
+            to="/admin/shipping"
+          >
+            <i className="ri-product-hunt-line mr-2"></i>Shipping
+          </NavLink>
+
           <button
             className="flex px-3 my-5 items-center hover:text-red-500"
             onClick={logout}

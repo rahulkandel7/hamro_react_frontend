@@ -37,6 +37,9 @@ import AddProduct from "./pages/admin/product/AddProduct";
 import EditProduct from "./pages/admin/product/EditProduct";
 import ViewProduct from "./pages/admin/product/ViewProduct";
 import PageNotFound from "./pages/404";
+import Shipping from "./pages/admin/shipping/Shipping";
+import AddShipping from "./pages/admin/shipping/AddShipping";
+import EditShipping from "./pages/admin/shipping/EditShipping";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -84,6 +87,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="create" element={<AddProduct />} />
             <Route path="edit/:id" element={<EditProduct />} />
             <Route path="view/:id" element={<ViewProduct />} />
+          </Route>
+          {/* Shipping Route */}
+          <Route path="shipping">
+            <Route index element={<Shipping />} />
+            <Route path="create" element={<AddShipping />} />
+            <Route path="edit/:id" element={<EditShipping />} />
           </Route>
         </Route>
       </Routes>
