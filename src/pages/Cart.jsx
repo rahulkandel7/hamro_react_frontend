@@ -10,6 +10,7 @@ import SecondHeader from "../components/Homepage/SecondHeader";
 import ServerError from "./500";
 
 function Cart() {
+  //* Fetcher function
   const fetcher = (...args) =>
     fetch(...args, {
       headers: {
@@ -17,10 +18,26 @@ function Cart() {
       },
     }).then((res) => res.json());
 
+  //* SWR hook to fetch user cart
   const { data, mutate, error } = useSWR("/api/v1/cart", fetcher);
 
+  //* SWR hook to fetch shipping address
+  const {
+    data: shippingdata,
+    mutate: shippingMutate,
+    error: shippingError,
+  } = useSWR("/api/v1/shipping", fetcher);
+
+  //* State to check if user pressed checkout
   const [checkout, setCheckout] = useState(false);
 
+  //* State to store shipping id
+  const [shipping, setShipping] = useState(0);
+
+  //* State to store shippingPrice
+  const [shippingPrice, setShippingPrice] = useState(0);
+
+  //* Function to toggle checkout State
   const toggleCheckout = () => {
     if (checkout) {
       setCheckout(false);
@@ -29,7 +46,7 @@ function Cart() {
     }
   };
 
-  //! Delete Cart Item
+  //* function to Delete Cart Item
   const deleteCartItem = (id) => {
     fetch(`/api/v1/cart/${id}`, {
       method: "DELETE",
@@ -65,12 +82,15 @@ function Cart() {
     mutate();
   };
 
+  //* It show error page while loading the data
   if (error) {
     if (localStorage.getItem("token")) {
       return <ServerError />;
     } else {
     }
   }
+
+  //* Show data when fetching finished
   if (data) {
     let totalPrice = 0;
     data.data.map((cart) => {
@@ -78,7 +98,7 @@ function Cart() {
     });
     return (
       <>
-        <SecondHeader />
+        {/* <SecondHeader /> */}
         <Navbar />
         <div className="w-11/12 mx-auto my-10">
           <div className="grid md:grid-cols-3 gap-10">
@@ -128,15 +148,51 @@ function Cart() {
 
               <div className="flex justify-between w-full px-4 my-2 text-sm">
                 <p className="text-gray-800 font-bold">Shipping Area</p>
-                <p className="text-gray-500">Rs 12345</p>
+
+                <select
+                  name="shipping_area"
+                  id="shipping_area"
+                  onChange={(e) => {
+                    shippingdata.data.map((area) => {
+                      if (area.id == e.target.value) {
+                        setShippingPrice(area.price);
+                      }
+                    });
+                    setShipping(e.currentTarget.value);
+                  }}
+                >
+                  <option selected={true} disabled={true}>
+                    -- Select Area Name --
+                  </option>
+                  {shippingdata
+                    ? shippingdata.data.map((shipping) => {
+                        return (
+                          <option value={shipping.id} key={shipping.id}>
+                            {shipping.area_name}
+                          </option>
+                        );
+                      })
+                    : null}
+                </select>
               </div>
 
               <div className="flex justify-between w-full px-4 my-2 text-sm">
                 <p className="text-gray-800 font-bold">Delivery Charge</p>
-                <p className="text-gray-500">Rs 12345</p>
+
+                {shippingdata
+                  ? shippingdata.data.map((area) => {
+                      if (area.id == shipping) {
+                        return (
+                          <p className="text-gray-500" key={area.id}>
+                            Rs {area.price}
+                          </p>
+                        );
+                      }
+                    })
+                  : null}
               </div>
-              <hr className="my-3" />
-              <div className="flex justify-between w-full px-4 my-2">
+              {/* <hr className="my-3" /> */}
+              {/* <div className="flex justify-between w-full px-4 my-2">
                 <p className="text-gray-800 font-bold">Apply Coupon</p>
               </div>
               <div className="flex justify-between w-full px-4 my-2 text-sm relative">
@@ -148,13 +204,13 @@ function Cart() {
                 <button className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md shadow-md">
                   Apply
                 </button>
-              </div>
+              </div> */}
 
               <hr className="my-3" />
 
               <div className="flex justify-between w-full px-4 my-2 text-lg">
                 <p className="text-gray-800 font-bold">Total Payable</p>
-                <p className="text-gray-500">Rs 12345</p>
+                <p className="text-gray-500">Rs {totalPrice + shippingPrice}</p>
               </div>
 
               <button
