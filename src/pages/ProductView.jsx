@@ -10,17 +10,22 @@ import Navbar from "../components/Homepage/navbar/Navbar";
 import TopHeader from "../components/Homepage/TopHeader";
 import useSWR from "swr";
 import { toast } from "react-toastify";
+import Comment from "../components/utils/Comment";
+import WriteComment from "../components/utils/WriteComment";
 
 function ProductView() {
+  //* Parameter for getting the product id
   const params = useParams();
 
+  //* Fetching the product data
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
   //? Product View api loaded
-  const { data: productData, error: productError } = useSWR(
-    `/api/v1/product/view/${params.id}`,
-    fetcher
-  );
+  const {
+    data: productData,
+    error: productError,
+    mutate: productMutate,
+  } = useSWR(`/api/v1/product/view/${params.id}`, fetcher);
 
   //? All Products Loaded
   const { data: productsData, error: productsError } = useSWR(
@@ -28,10 +33,12 @@ function ProductView() {
     fetcher
   );
 
+  //* References
   const imageRef = useRef();
   const colorRef = useRef();
   const sizeRef = useRef();
 
+  //* States for image, color, size and quantity
   const [index, setIndex] = useState(0);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
@@ -191,6 +198,7 @@ function ProductView() {
         <SecondHeader />
         <Navbar />
         <div className="w-11/12 mx-auto">
+          {/* //* For Showing Product Details */}
           <h4 className="text-sm text-gray-600 py-1">
             <NavLink to="/">Homepage</NavLink> /{" "}
             {productData.data.category_name} /{" "}
@@ -447,6 +455,9 @@ function ProductView() {
               </table>
             </div>
           </div>
+          {/* //* Product Details End */}
+
+          {/* //* Product Rating and Reviews Started */}
           <div>
             <h1 className="text-xl text-gray-700 font-semibold mt-8 mb-4">
               Rating and Reviews
@@ -471,6 +482,26 @@ function ProductView() {
                 </div>
               </div>
             </div>
+            {/* //* Rating End Here */}
+
+            {/* //* Reviews Startes */}
+            <h1 className="text-xl text-gray-700 font-semibold mt-8 mb-1">
+              Reviews
+            </h1>
+            <hr className="my-2" />
+            {localStorage.getItem("token") ? (
+              <WriteComment
+                id={productData.data.id}
+                mutate={() => productMutate()}
+              />
+            ) : null}
+            {productData.comments.map((comment) => {
+              return (
+                <Comment author={comment.user_name} comment={comment.comment} />
+              );
+            })}
+
+            {/* //* Reviews End here */}
           </div>
         </div>
         <div className="w-11/12 mx-auto pb-6">
