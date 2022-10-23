@@ -2,14 +2,6 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function SecondHeader() {
-  const [search, setSearch] = useState("");
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch("/api/v1/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data.data));
-  });
   return (
     <>
       <div className="w-full bg-white shadow-md ">

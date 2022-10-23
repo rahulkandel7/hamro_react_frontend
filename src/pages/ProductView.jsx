@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Rating from "../components/utils/Rating";
 import { NavLink, useParams } from "react-router-dom";
 
@@ -7,11 +7,13 @@ import SecondHeader from "../components/Homepage/SecondHeader";
 import ReactPanzoom from "../components/utils/ReactPanZoom";
 import ItemWrapper from "../components/Items/ItemWrapper";
 import Navbar from "../components/Homepage/navbar/Navbar";
+import TopHeader from "../components/Homepage/TopHeader";
 import useSWR from "swr";
 import { toast } from "react-toastify";
 
 function ProductView() {
   const params = useParams();
+
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
   //? Product View api loaded
@@ -132,6 +134,29 @@ function ProductView() {
     });
   }
 
+  //* For Product Rating
+  const productRating = (id, rating) => {
+    fetch("/api/v1/rating", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: id,
+        rating: rating,
+      }),
+    }).then((res) => {
+      res.json().then((data) => {
+        if (data.status) {
+          toast(data.message, {
+            type: "success",
+          });
+        }
+      });
+    });
+  };
+
   if (productData && productsData) {
     //* For Displaying Related Products
     const relatedProducts = productsData.data.filter((product) => {
@@ -149,6 +174,12 @@ function ProductView() {
         : null,
     ];
 
+    //* For Total Ratings of Product
+    let totalRating = 0;
+    productData.ratings.map((rating) => {
+      totalRating += parseInt(rating.rating);
+    });
+
     //? For Color and SIze ----------------------------
     const color = productData.data.color.split(",");
     const size = productData.data.size.split(",");
@@ -156,6 +187,7 @@ function ProductView() {
 
     return (
       <div>
+        <TopHeader />
         <SecondHeader />
         <Navbar />
         <div className="w-11/12 mx-auto">
@@ -306,14 +338,58 @@ function ProductView() {
 
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex items-center">
-                  <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
-                  <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
-                  <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
-                  <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
-                  <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                  {Math.floor(totalRating / 5) == 1 ? (
+                    <div>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                    </div>
+                  ) : Math.floor(totalRating / 5) == 2 ? (
+                    <div>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                    </div>
+                  ) : Math.floor(totalRating / 5) == 3 ? (
+                    <div>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                    </div>
+                  ) : Math.floor(totalRating / 5) == 4 ? (
+                    <div>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                    </div>
+                  ) : Math.floor(totalRating / 5) == 5 ? (
+                    <div>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                    </div>
+                  ) : (
+                    <div>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                      <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                    </div>
+                  )}
 
                   <p className="text-gray-500 text-xs pl-2">
-                    18 Product Rating
+                    ({productData.ratings.length}) Product Rating
                   </p>
                 </div>
 
@@ -375,16 +451,22 @@ function ProductView() {
             <h1 className="text-xl text-gray-700 font-semibold mt-8 mb-4">
               Rating and Reviews
             </h1>
-            <h3 className="text-base text-gray-700">{productData.data.name}</h3>
+            <h3 className="text-base text-gray-700 font-bold italic ">
+              {productData.data.name}
+            </h3>
             <div className="flex items-center">
               <div>
                 <h1 className="text-4xl text-center font-bold mt-5 mb-3">
-                  4.0
+                  {Math.floor(totalRating / 5)}.0
                 </h1>
-                <p className="text-gray-500 text-xs">19 Ratings</p>
+                <p className="text-gray-500 text-xs">
+                  {productData.ratings.length} Ratings
+                </p>
                 <div>
                   <div className="flex items-center text-lg ">
-                    <Rating />
+                    {localStorage.getItem("token") ? (
+                      <Rating id={productData.data.id} rate={productRating} />
+                    ) : null}
                   </div>
                 </div>
               </div>
