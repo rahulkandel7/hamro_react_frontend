@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Homepage/navbar/NavBar";
 
 import SecondHeader from "../components/Homepage/SecondHeader";
+import TopHeader from "../components/Homepage/TopHeader";
 import ServerError from "./500";
 
 function Cart() {
@@ -98,7 +99,8 @@ function Cart() {
     });
     return (
       <>
-        {/* <SecondHeader /> */}
+        <TopHeader />
+        <SecondHeader />
         <Navbar />
         <div className="w-11/12 mx-auto my-10">
           <div className="grid md:grid-cols-3 gap-10">

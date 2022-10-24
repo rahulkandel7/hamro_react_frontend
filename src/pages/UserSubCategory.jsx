@@ -1,8 +1,9 @@
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import Navbar from "../components/Homepage/navbar/Navbar";
 import Items from "../components/Items/Items";
+import TopHeader from "../components/Homepage/TopHeader";
 
 function UserSubCategory() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -18,6 +19,14 @@ function UserSubCategory() {
     fetcher
   );
 
+  const navigate = useNavigate();
+  if (error) {
+    if (localStorage.getItem("token")) {
+      return <ServerError />;
+    } else {
+      navigate("/login");
+    }
+  }
   let dBrands = [];
 
   if (data && brandData) {
@@ -37,6 +46,7 @@ function UserSubCategory() {
 
     return (
       <div>
+        <TopHeader />
         <SecondHeader />
         <Navbar />
 

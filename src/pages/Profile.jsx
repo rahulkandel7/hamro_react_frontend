@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Homepage/navbar/NavBar";
 import useSWR from "swr";
+import ServerError from "./500";
+import TopHeader from "../components/Homepage/TopHeader";
 
 function Profile() {
   const fetcher = (...args) =>
@@ -17,12 +19,17 @@ function Profile() {
 
   const navigate = useNavigate();
   if (error) {
-    navigate("/login");
+    if (localStorage.getItem("token")) {
+      return <ServerError />;
+    } else {
+      navigate("/login");
+    }
   }
   if (data) {
     console.log(data);
     return (
       <div className="bg-gray-50 h-full">
+        <TopHeader />
         <SecondHeader />
         <Navbar />
         <div className="w-11/12 md:w-9/12 mx-auto bg-white shadow-md rounded-md  my-10 p-10 relative">

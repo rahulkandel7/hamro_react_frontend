@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import Footer from "../components/Footer";
 import Navbar from "../components/Homepage/navbar/Navbar";
 
 import SecondHeader from "../components/Homepage/SecondHeader";
+import TopHeader from "../components/Homepage/TopHeader";
 
 import WishlistItem from "../components/wishlist/WishlistItem";
+import ServerError from "./500";
 
 function Wishlist() {
   const fetcher = (...args) =>
@@ -34,9 +37,20 @@ function Wishlist() {
       });
     });
   }
+
+  const navigate = useNavigate();
+  if (error) {
+    if (localStorage.getItem("token")) {
+      return <ServerError />;
+    } else {
+      navigate("/login");
+    }
+  }
+
   if (data) {
     return (
       <>
+        <TopHeader />
         <SecondHeader />
         <Navbar />
         <div className="w-11/12 mx-auto">

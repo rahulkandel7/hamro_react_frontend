@@ -1,9 +1,11 @@
 import SecondHeader from "../components/Homepage/SecondHeader";
+import TopHeader from "../components/Homepage/TopHeader";
 
 function Order() {
   return (
     <>
       <div>
+        <TopHeader />
         <SecondHeader />
         <NavBar />
         <div className="w-11/12 mx-auto my-5">

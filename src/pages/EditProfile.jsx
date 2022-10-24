@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { NavLink } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Homepage/navbar/NavBar";
+import TopHeader from "../components/Homepage/TopHeader";
 
 function EditProfile() {
   const detailsSchema = object({
@@ -23,6 +24,7 @@ function EditProfile() {
   });
   return (
     <>
+      <TopHeader />
       <SecondHeader />
       <Navbar />
       <div className="w-11/12 mx-auto">

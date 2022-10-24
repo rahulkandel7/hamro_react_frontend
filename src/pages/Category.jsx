@@ -1,8 +1,10 @@
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import Navbar from "../components/Homepage/navbar/Navbar";
 import Items from "../components/Items/Items";
+import ServerError from "../pages/500";
+import TopHeader from "../components/Homepage/TopHeader";
 
 function Category() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -17,6 +19,15 @@ function Category() {
     `/api/v1/category/product/${params.id}`,
     fetcher
   );
+
+  const navigate = useNavigate();
+  if (error) {
+    if (localStorage.getItem("token")) {
+      return <ServerError />;
+    } else {
+      navigate("/login");
+    }
+  }
 
   let dBrands = [];
   if (data && brandData) {
@@ -36,6 +47,7 @@ function Category() {
 
     return (
       <div>
+        <TopHeader />
         <SecondHeader />
         <Navbar />
 

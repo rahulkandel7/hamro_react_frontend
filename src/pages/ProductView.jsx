@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Rating from "../components/utils/Rating";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import SecondHeader from "../components/Homepage/SecondHeader";
@@ -12,6 +12,7 @@ import useSWR from "swr";
 import { toast } from "react-toastify";
 import Comment from "../components/utils/Comment";
 import WriteComment from "../components/utils/WriteComment";
+import ServerError from "./500";
 
 function ProductView() {
   //* Parameter for getting the product id
@@ -163,6 +164,15 @@ function ProductView() {
       });
     });
   };
+
+  const navigate = useNavigate();
+  if (error) {
+    if (localStorage.getItem("token")) {
+      return <ServerError />;
+    } else {
+      navigate("/login");
+    }
+  }
 
   if (productData && productsData) {
     //* For Displaying Related Products
