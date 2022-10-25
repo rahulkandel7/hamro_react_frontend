@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import CartItem from "../components/cart/CartItem";
@@ -75,8 +76,8 @@ function Cart() {
       body: JSON.stringify({ quantity }),
     }).then((res) => {
       res.json().then((data) => {
-        if (data.status) {
-          toast(data.message, { type: "success" });
+        if (!data.status) {
+          toast(data.message, { type: "error" });
         }
       });
     });
@@ -131,9 +132,11 @@ function Cart() {
               )}
 
               <div className="flex w-full justify-end mt-4">
-                <button className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 rounded-md shadow-md text-white ">
-                  Continue Shopping
-                </button>
+                <NavLink to="/">
+                  <button className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 rounded-md shadow-md text-white ">
+                    Continue Shopping
+                  </button>
+                </NavLink>
               </div>
             </div>
             <div>

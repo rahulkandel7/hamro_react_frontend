@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import Footer from "../components/Footer";
@@ -70,13 +70,16 @@ function Wishlist() {
               }
 
               return (
-                <WishlistItem
-                  item_name={wishlist.products.name}
-                  discount_price={wishlist.products.discountedprice}
-                  price={wishlist.products.price}
-                  delete={() => deleteItem(wishlist.id)}
-                  off={Math.floor(off)}
-                />
+                <NavLink to={`/product/view/${wishlist.products.id}`}>
+                  <WishlistItem
+                    image={wishlist.products.photopath1}
+                    item_name={wishlist.products.name}
+                    discount_price={wishlist.products.discountedprice}
+                    price={wishlist.products.price}
+                    delete={() => deleteItem(wishlist.id)}
+                    off={Math.floor(off)}
+                  />
+                </NavLink>
               );
             })}
           </div>

@@ -6,6 +6,7 @@ function CartItem(props) {
 
   useEffect(() => {
     setSubTotal(props.price * quantity);
+    props.update(props.id, quantity);
   }, [quantity]);
   return (
     <>
@@ -25,8 +26,7 @@ function CartItem(props) {
               <button
                 className="p-2 w-7 h-7 items-center flex justify-center text-white rounded-full bg-indigo-500"
                 onClick={() => {
-                  quantity <= 1 ? 1 : setQuantity(quantity - 1);
-                  props.update(props.id, quantity - 1);
+                  quantity <= 1 ? setQuantity(1) : setQuantity(quantity - 1);
                 }}
               >
                 -
@@ -42,7 +42,6 @@ function CartItem(props) {
                 className="p-2 w-7 h-7 items-center flex justify-center text-white rounded-full bg-indigo-500"
                 onClick={() => {
                   setQuantity(quantity + 1);
-                  props.update(props.id, quantity + 1);
                 }}
               >
                 +

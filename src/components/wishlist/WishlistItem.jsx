@@ -2,7 +2,11 @@ function WishlistItem(props) {
   return (
     <>
       <div className="w-full bg-gray-50 rounded-md shadow-md pb-4 hover:bg-white hover:shadow-xl hover:scale-105 transition duration-200 ease-in-out relative">
-        <img src="/item1.jpeg" alt="Items" className="rounded-md 2" />
+        <img
+          src={`http://192.168.1.92:8000/storage/${props.image}`}
+          alt="Items"
+          className="rounded-md 2"
+        />
         <p className="text-sm text-gray-600 text-center py-2 px-2">
           {props.item_name}
         </p>

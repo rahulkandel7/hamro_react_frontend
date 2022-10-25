@@ -160,13 +160,14 @@ function ProductView() {
           toast(data.message, {
             type: "success",
           });
+          productMutate();
         }
       });
     });
   };
 
   const navigate = useNavigate();
-  if (error) {
+  if (productError) {
     if (localStorage.getItem("token")) {
       return <ServerError />;
     } else {
