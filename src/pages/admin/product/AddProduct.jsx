@@ -2,11 +2,12 @@ import { mixed, number, object, string } from "yup";
 import { Formik } from "formik";
 import useSWR from "swr";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 function AddProduct() {
   //* For Fetching Data
@@ -77,7 +78,7 @@ function AddProduct() {
                   category_id: "",
                   sub_category_id: "",
                   brand_id: "",
-                  sku: "",
+                  sku: Math.floor(Math.random() * 10000000000),
                   flashsale: false,
                   status: true,
                   color: "",
@@ -156,7 +157,7 @@ function AddProduct() {
                           type="text"
                           name="sku"
                           id="sku"
-                          // value={Math.floor(Math.random() * 10000000000)}
+                          value={values.sku}
                           onChange={handleChange}
                           className="border border-gray-200 bg-gray-50 w-full shadow-gray-100 rounded-md shadow-md py-2 px-3 outline-none focus-visible:border-gray-600 my-2"
                         />

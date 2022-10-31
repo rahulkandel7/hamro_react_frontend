@@ -138,7 +138,7 @@ function Category() {
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              {product.category_id}
+                              {product.categoryName}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
