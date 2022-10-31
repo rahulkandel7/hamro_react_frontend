@@ -183,12 +183,12 @@ function ProductView() {
 
     //* Storing all images for showing
     const product = [
-      `http://192.168.1.92:8000/storage/${productData.data.photopath1}`,
+      `http://192.168.1.103:8000/storage/${productData.data.photopath1}`,
       productData.data.photopath2 !== null
-        ? `http://192.168.1.92:8000/storage/${productData.data.photopath2}`
+        ? `http://192.168.1.103:8000/storage/${productData.data.photopath2}`
         : null,
       productData.data.photopath3 !== null
-        ? `http://192.168.1.92:8000/storage/${productData.data.photopath3}`
+        ? `http://192.168.1.103:8000/storage/${productData.data.photopath3}`
         : null,
     ];
 
@@ -442,25 +442,34 @@ function ProductView() {
                     <td className="py-2 text-gray-500 font-semibold w-32">
                       Shipping
                     </td>
-                    <td className="px-1 text-gray-700 text-sm">Free</td>
+                    <td className="px-1 text-gray-700 text-sm">
+                      Home Delivery (1-2 Days)
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 text-gray-500 font-semibold w-32">
                       Delivery
                     </td>
-                    <td className="px-1 text-gray-700 text-sm">Free</td>
+                    <td className="px-1 text-gray-700 text-sm">
+                      Cash On Delivery
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 text-gray-500 font-semibold w-32">
-                      Payments
+                      Warrenty
                     </td>
-                    <td className="px-1 text-gray-700 text-sm">Free</td>
+                    <td className="px-1 text-gray-700 text-sm">Available</td>
                   </tr>
                   <tr>
                     <td className="py-2 text-gray-500 font-semibold w-32">
                       Return
                     </td>
-                    <td className="px-1 text-gray-700 text-sm">Free</td>
+                    <td className="px-1 text-gray-700 text-sm">
+                      5 Days Return{" "}
+                      <span className="text-xs text-gray-400">
+                        (Change of mind is not applicable)
+                      </span>
+                    </td>
                   </tr>
                 </tbody>
               </table>

@@ -40,6 +40,7 @@ import PageNotFound from "./pages/404";
 import Shipping from "./pages/admin/shipping/Shipping";
 import AddShipping from "./pages/admin/shipping/AddShipping";
 import EditShipping from "./pages/admin/shipping/EditShipping";
+import SearchPage from "./pages/SearchPage";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -58,6 +59,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/category/:id" element={<Category />} />
         <Route path="/subcategory/:id" element={<UserSubCategory />} />
+        <Route path="/search/:query" element={<SearchPage />} />
         <Route path="*" element={<PageNotFound />} />
 
         {/* Admin Route */}

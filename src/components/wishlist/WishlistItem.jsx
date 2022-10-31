@@ -25,14 +25,14 @@ function WishlistItem(props) {
             </p>
           </div>
         )}
-        <div className="flex justify-between mx-4 mt-1">
+        <div className="flex justify-center mx-4 mt-1">
           <button onClick={props.delete}>
             <i className="ri-heart-fill text-red-500 text-xl"></i>
           </button>
 
-          <button className="px-2 mx-2 text-xs py-1 bg-amber-500 hover:bg-amber-700 text-white rounded-md shadow-lg">
+          {/* <button className="px-2 mx-2 text-xs py-1 bg-amber-500 hover:bg-amber-700 text-white rounded-md shadow-lg">
             Buy Now
-          </button>
+          </button> */}
         </div>
 
         {props.off > 0 ? (
