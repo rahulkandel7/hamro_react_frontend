@@ -63,8 +63,10 @@ function Category() {
                     <input
                       type="checkbox"
                       name="brands"
+                      value={brand.id}
                       id="brands"
                       className="checked:accent-red-400"
+                      onChange={(e) => {}}
                     />{" "}
                     {brand.brand_name}
                   </li>

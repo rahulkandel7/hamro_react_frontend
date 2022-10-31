@@ -1,4 +1,5 @@
 import { Formik } from "formik";
+import { toast } from "react-toastify";
 import { number, object, string } from "yup";
 
 function Checkout(props) {
@@ -21,10 +22,53 @@ function Checkout(props) {
                 Total Price: <span>{props.total}</span>
               </h2>
 
-              <Formik>
+              <Formik
+                initialValues={{
+                  fullname: "",
+                  shipping_address: "",
+                  phone: "",
+                }}
+                validationSchema={checkoutSchema}
+                onSubmit={(values) => {
+                  if (props.shippingArea == "") {
+                    toast("Please Select Shipping Area", {
+                      type: "error",
+                    });
+                    return;
+                  } else {
+                    props.carts.map((cart) => {
+                      fetch("/api/v1/order/store", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                        body: {
+                          cart_id: cart.id,
+                          shipping_id: props.shippingId,
+                          shipping_address: values.shipping_address,
+                          delivery_charge: props.shippingPrice,
+                          fullname: values.fullname,
+                          phone: values.phone,
+                        },
+                      }).then((res) => {
+                        res.json().then((data) => {
+                          if (data.status) {
+                            toast(data.message, {
+                              type: "success",
+                            });
+                          }
+                        });
+                      });
+                    });
+                  }
+                }}
+              >
                 {({ values, errors, handleChange, handleSubmit }) => {
                   return (
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div className="mr-3">
                         <label
                           for="fullname"
@@ -37,6 +81,7 @@ function Checkout(props) {
                           name="fullname"
                           placeholder="Full Name"
                           id="fullname"
+                          onChange={handleChange}
                           className="border-gray-300 border py-1 px-4 w-full rounded-md mt-2 focus:border-indigo-300 focus:ring-indigo-300 text-gray-500 outline-none "
                         />
                         <p className="text-sm text-red-500">
@@ -57,6 +102,7 @@ function Checkout(props) {
                           type="text"
                           name="shipping_address"
                           id="shipping_address"
+                          onChange={handleChange}
                           className="border-gray-300 w-full border py-1 px-4 rounded-md mt-2 focus:border-indigo-300 focus:ring-indigo-300 text-gray-500 outline-none "
                           placeholder="Ex:- Sahidchowk"
                         />
@@ -83,10 +129,11 @@ function Checkout(props) {
                             type="text"
                             name="phone"
                             id="phone"
+                            onChange={handleChange}
                             className="border-gray-300 w-full border py-1 px-4 rounded-md mt-2 focus:border-indigo-300 focus:ring-indigo-300 text-gray-500 outline-none "
                           />
-                          <p className="text-sm text-red-500">{errors.phone}</p>
                         </div>
+                        <p className="text-sm text-red-500">{errors.phone}</p>
                       </div>
 
                       <div className="mt-3">

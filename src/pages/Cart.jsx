@@ -39,6 +39,9 @@ function Cart() {
   //* State to store shippingPrice
   const [shippingPrice, setShippingPrice] = useState(0);
 
+  //* State to store Shipping Area
+  const [shippingArea, setShippingArea] = useState("");
+
   //* Function to toggle checkout State
   const toggleCheckout = () => {
     if (checkout) {
@@ -162,6 +165,7 @@ function Cart() {
                       shippingdata.data.map((area) => {
                         if (area.id == e.target.value) {
                           setShippingPrice(area.price);
+                          setShippingArea(area.area_name);
                         }
                       });
                       setShipping(e.currentTarget.value);
@@ -236,7 +240,10 @@ function Cart() {
           <Checkout
             hide={toggleCheckout}
             total={totalPrice + shippingPrice}
+            shippingArea={shippingArea}
             shippingPrice={shippingPrice}
+            shippingId={shipping}
+            carts={data.data}
           />
         ) : (
           <></>
