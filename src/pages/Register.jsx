@@ -17,7 +17,7 @@ function Register() {
       .oneOf([ref("password"), null], "Confirm Password doesn't must match")
       .required("Confirm Password is Required"),
     address: string().required(),
-    profile_photo: mixed().required("Profile Photo is Required"),
+    profile_photo: mixed().nullable("Profile Photo is Required"),
     gender: string().required(),
   });
   return (
@@ -233,7 +233,6 @@ function Register() {
                           <div className="mx-2">
                             <p className="my-2 text-gray-500 ">
                               Select Profile Picture
-                              <sup className="text-red-600">*</sup>
                             </p>
                             <label
                               htmlFor="profile_photo"

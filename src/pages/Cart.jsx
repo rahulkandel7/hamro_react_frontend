@@ -139,65 +139,66 @@ function Cart() {
                 </NavLink>
               </div>
             </div>
-            <div>
-              <h1 className="text-2xl text-gray-500 font-bold">
-                Order Summary
-              </h1>
-              <hr className="my-2" />
-              <div className="flex justify-between w-full px-4 my-2 text-sm">
-                <p className="text-gray-800 font-bold">
-                  Selected {data.data.length} item(s) Price
-                </p>
-                <p className="text-gray-500">Rs {totalPrice}</p>
-              </div>
+            {data.data.length == 0 ? null : (
+              <div>
+                <h1 className="text-2xl text-gray-500 font-bold">
+                  Order Summary
+                </h1>
+                <hr className="my-2" />
+                <div className="flex justify-between w-full px-4 my-2 text-sm">
+                  <p className="text-gray-800 font-bold">
+                    Selected {data.data.length} item(s) Price
+                  </p>
+                  <p className="text-gray-500">Rs {totalPrice}</p>
+                </div>
 
-              <div className="flex justify-between w-full px-4 my-2 text-sm">
-                <p className="text-gray-800 font-bold">Shipping Area</p>
+                <div className="flex justify-between w-full px-4 my-2 text-sm">
+                  <p className="text-gray-800 font-bold">Shipping Area</p>
 
-                <select
-                  name="shipping_area"
-                  id="shipping_area"
-                  onChange={(e) => {
-                    shippingdata.data.map((area) => {
-                      if (area.id == e.target.value) {
-                        setShippingPrice(area.price);
-                      }
-                    });
-                    setShipping(e.currentTarget.value);
-                  }}
-                >
-                  <option selected={true} disabled={true}>
-                    -- Select Area Name --
-                  </option>
+                  <select
+                    name="shipping_area"
+                    id="shipping_area"
+                    onChange={(e) => {
+                      shippingdata.data.map((area) => {
+                        if (area.id == e.target.value) {
+                          setShippingPrice(area.price);
+                        }
+                      });
+                      setShipping(e.currentTarget.value);
+                    }}
+                  >
+                    <option selected={true} disabled={true}>
+                      -- Select Area Name --
+                    </option>
+                    {shippingdata
+                      ? shippingdata.data.map((shipping) => {
+                          return (
+                            <option value={shipping.id} key={shipping.id}>
+                              {shipping.area_name}
+                            </option>
+                          );
+                        })
+                      : null}
+                  </select>
+                </div>
+
+                <div className="flex justify-between w-full px-4 my-2 text-sm">
+                  <p className="text-gray-800 font-bold">Delivery Charge</p>
+
                   {shippingdata
-                    ? shippingdata.data.map((shipping) => {
-                        return (
-                          <option value={shipping.id} key={shipping.id}>
-                            {shipping.area_name}
-                          </option>
-                        );
+                    ? shippingdata.data.map((area) => {
+                        if (area.id == shipping) {
+                          return (
+                            <p className="text-gray-500" key={area.id}>
+                              Rs {area.price}
+                            </p>
+                          );
+                        }
                       })
                     : null}
-                </select>
-              </div>
-
-              <div className="flex justify-between w-full px-4 my-2 text-sm">
-                <p className="text-gray-800 font-bold">Delivery Charge</p>
-
-                {shippingdata
-                  ? shippingdata.data.map((area) => {
-                      if (area.id == shipping) {
-                        return (
-                          <p className="text-gray-500" key={area.id}>
-                            Rs {area.price}
-                          </p>
-                        );
-                      }
-                    })
-                  : null}
-              </div>
-              {/* <hr className="my-3" /> */}
-              {/* <div className="flex justify-between w-full px-4 my-2">
+                </div>
+                {/* <hr className="my-3" /> */}
+                {/* <div className="flex justify-between w-full px-4 my-2">
                 <p className="text-gray-800 font-bold">Apply Coupon</p>
               </div>
               <div className="flex justify-between w-full px-4 my-2 text-sm relative">
@@ -211,24 +212,35 @@ function Cart() {
                 </button>
               </div> */}
 
-              <hr className="my-3" />
+                <hr className="my-3" />
 
-              <div className="flex justify-between w-full px-4 my-2 text-lg">
-                <p className="text-gray-800 font-bold">Total Payable</p>
-                <p className="text-gray-500">Rs {totalPrice + shippingPrice}</p>
+                <div className="flex justify-between w-full px-4 my-2 text-lg">
+                  <p className="text-gray-800 font-bold">Total Payable</p>
+                  <p className="text-gray-500">
+                    Rs {totalPrice + shippingPrice}
+                  </p>
+                </div>
+
+                <button
+                  className="w-full py-2 bg-indigo-500 hover:bg-indigo-800 text-white rounded-md shadow-md my-3"
+                  onClick={toggleCheckout}
+                >
+                  {" "}
+                  Procced To Checkout
+                </button>
               </div>
-
-              <button
-                className="w-full py-2 bg-indigo-500 hover:bg-indigo-800 text-white rounded-md shadow-md my-3"
-                onClick={toggleCheckout}
-              >
-                {" "}
-                Procced To Checkout
-              </button>
-            </div>
+            )}
           </div>
         </div>
-        {checkout ? <Checkout hide={toggleCheckout} /> : <></>}
+        {checkout ? (
+          <Checkout
+            hide={toggleCheckout}
+            total={totalPrice + shippingPrice}
+            shippingPrice={shippingPrice}
+          />
+        ) : (
+          <></>
+        )}
         <Footer />
       </>
     );

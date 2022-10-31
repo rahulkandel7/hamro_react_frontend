@@ -58,31 +58,37 @@ function Wishlist() {
             My Wishlist
           </h1>
 
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-10 my-10">
-            {data.data.map((wishlist) => {
-              let off;
+          {data.data.length == 0 ? (
+            <h1 className="text-center text-4xl text-gray-400 font-bold">
+              No Items In Wishlist
+            </h1>
+          ) : (
+            <div className="grid grid-cols-3 md:grid-cols-5 gap-10 my-10">
+              {data.data.map((wishlist) => {
+                let off;
 
-              if (wishlist.products.discountedprice !== undefined) {
-                off =
-                  (wishlist.products.discountedprice /
-                    wishlist.products.price) *
-                  100;
-              }
+                if (wishlist.products.discountedprice !== undefined) {
+                  off =
+                    (wishlist.products.discountedprice /
+                      wishlist.products.price) *
+                    100;
+                }
 
-              return (
-                <NavLink to={`/product/view/${wishlist.products.id}`}>
-                  <WishlistItem
-                    image={wishlist.products.photopath1}
-                    item_name={wishlist.products.name}
-                    discount_price={wishlist.products.discountedprice}
-                    price={wishlist.products.price}
-                    delete={() => deleteItem(wishlist.id)}
-                    off={Math.floor(off)}
-                  />
-                </NavLink>
-              );
-            })}
-          </div>
+                return (
+                  <NavLink to={`/product/view/${wishlist.products.id}`}>
+                    <WishlistItem
+                      image={wishlist.products.photopath1}
+                      item_name={wishlist.products.name}
+                      discount_price={wishlist.products.discountedprice}
+                      price={wishlist.products.price}
+                      delete={() => deleteItem(wishlist.id)}
+                      off={Math.floor(off)}
+                    />
+                  </NavLink>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <Footer />
