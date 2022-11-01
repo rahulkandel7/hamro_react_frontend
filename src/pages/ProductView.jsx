@@ -192,12 +192,6 @@ function ProductView() {
         : null,
     ];
 
-    //* For Total Ratings of Product
-    let totalRating = 0;
-    productData.ratings.map((rating) => {
-      totalRating += parseInt(rating.rating);
-    });
-
     //? For Color and SIze ----------------------------
     const color = productData.data.color.split(",");
     const size = productData.data.size.split(",");
@@ -357,7 +351,7 @@ function ProductView() {
 
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex items-center">
-                  {Math.floor(totalRating / 5) == 1 ? (
+                  {Math.floor(productData.data.rating) == 1 ? (
                     <div>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
@@ -365,7 +359,7 @@ function ProductView() {
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                     </div>
-                  ) : Math.floor(totalRating / 5) == 2 ? (
+                  ) : Math.floor(productData.data.rating) == 2 ? (
                     <div>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
@@ -373,7 +367,7 @@ function ProductView() {
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                     </div>
-                  ) : Math.floor(totalRating / 5) == 3 ? (
+                  ) : Math.floor(productData.data.rating) == 3 ? (
                     <div>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
@@ -381,7 +375,7 @@ function ProductView() {
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                     </div>
-                  ) : Math.floor(totalRating / 5) == 4 ? (
+                  ) : Math.floor(productData.data.rating) == 4 ? (
                     <div>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
@@ -389,7 +383,7 @@ function ProductView() {
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-line mx-.5 text-yellow-400 "></i>
                     </div>
-                  ) : Math.floor(totalRating / 5) == 5 ? (
+                  ) : Math.floor(productData.data.rating) == 5 ? (
                     <div>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
                       <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
@@ -488,7 +482,7 @@ function ProductView() {
             <div className="flex items-center">
               <div>
                 <h1 className="text-4xl text-center font-bold mt-5 mb-3">
-                  {Math.floor(totalRating / 5)}.0
+                  {Math.floor(productData.data.rating)}.0
                 </h1>
                 <p className="text-gray-500 text-xs">
                   {productData.ratings.length} Ratings

@@ -117,6 +117,8 @@ function UserSubCategory() {
                         image={product.photopath1}
                         discount_price={product.discountedprice}
                         off={Math.floor(off)}
+                        avg_rating={Math.floor(product.rating)}
+                        rating={Math.floor(product.rating_number)}
                       />
                     </NavLink>
                   );

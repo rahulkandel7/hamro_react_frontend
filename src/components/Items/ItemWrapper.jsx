@@ -72,6 +72,8 @@ function ItemWrapper(props) {
                       price={product.price}
                       image={product.photopath1}
                       off={Math.floor(off)}
+                      avg_rating={Math.floor(product.rating)}
+                      rating={Math.floor(product.rating_number)}
                     />
                   </NavLink>
                 </SwiperSlide>

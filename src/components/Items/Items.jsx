@@ -33,6 +33,62 @@ function Items(props) {
             </p>
           </div>
         ) : null}
+
+        <div className="flex justify-center">
+          <div className="flex items-center">
+            {props.avg_rating == 1 ? (
+              <div>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+              </div>
+            ) : props.avg_rating == 2 ? (
+              <div>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+              </div>
+            ) : props.avg_rating == 3 ? (
+              <div>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+              </div>
+            ) : props.avg_rating == 4 ? (
+              <div>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+              </div>
+            ) : props.avg_rating == 5 ? (
+              <div>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-fill mx-.5 text-yellow-400 "></i>
+              </div>
+            ) : (
+              <div>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+                <i className="ri-star-line mx-.5 text-yellow-400 "></i>
+              </div>
+            )}
+
+            <p className="text-gray-500 text-xs pl-2">({props.rating})</p>
+          </div>
+        </div>
       </div>
     </>
   );
