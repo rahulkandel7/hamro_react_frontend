@@ -41,6 +41,9 @@ import Shipping from "./pages/admin/shipping/Shipping";
 import AddShipping from "./pages/admin/shipping/AddShipping";
 import EditShipping from "./pages/admin/shipping/EditShipping";
 import SearchPage from "./pages/SearchPage";
+import Banner from "./pages/admin/banner/Banner";
+import AddBanner from "./pages/admin/banner/AddBanner";
+import EditBanner from "./pages/admin/banner/EditBanner";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -65,6 +68,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* Admin Route */}
         <Route path="admin">
           <Route path="dashboard" element={<Dashboard />} />
+          {/* banner Route */}
+          <Route path="banner">
+            <Route index element={<Banner />} />
+            <Route path="create" element={<AddBanner />} />
+            <Route path="edit/:id" element={<EditBanner />} />
+          </Route>
           {/* Category Route */}
           <Route path="category">
             <Route index element={<AdminCategory />} />

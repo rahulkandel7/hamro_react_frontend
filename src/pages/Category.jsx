@@ -5,6 +5,7 @@ import Navbar from "../components/Homepage/navbar/Navbar";
 import Items from "../components/Items/Items";
 import ServerError from "../pages/500";
 import TopHeader from "../components/Homepage/TopHeader";
+import { useEffect, useState } from "react";
 
 function Category() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -15,24 +16,32 @@ function Category() {
     fetcher
   );
 
-  const { data, error } = useSWR(
-    `/api/v1/category/product/${params.id}`,
-    fetcher
-  );
+  const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/v1/category/product/${params.id}`).then((res) => {
+      res.json().then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+    });
+  }, []);
 
   const navigate = useNavigate();
-  if (error) {
-    if (localStorage.getItem("token")) {
-      return <ServerError />;
-    } else {
-      navigate("/login");
-    }
-  }
+  // if (error) {
+  //   if (localStorage.getItem("token")) {
+  //     return <ServerError />;
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }
 
   let dBrands = [];
-  if (data && brandData) {
+  if (!loading && brandData) {
     {
-      data.data.map((product) => {
+      products.data.map((product) => {
         brandData.data.map((brand) => {
           if (product.brand_id === brand.id) {
             dBrands.push(brand);
@@ -66,7 +75,25 @@ function Category() {
                       value={brand.id}
                       id="brands"
                       className="checked:accent-red-400"
-                      onChange={(e) => {}}
+                      onChange={(e) => {
+                        //filter data
+                        let checked = e.target.checked;
+                        let value = e.target.value;
+                        let filteredData = products.data.filter((product) => {
+                          if (checked) {
+                            return product.brand_id == value;
+                          } else {
+                            return product;
+                          }
+                        });
+
+                        if (!checked) {
+                          setFilter([]);
+                        }
+
+                        setFilter(filteredData);
+                        console.log(filter);
+                      }}
                     />{" "}
                     {brand.brand_name}
                   </li>
@@ -96,41 +123,73 @@ function Category() {
           </div>
           <div className="w-fit">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
-              {data.category.category_name}
+              {products.category.category_name}
             </h1>
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
-              {data.data.length < 1 ? (
-                <div className="col-span-3 md:col-span-5">
-                  <h1 className="text-center text-4xl font-bold text-gray-600">
-                    No Products Yet! Comming Soon New Products
-                  </h1>
-                </div>
-              ) : (
-                data.data.map((product) => {
-                  let off;
-                  if (product.discountedprice !== undefined) {
-                    off = (product.discountedprice / product.price) * 100;
-                  }
-                  return (
-                    <NavLink
-                      to={`/product/view/${product.id}`}
-                      key={product.id}
-                    >
-                      <Items
-                        item_name={product.name}
-                        price={product.price}
+            {filter.length > 0 ? (
+              <div>
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                  {filter.map((product) => {
+                    let off;
+                    if (product.discountedprice !== undefined) {
+                      off = (product.discountedprice / product.price) * 100;
+                    }
+                    return (
+                      <NavLink
+                        to={`/product/view/${product.id}`}
                         key={product.id}
-                        image={product.photopath1}
-                        discount_price={product.discountedprice}
-                        off={Math.floor(off)}
-                        avg_rating={Math.floor(product.rating)}
-                        rating={Math.floor(product.rating_number)}
-                      />
-                    </NavLink>
-                  );
-                })
-              )}
-            </div>
+                      >
+                        <Items
+                          item_name={product.name}
+                          price={product.price}
+                          key={product.id}
+                          image={product.photopath1}
+                          discount_price={product.discountedprice}
+                          off={Math.floor(off)}
+                          avg_rating={Math.floor(product.rating)}
+                          rating={Math.floor(product.rating_number)}
+                        />
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                  {products.data.length < 1 ? (
+                    <div className="col-span-3 md:col-span-5">
+                      <h1 className="text-center text-4xl font-bold text-gray-600">
+                        No Products Yet! Comming Soon New Products
+                      </h1>
+                    </div>
+                  ) : (
+                    products.data.map((product) => {
+                      let off;
+                      if (product.discountedprice !== undefined) {
+                        off = (product.discountedprice / product.price) * 100;
+                      }
+                      return (
+                        <NavLink
+                          to={`/product/view/${product.id}`}
+                          key={product.id}
+                        >
+                          <Items
+                            item_name={product.name}
+                            price={product.price}
+                            key={product.id}
+                            image={product.photopath1}
+                            discount_price={product.discountedprice}
+                            off={Math.floor(off)}
+                            avg_rating={Math.floor(product.rating)}
+                            rating={Math.floor(product.rating_number)}
+                          />
+                        </NavLink>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
