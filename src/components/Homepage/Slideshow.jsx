@@ -4,38 +4,46 @@ import { Autoplay, Pagination } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
+import useSWR from "swr";
 
 function Slideshow() {
-  return (
-    <>
-      <div className="w-[98%] mx-auto my-2 rounded-md shadow-md">
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={1}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Autoplay, Pagination]}
-        >
-          <SwiperSlide>
-            <img src="/slide1.jpeg" alt="" className="rounded-md shadow-md" />
-          </SwiperSlide>
+  const fetcher = (...args) =>
+    fetch(...args).then((response) => response.json());
 
-          <SwiperSlide>
-            <img src="/slide2.jpeg" alt="" className="rounded-md shadow-md" />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <img src="/slide3.jpeg" alt="" className="rounded-md shadow-md" />
-          </SwiperSlide>
-        </Swiper>
-      </div>
-    </>
-  );
+  const { data, error } = useSWR("/api/v1/fetchbanner", fetcher);
+  if (data) {
+    const banner = [...data.data].sort((a, b) => a.priority - b.priority);
+    return (
+      <>
+        <div className="w-[98%] mx-auto my-2 rounded-md shadow-md">
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={1}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Autoplay, Pagination]}
+          >
+            {banner.map((banner) => {
+              return (
+                <SwiperSlide key={banner.id}>
+                  <img
+                    src={`http://192.168.1.102:8000/storage/${banner.photopath}`}
+                    alt=""
+                    className="rounded-md shadow-md"
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+      </>
+    );
+  }
 }
 
 export default Slideshow;
