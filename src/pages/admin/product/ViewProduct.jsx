@@ -54,7 +54,7 @@ function ViewProduct() {
                     <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
                       {productdata.data.photopath1 ? (
                         <img
-                          src={`http://192.168.1.92:8000/${productdata.data.photopath1}`}
+                          src={`http://192.168.1.92.92:8000/${productdata.data.photopath1}`}
                           className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1"
                           alt=""
                         />
@@ -68,7 +68,7 @@ function ViewProduct() {
                     <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
                       {productdata.data.photopath2 ? (
                         <img
-                          src={`http://192.168.1.92:8000/${productdata.data.photopath2}`}
+                          src={`http://192.168.1.92.92:8000/${productdata.data.photopath2}`}
                           className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1"
                           alt=""
                         />
@@ -82,7 +82,7 @@ function ViewProduct() {
                     <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
                       {productdata.data.photopath3 ? (
                         <img
-                          src={`http://192.168.1.92:8000/${productdata.data.photopath3}`}
+                          src={`http://192.168.1.92.92:8000/${productdata.data.photopath3}`}
                           className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1"
                           alt=""
                         />

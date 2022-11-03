@@ -3,7 +3,7 @@ function WishlistItem(props) {
     <>
       <div className="w-full bg-gray-50 rounded-md shadow-md pb-4 hover:bg-white hover:shadow-xl hover:scale-105 transition duration-200 ease-in-out relative">
         <img
-          src={`http://192.168.1.92:8000/storage/${props.image}`}
+          src={`http://192.168.1.92.92:8000/storage/${props.image}`}
           alt="Items"
           className="rounded-md 2"
         />

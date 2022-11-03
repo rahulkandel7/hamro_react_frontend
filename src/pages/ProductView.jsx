@@ -183,12 +183,12 @@ function ProductView() {
 
     //* Storing all images for showing
     const product = [
-      `http://192.168.1.103:8000/storage/${productData.data.photopath1}`,
+      `http://192.168.1.92.103:8000/storage/${productData.data.photopath1}`,
       productData.data.photopath2 !== null
-        ? `http://192.168.1.103:8000/storage/${productData.data.photopath2}`
+        ? `http://192.168.1.92.103:8000/storage/${productData.data.photopath2}`
         : null,
       productData.data.photopath3 !== null
-        ? `http://192.168.1.103:8000/storage/${productData.data.photopath3}`
+        ? `http://192.168.1.92.103:8000/storage/${productData.data.photopath3}`
         : null,
     ];
 

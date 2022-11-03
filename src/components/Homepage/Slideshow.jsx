@@ -32,7 +32,7 @@ function Slideshow() {
               return (
                 <SwiperSlide key={banner.id}>
                   <img
-                    src={`http://192.168.1.102:8000/storage/${banner.photopath}`}
+                    src={`http://192.168.1.92.92:8000/storage/${banner.photopath}`}
                     alt=""
                     className="rounded-md shadow-md"
                   />

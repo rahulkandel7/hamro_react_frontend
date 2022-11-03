@@ -103,7 +103,7 @@ function Banner() {
 
                         <td className="py-2 px-5 text-gray-600">
                           <img
-                            src={`http://192.168.1.9:8000/storage/${banner.photopath}`}
+                            src={`http://192.168.1.92.9:8000/storage/${banner.photopath}`}
                             alt=""
                             className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                           />

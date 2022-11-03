@@ -201,20 +201,20 @@ function Cart() {
                       })
                     : null}
                 </div>
-                {/* <hr className="my-3" /> */}
-                {/* <div className="flex justify-between w-full px-4 my-2">
-                <p className="text-gray-800 font-bold">Apply Coupon</p>
-              </div>
-              <div className="flex justify-between w-full px-4 my-2 text-sm relative">
-                <input
-                  type="text"
-                  placeholder="Enter Coupon Code"
-                  className="border border-gray-400 focus-visible:border-gray-800 outline-none py-1 px-4 rounded-md shadow-md w-full"
-                />
-                <button className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md shadow-md">
-                  Apply
-                </button>
-              </div> */}
+                <hr className="my-3" />
+                <div className="flex justify-between w-full px-4 my-2">
+                  <p className="text-gray-800 font-bold">Apply Coupon</p>
+                </div>
+                <div className="flex justify-between w-full px-4 my-2 text-sm relative">
+                  <input
+                    type="text"
+                    placeholder="Enter Coupon Code"
+                    className="border border-gray-400 focus-visible:border-gray-800 outline-none py-1 px-4 rounded-md shadow-md w-full"
+                  />
+                  <button className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md shadow-md">
+                    Apply
+                  </button>
+                </div>
 
                 <hr className="my-3" />
 
