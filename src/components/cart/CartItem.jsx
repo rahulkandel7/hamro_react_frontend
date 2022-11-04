@@ -13,7 +13,7 @@ function CartItem(props) {
       <div className="flex">
         <div>
           <img
-            src={`http://192.168.1.92:8000/storage/${props.image}`}
+            src={`http://api.hamroelectrics.com.np/storage/${props.image}`}
             alt={props.name}
             className="w-20 md:w-40"
           />

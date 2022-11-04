@@ -101,7 +101,7 @@ function EditProfile() {
                             <img
                               src={
                                 values.profile_photo == ""
-                                  ? `http://192.168.1.92.109:8000/storage/${data.user.profile_photo}`
+                                  ? `http://api.hamroelectrics.com.np/storage/${data.user.profile_photo}`
                                   : URL.createObjectURL(values.profile_photo)
                               }
                               alt=""

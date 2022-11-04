@@ -123,7 +123,7 @@ function EditBanner() {
                             />
                           ) : (
                             <img
-                              src={`http://192.168.1.92.9:8000/storage/${data.data.photopath}`}
+                              src={`http://api.hamroelectrics.com.np/storage/${data.data.photopath}`}
                               className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1 object-cover"
                               alt=""
                             />

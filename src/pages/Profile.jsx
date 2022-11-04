@@ -36,7 +36,7 @@ function Profile() {
           <div>
             <div className="flex items-center">
               <img
-                src={`http://192.168.1.92.100:8000/storage/${data.user.profile_photo}`}
+                src={`http://api.hamroelectrics.com.np/storage/${data.user.profile_photo}`}
                 alt=""
                 className="w-16 h-16 md:w-28 md:h-28 object-cover rounded-full shadow-md"
               />
