@@ -127,7 +127,7 @@ function Category() {
 
                             <td className="py-2 px-5 text-gray-600">
                               <img
-                                src={`http://192.168.1.92.92:8000/storage/${category.photopath}`}
+                                src={`http://192.168.1.92:8000/storage/${category.photopath}`}
                                 alt=""
                                 className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                               />
@@ -175,7 +175,7 @@ function Category() {
                               </td>
                               <td className="py-2 px-5 text-gray-600">
                                 <img
-                                  src={`http://192.168.1.92.92:8000/storage/${dat.photopath}`}
+                                  src={`http://192.168.1.92:8000/storage/${dat.photopath}`}
                                   alt=""
                                   className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                                 />

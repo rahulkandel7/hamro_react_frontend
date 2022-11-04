@@ -61,7 +61,9 @@ function ItemWrapper(props) {
               let off;
 
               if (product.discountedprice !== undefined) {
-                off = (product.discountedprice / product.price) * 100;
+                off =
+                  ((product.price - product.discountedprice) / product.price) *
+                  100;
               }
               return (
                 <SwiperSlide key={product.id}>

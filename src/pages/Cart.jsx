@@ -30,6 +30,12 @@ function Cart() {
     error: shippingError,
   } = useSWR("/api/v1/shipping", fetcher);
 
+  //* SWR hook to fetch coupon code
+  const { data: couponData, error: couponErrors } = useSWR(
+    "/api/v1/coupon",
+    fetcher
+  );
+
   //* State to check if user pressed checkout
   const [checkout, setCheckout] = useState(false);
 
@@ -41,6 +47,51 @@ function Cart() {
 
   //* State to store Shipping Area
   const [shippingArea, setShippingArea] = useState("");
+
+  const [couponCode, setCouponCode] = useState("");
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [couponError, setCouponError] = useState("");
+  const [couponId, setCouponId] = useState("");
+
+  function checkCoupon(totalPrice) {
+    couponData.data.filter((coupon) => {
+      if (coupon.name.toLowerCase() == couponCode.toLowerCase()) {
+        setCouponError("");
+        if (coupon.minAmount < totalPrice) {
+          if (coupon.maxDisAmount > totalPrice) {
+            if (coupon.isAvailable == 1) {
+              if (coupon.isAmount == 1) {
+                setCouponId(coupon.id);
+                setCouponDiscount(coupon.offerAmount);
+              }
+              if (coupon.isPercent == 1) {
+                setCouponId(coupon.id);
+                setCouponDiscount((totalPrice * coupon.offerPercent) / 100);
+              }
+            } else {
+              setCouponDiscount(0);
+              setCouponId("");
+              setCouponError("Coupon Just Expired");
+            }
+          } else {
+            setCouponDiscount(0);
+            setCouponId("");
+            setCouponError(
+              "Your Total Amount is too high to apply this coupon"
+            );
+          }
+        } else {
+          setCouponDiscount(0);
+          setCouponId("");
+          setCouponError("Minimum amount is not matched");
+        }
+      } else {
+        setCouponDiscount(0);
+        setCouponId("");
+        setCouponError("The Coupon You Have Applied Is Invalid.");
+      }
+    });
+  }
 
   //* Function to toggle checkout State
   const toggleCheckout = () => {
@@ -209,19 +260,38 @@ function Cart() {
                   <input
                     type="text"
                     placeholder="Enter Coupon Code"
+                    onChange={(e) => {
+                      setCouponCode(e.target.value);
+                    }}
+                    onKeyUp={(e) => {
+                      if (e.key == "Enter") {
+                        checkCoupon(totalPrice);
+                      }
+                    }}
                     className="border border-gray-400 focus-visible:border-gray-800 outline-none py-1 px-4 rounded-md shadow-md w-full"
                   />
-                  <button className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md shadow-md">
+                  <button
+                    className="px-4 py-1 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md shadow-md"
+                    onClick={() => checkCoupon(totalPrice)}
+                  >
                     Apply
                   </button>
                 </div>
+                <p className="text-red-500 text-sm px-4">{couponError}</p>
 
                 <hr className="my-3" />
+
+                {couponDiscount == 0 ? null : (
+                  <div className="flex justify-between w-full px-4 my-2 ">
+                    <p className="text-gray-800 font-bold">Coupon Discount</p>
+                    <p className="text-gray-500">Rs {couponDiscount}</p>
+                  </div>
+                )}
 
                 <div className="flex justify-between w-full px-4 my-2 text-lg">
                   <p className="text-gray-800 font-bold">Total Payable</p>
                   <p className="text-gray-500">
-                    Rs {totalPrice + shippingPrice}
+                    Rs {totalPrice + shippingPrice - couponDiscount}
                   </p>
                 </div>
 
@@ -239,11 +309,13 @@ function Cart() {
         {checkout ? (
           <Checkout
             hide={toggleCheckout}
-            total={totalPrice + shippingPrice}
-            shippingArea={shippingArea}
+            total={totalPrice + shippingPrice - couponDiscount}
             shippingPrice={shippingPrice}
             shippingId={shipping}
             carts={data.data}
+            couponId={couponId}
+            couponDiscount={couponDiscount}
+            shippingArea={shippingArea}
           />
         ) : (
           <></>

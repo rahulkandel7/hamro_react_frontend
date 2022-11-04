@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 function SecondHeader() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     if (search === "") {
@@ -43,13 +44,17 @@ function SecondHeader() {
                 id="search"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
+                    setShowSuggestions(false);
                     navigate(`/search/${search}`);
                   }
                   if (e.key === "Escape") {
                     setSearch("");
                   }
                 }}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setShowSuggestions(true);
+                }}
                 placeholder="I'm looking for....."
                 className="w-full border-gray-400 focus-visible:border-amber-400 border rounded-md py-1 px-5 outline-none "
               />
@@ -57,7 +62,7 @@ function SecondHeader() {
                 <i className="ri-search-2-line text-gray-500"></i>
               </div>
               <div>
-                {searchResults.length > 0 ? (
+                {showSuggestions ? (
                   <div className="bg-gray-50  shadow-md w-full  h-fit max-h-28 overflow-scroll absolute">
                     {searchResults.map((product) => (
                       <NavLink

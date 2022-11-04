@@ -5,6 +5,7 @@ import Navbar from "../components/Homepage/navbar/Navbar";
 import Items from "../components/Items/Items";
 import ServerError from "../pages/500";
 import TopHeader from "../components/Homepage/TopHeader";
+import { useEffect, useState } from "react";
 
 function SearchPage() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -15,10 +16,23 @@ function SearchPage() {
     fetcher
   );
 
-  const { data, error } = useSWR(`/api/v1/products`, fetcher);
+  const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  console.log(data);
-  console.log(params.query);
+  useEffect(() => {
+    fetch("/api/v1/products").then((res) => {
+      res.json().then((data) => {
+        let results = data.data.filter((product) =>
+          product.name.toLowerCase().includes(params.query.toLowerCase())
+        );
+        setProducts(results);
+        setLoading(false);
+      });
+    });
+  }, [params.query]);
+
+  const { data, error } = useSWR(`/api/v1/products`, fetcher);
 
   const navigate = useNavigate();
   if (error) {
@@ -45,9 +59,6 @@ function SearchPage() {
       return dBrands.indexOf(item) === index;
     });
 
-    let results = data.data.filter((product) =>
-      product.name.toLowerCase().includes(params.query.toLowerCase())
-    );
     return (
       <div>
         <TopHeader />
@@ -66,8 +77,28 @@ function SearchPage() {
                     <input
                       type="checkbox"
                       name="brands"
+                      value={brand.id}
                       id="brands"
                       className="checked:accent-red-400"
+                      onChange={(e) => {
+                        //filter data
+                        let checked = e.target.checked;
+                        let value = e.target.value;
+                        let filteredData = products.data.filter((product) => {
+                          if (checked) {
+                            return product.brand_id == value;
+                          } else {
+                            return product;
+                          }
+                        });
+
+                        if (!checked) {
+                          setFilter([]);
+                        }
+
+                        setFilter(filteredData);
+                        console.log(filter);
+                      }}
                     />{" "}
                     {brand.brand_name}
                   </li>
@@ -97,41 +128,79 @@ function SearchPage() {
           </div>
           <div className="w-fit">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
-              {results.name}
+              You have searched for {params.query}
             </h1>
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
-              {results.length < 1 ? (
-                <div className="col-span-3 md:col-span-5">
-                  <h1 className="text-center text-4xl font-bold text-gray-600">
-                    No Product Found
-                  </h1>
-                </div>
-              ) : (
-                results.map((product) => {
-                  let off;
-                  if (product.discountedprice !== undefined) {
-                    off = (product.discountedprice / product.price) * 100;
-                  }
-                  return (
-                    <NavLink
-                      to={`/product/view/${product.id}`}
-                      key={product.id}
-                    >
-                      <Items
-                        item_name={product.name}
-                        price={product.price}
+            {filter.length > 0 ? (
+              <div>
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                  {filter.map((product) => {
+                    let off;
+                    if (product.discountedprice !== undefined) {
+                      off =
+                        ((product.price - product.discountedprice) /
+                          product.price) *
+                        100;
+                    }
+                    return (
+                      <NavLink
+                        to={`/product/view/${product.id}`}
                         key={product.id}
-                        image={product.photopath1}
-                        discount_price={product.discountedprice}
-                        off={Math.floor(off)}
-                        avg_rating={Math.floor(product.rating)}
-                        rating={Math.floor(product.rating_number)}
-                      />
-                    </NavLink>
-                  );
-                })
-              )}
-            </div>
+                      >
+                        <Items
+                          item_name={product.name}
+                          price={product.price}
+                          key={product.id}
+                          image={product.photopath1}
+                          discount_price={product.discountedprice}
+                          off={Math.floor(off)}
+                          avg_rating={Math.floor(product.rating)}
+                          rating={Math.floor(product.rating_number)}
+                        />
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                  {products.length < 1 ? (
+                    <div className="col-span-3 md:col-span-5">
+                      <h1 className="text-center text-4xl font-bold text-gray-600">
+                        No Products Yet! Comming Soon New Products
+                      </h1>
+                    </div>
+                  ) : (
+                    products.map((product) => {
+                      let off;
+                      if (product.discountedprice !== undefined) {
+                        off =
+                          ((product.price - product.discountedprice) /
+                            product.price) *
+                          100;
+                      }
+                      return (
+                        <NavLink
+                          to={`/product/view/${product.id}`}
+                          key={product.id}
+                        >
+                          <Items
+                            item_name={product.name}
+                            price={product.price}
+                            key={product.id}
+                            image={product.photopath1}
+                            discount_price={product.discountedprice}
+                            off={Math.floor(off)}
+                            avg_rating={Math.floor(product.rating)}
+                            rating={Math.floor(product.rating_number)}
+                          />
+                        </NavLink>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

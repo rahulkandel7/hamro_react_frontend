@@ -131,7 +131,10 @@ function Category() {
                   {filter.map((product) => {
                     let off;
                     if (product.discountedprice !== undefined) {
-                      off = (product.discountedprice / product.price) * 100;
+                      off =
+                        ((product.price - product.discountedprice) /
+                          product.price) *
+                        100;
                     }
                     return (
                       <NavLink
@@ -166,7 +169,10 @@ function Category() {
                     products.data.map((product) => {
                       let off;
                       if (product.discountedprice !== undefined) {
-                        off = (product.discountedprice / product.price) * 100;
+                        off =
+                          ((product.price - product.discountedprice) /
+                            product.price) *
+                          100;
                       }
                       return (
                         <NavLink

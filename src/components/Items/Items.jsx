@@ -3,7 +3,7 @@ function Items(props) {
     <>
       <div className="w-full bg-gray-50 rounded-md shadow-md pb-4 hover:bg-white hover:shadow-xl hover:scale-105 transition duration-200 ease-in-out relative">
         <img
-          src={`http://192.168.1.92.92:8000/storage/${props.image}`}
+          src={`http://192.168.1.92:8000/storage/${props.image}`}
           alt="Items"
           className="rounded-md 2"
         />
@@ -18,15 +18,15 @@ function Items(props) {
         ) : (
           <div className="flex justify-center items-center">
             <p className="line-through text-xs md:text-sm text-gray-600">
-              Rs {props.discount_price}
+              Rs {props.price}
             </p>
             <p className="text-xs md:text-lg text-black px-2">
-              Rs {props.price}
+              Rs {props.discount_price}
             </p>
           </div>
         )}
 
-        {props.off > 0 ? (
+        {props.off < 100 ? (
           <div className="absolute top-2 right-2 text-xs ">
             <p className="bg-indigo-500 text-white rounded-md px-3 py-1">
               {props.off}% OFF

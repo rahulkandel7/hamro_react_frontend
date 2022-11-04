@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import ShowDelete from "../../../components/admin/utils/ShowDelete";
 import AddButton from "../../../components/utils/AddButton";
 
-function Category() {
-  //* For Fetching Data
+function Coupon() {
   const fetcher = (...args) =>
     fetch(...args, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
-  const { data, mutate, error } = useSWR("/api/v1/product", fetcher);
 
-  //* For searching data
+  const { data, mutate, error } = useSWR("/api/v1/coupon", fetcher);
   const [search, setSearch] = useState("");
 
   //* For deleting data
@@ -31,57 +29,40 @@ function Category() {
 
   //* For Deleteing Category
 
-  async function deleteCategory(id) {
-    fetch(`/api/v1/product/${id}`, {
+  async function deleteCoupon(id) {
+    const category = await fetch(`/api/v1/coupon/${id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    }).then((res) => {
-      res.json().then((data) => {
-        toast(data.message, {
-          type: "success",
-        });
+    });
+    category.json().then((data) => {
+      toast(data.message, {
+        type: "success",
       });
     });
-
     mutate();
     toggleIsDelete();
   }
-
-  const navigate = useNavigate();
-  //! Show Error
-  if (error) {
-    navigate("/login");
-  }
-
-  //*Show Loading
-  if (!data && !error) {
-    return <h1>Loading</h1>;
-  }
-
-  //? Show Data when loaded
   if (data) {
     return (
       <>
         <AdminLayout>
           {isDelete ? (
             <ShowDelete
-              delete={deleteCategory}
+              delete={deleteCoupon}
               hideDelete={toggleIsDelete}
               id={id}
             />
           ) : (
             <></>
           )}
-
           <div className="px-10 py-6 w-full">
             <div className="flex justify-between">
-              <h1 className="text-4xl text-gray-700">Products</h1>
-
+              <h1 className="text-4xl text-gray-700">Coupon</h1>
               <NavLink to="create">
-                <AddButton name="Add Product" />
+                <AddButton name="Add Coupon" />
               </NavLink>
             </div>
             <hr className="my-2" />
@@ -92,7 +73,7 @@ function Category() {
                   name="search"
                   id="search"
                   className="border border-gray-200 pl-2 outline-none focus-visible:border-gray-600 pr-6 text-gray-500 rounded-md shadow-md py-1"
-                  placeholder="Search Category..."
+                  placeholder="Search Coupon..."
                   onChange={(e) => {
                     setSearch(e.target.value);
                   }}
@@ -102,171 +83,153 @@ function Category() {
                 </div>
               </div>
             </div>
+
             <div>
               <table className="w-full border border-gray-200 rounded-md shadow-md px-5">
                 <thead className="bg-gray-500 ">
                   <tr className="w-full border border-gray-100 text-white">
-                    <td className="py-2 px-5 ">SKU</td>
-                    <td className="py-2 px-5 ">Product Name</td>
-                    <td className="py-2 px-5 ">Product Image</td>
-                    <td className="py-2 px-5 ">Category Name</td>
-                    <td className="py-2 px-5 ">Product Price</td>
-                    <td className="py-2 px-5 ">Product Stock</td>
-                    <td className="py-2 px-5 ">Is Flash Sale </td>
-                    <td className="py-2 px-5 ">Is Deleted</td>
-                    <td className="py-2 px-5 ">Actions</td>
+                    <td className="py-2 px-5 ">S.No</td>
+                    <td className="py-2 px-5 ">Coupon Name</td>
+                    <td className="py-2 px-5 ">Is Available</td>
+                    <td className="py-2 px-5 ">Min. Amount</td>
+                    <td className="py-2 px-5 ">Max. Dis. Amount</td>
+                    <td className="py-2 px-5 ">Is Amount</td>
+                    <td className="py-2 px-5 ">Offer Amount</td>
+                    <td className="py-2 px-5 ">Is Percent</td>
+                    <td className="py-2 px-5 ">Percent Amount</td>
+                    <td className="py-2 px-5 ">Action</td>
                   </tr>
                 </thead>
                 <tbody>
                   {search === ""
-                    ? data.data.map((product) => {
+                    ? data.data.map((coupon, index) => {
                         return (
-                          <tr key={product.id}>
+                          <tr key={coupon.id}>
                             <td className="py-2 px-5 text-gray-600">
-                              {product.sku}
+                              {index + 1}
                             </td>
                             <td className="py-2 px-5 text-gray-600">
-                              {product.name}
-                            </td>
-
-                            <td className="py-2 px-5 text-gray-600">
-                              <img
-                                src={`http://192.168.1.92:8000/storage/${product.photopath1}`}
-                                alt=""
-                                className="w-32 border border-gray-400 rounded-md shadow-md p-1"
-                              />
+                              {coupon.name}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              {product.categoryName}
+                              {coupon.isAvailable == 1 ? "Yes" : "No"}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              {product.price}
+                              {coupon.minAmount}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              {product.stock}
+                              {coupon.maxDisAmount}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              {product.flashsale ? "Yes" : "No"}
+                              {coupon.isAmount == 1 ? "Yes" : "No"}
                             </td>
 
                             <td className="py-2 px-5 text-gray-600">
-                              {product.deleted ? "Yes" : "No"}
+                              {coupon.offerAmount == null
+                                ? "-"
+                                : `Rs ${coupon.offerAmount}`}
                             </td>
 
-                            <td className="py-2 px-5 text-gray-600 flex">
-                              <NavLink to={`edit/${product.id}`}>
-                                <button
-                                  className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2"
-                                  title="edit"
-                                >
-                                  <i className="ri-edit-circle-line"></i>
+                            <td className="py-2 px-5 text-gray-600">
+                              {coupon.isPercent == 1 ? "Yes" : "No"}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              {coupon.offerPercent == null
+                                ? "-"
+                                : `Rs ${coupon.offerPercent}`}
+                            </td>
+
+                            <td className="py-2 px-5 text-gray-600">
+                              <NavLink to={`edit/${coupon.id}`}>
+                                <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
+                                  Update coupon Area
                                 </button>
                               </NavLink>
-
-                              <NavLink to={`view/${product.id}`}>
-                                <button
-                                  className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-sky-500 hover:bg-sky-700 text-white mx-2"
-                                  title="show"
-                                >
-                                  <i className="ri-eye-2-line"></i>
-                                </button>
-                              </NavLink>
-
                               <button
                                 className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-700 text-white mx-2"
-                                title="delete"
                                 onClick={() => {
                                   toggleIsDelete();
-                                  setId(product.id);
+                                  setId(coupon.id);
                                 }}
                               >
-                                <i className="ri-delete-bin-4-line"></i>
+                                Delete
                               </button>
                             </td>
                           </tr>
                         );
                       })
                     : data.data
-                        .filter((product) => {
+                        .filter((coupon) => {
                           if (search === "") {
-                            return product;
+                            return coupon;
                           } else if (
-                            product.name
+                            coupon.name
                               .toLowerCase()
                               .includes(search.toLowerCase())
                           ) {
-                            return product;
+                            return coupon;
                           }
                         })
-                        .map((dat) => {
+                        .map((coupon, index) => {
                           return (
-                            <tr key={dat.id}>
+                            <tr key={coupon.id}>
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.sku}
+                                {index + 1}
                               </td>
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.name}
-                              </td>
-                              <td className="py-2 px-5 text-gray-600">
-                                <img
-                                  src={`http://192.168.1.92:8000/storage/${dat.photopath1}`}
-                                  alt=""
-                                  className="w-32 border border-gray-400 rounded-md shadow-md p-1"
-                                />
+                                {coupon.name}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.category_id}
+                                {coupon.isAvailable == 1 ? "Yes" : "No"}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.price}
+                                {coupon.minAmount}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.stock}
+                                {coupon.maxDisAmount}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.flashsale ? "Yes" : "No"}
+                                {coupon.isAmount == 1 ? "Yes" : "No"}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.deleted ? "Yes" : "No"}
+                                {coupon.offerAmount == null
+                                  ? "-"
+                                  : `Rs ${coupon.offerAmount}`}
                               </td>
 
-                              <td className="py-2 px-5 text-gray-600 flex">
-                                <NavLink to={`edit/${dat.id}`}>
-                                  <button
-                                    className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2"
-                                    title="edit"
-                                  >
-                                    <i className="ri-edit-circle-line"></i>
+                              <td className="py-2 px-5 text-gray-600">
+                                {coupon.isPercent == 1 ? "Yes" : "No"}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
+                                {coupon.offerPercent == null
+                                  ? "-"
+                                  : `Rs ${coupon.offerPercent}`}
+                              </td>
+
+                              <td className="py-2 px-5 text-gray-600">
+                                <NavLink to={`edit/${coupon.id}`}>
+                                  <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
+                                    Update Coupon Area
                                   </button>
                                 </NavLink>
-
-                                <NavLink to={`view/${dat.id}`}>
-                                  <button
-                                    className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-sky-500 hover:bg-sky-700 text-white mx-2"
-                                    title="show"
-                                  >
-                                    <i className="ri-eye-2-line"></i>
-                                  </button>
-                                </NavLink>
-
                                 <button
                                   className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-700 text-white mx-2"
-                                  title="delete"
                                   onClick={() => {
-                                    toggleIsDelete();
-                                    setId(dat.id);
+                                    toggleIsDelete;
                                   }}
                                 >
-                                  <i className="ri-delete-bin-4-line"></i>
+                                  Delete
                                 </button>
                               </td>
                             </tr>
@@ -275,7 +238,6 @@ function Category() {
                 </tbody>
               </table>
             </div>
-            <div></div>
           </div>
         </AdminLayout>
       </>
@@ -283,4 +245,4 @@ function Category() {
   }
 }
 
-export default Category;
+export default Coupon;

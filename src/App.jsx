@@ -23,6 +23,11 @@ function App() {
   if (categoryError || productError) return <ServerError />;
 
   if (categoryData && productData) {
+    const saleProduct = productData.data.filter((product) => {
+      if (product.flashsale == 1) {
+        return product;
+      }
+    });
     return (
       <>
         <TopHeader />
@@ -32,6 +37,12 @@ function App() {
         </div>
         <Navbar />
         <Slideshow />
+        <ItemWrapper
+          title="Sale"
+          description="Get the best sale"
+          slide={5}
+          products={saleProduct}
+        />
         <ItemWrapper
           title="Top Picks"
           description="Get the best deals on the top picks of the week. We have the best"

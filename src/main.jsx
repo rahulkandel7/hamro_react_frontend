@@ -44,6 +44,9 @@ import SearchPage from "./pages/SearchPage";
 import Banner from "./pages/admin/banner/Banner";
 import AddBanner from "./pages/admin/banner/AddBanner";
 import EditBanner from "./pages/admin/banner/EditBanner";
+import Coupon from "./pages/admin/coupon/Coupon";
+import AddCoupon from "./pages/admin/coupon/AddCoupon";
+import EditCoupon from "./pages/admin/coupon/EditCoupon";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -104,6 +107,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route index element={<Shipping />} />
             <Route path="create" element={<AddShipping />} />
             <Route path="edit/:id" element={<EditShipping />} />
+          </Route>
+          {/* Coupon Route */}
+          <Route path="coupon">
+            <Route index element={<Coupon />} />
+            <Route path="create" element={<AddCoupon />} />
+            <Route path="edit/:id" element={<EditCoupon />} />
           </Route>
         </Route>
       </Routes>
