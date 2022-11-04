@@ -144,10 +144,10 @@ function Coupon() {
                                 : `Rs ${coupon.offerPercent}`}
                             </td>
 
-                            <td className="py-2 px-5 text-gray-600">
+                            <td className="py-2 px-5 text-gray-600 flex">
                               <NavLink to={`edit/${coupon.id}`}>
                                 <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
-                                  Update coupon Area
+                                  <i className="ri-edit-circle-line"></i>
                                 </button>
                               </NavLink>
                               <button
@@ -157,7 +157,7 @@ function Coupon() {
                                   setId(coupon.id);
                                 }}
                               >
-                                Delete
+                                <i className="ri-delete-bin-4-line"></i>
                               </button>
                             </td>
                           </tr>
@@ -217,19 +217,20 @@ function Coupon() {
                                   : `Rs ${coupon.offerPercent}`}
                               </td>
 
-                              <td className="py-2 px-5 text-gray-600">
+                              <td className="py-2 px-5 text-gray-600 flex">
                                 <NavLink to={`edit/${coupon.id}`}>
                                   <button className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-blue-500 hover:bg-blue-700 text-white mx-2">
-                                    Update Coupon Area
+                                    <i className="ri-edit-circle-line"></i>
                                   </button>
                                 </NavLink>
                                 <button
                                   className="px-6 py-1 rounded-md shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-700 text-white mx-2"
                                   onClick={() => {
-                                    toggleIsDelete;
+                                    toggleIsDelete();
+                                    setId(coupon.id);
                                   }}
                                 >
-                                  Delete
+                                  <i className="ri-delete-bin-4-line"></i>
                                 </button>
                               </td>
                             </tr>
