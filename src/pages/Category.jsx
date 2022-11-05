@@ -12,7 +12,7 @@ function Category() {
   const params = useParams();
 
   const { data: brandData, error: brandError } = useSWR(
-    `/api/v1/fetchBrand`,
+    `http://api.hamroelectronics.com.np/api/v1/fetchBrand`,
     fetcher
   );
 
@@ -21,7 +21,9 @@ function Category() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/v1/category/product/${params.id}`).then((res) => {
+    fetch(
+      `http://api.hamroelectronics.com.np/api/v1/category/product/${params.id}`
+    ).then((res) => {
       res.json().then((data) => {
         setProducts(data);
         setLoading(false);

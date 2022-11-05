@@ -10,7 +10,10 @@ function Slideshow() {
   const fetcher = (...args) =>
     fetch(...args).then((response) => response.json());
 
-  const { data, error } = useSWR("/api/v1/fetchbanner", fetcher);
+  const { data, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/fetchbanner",
+    fetcher
+  );
   if (data) {
     const banner = [...data.data].sort((a, b) => a.priority - b.priority);
     return (

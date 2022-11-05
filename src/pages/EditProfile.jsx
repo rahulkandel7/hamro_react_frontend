@@ -14,7 +14,10 @@ function EditProfile() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
 
-  const { data, error } = useSWR("/api/v1/user", fetcher);
+  const { data, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/user",
+    fetcher
+  );
 
   const detailsSchema = object({
     email: string().email().required(),
@@ -67,15 +70,18 @@ function EditProfile() {
                     formData.append("profile_photo", values.profile_photo);
 
                     console.log(values);
-                    fetch("/api/v1/user/update", {
-                      method: "Post",
-                      body: formData,
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "token"
-                        )}`,
-                      },
-                    }).then((res) => {
+                    fetch(
+                      "http://api.hamroelectronics.com.np/api/v1/user/update",
+                      {
+                        method: "Post",
+                        body: formData,
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    ).then((res) => {
                       res.json().then((data) => {
                         console.log(data);
                         if (data.status) {
@@ -237,16 +243,19 @@ function EditProfile() {
                     );
                     formData.append("new_password", values.new_password);
                     formData.append("re_password", values.re_password);
-                    fetch("/api/v1/user/changepass", {
-                      method: "Post",
-                      body: formData,
-                      headers: {
-                        contentType: "application/json",
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "token"
-                        )}`,
-                      },
-                    }).then((res) => {
+                    fetch(
+                      "http://api.hamroelectronics.com.np/api/v1/user/changepass",
+                      {
+                        method: "Post",
+                        body: formData,
+                        headers: {
+                          contentType: "application/json",
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    ).then((res) => {
                       res.json().then((data) => {
                         console.log(data);
                         if (data.status) {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
@@ -18,10 +19,13 @@ function Wishlist() {
       },
     }).then((res) => res.json());
 
-  const { data, mutate, error } = useSWR("/api/v1/wishlist", fetcher);
+  const { data, mutate, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/wishlist",
+    fetcher
+  );
 
   function deleteItem(id) {
-    fetch(`/api/v1/wishlist/${id}`, {
+    fetch(`http://api.hamroelectronics.com.np/api/v1/wishlist/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -39,11 +43,15 @@ function Wishlist() {
   }
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
   if (error) {
     if (localStorage.getItem("token")) {
       return <ServerError />;
-    } else {
-      navigate("/login");
     }
   }
 

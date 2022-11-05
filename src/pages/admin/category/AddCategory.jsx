@@ -29,13 +29,16 @@ function AddCategory() {
               formData.append("priority", values.priority);
               formData.append("photopath", values.photopath);
 
-              const response = await fetch("/api/v1/category", {
-                method: "post",
-                body: formData,
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              });
+              const response = await fetch(
+                "http://api.hamroelectronics.com.np/api/v1/category",
+                {
+                  method: "post",
+                  body: formData,
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              );
               response.json().then((data) => {
                 if (data.details) {
                   data.details.photopath.map((detail) => {

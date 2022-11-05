@@ -26,11 +26,14 @@ function ProductView() {
     data: productData,
     error: productError,
     mutate: productMutate,
-  } = useSWR(`/api/v1/product/view/${params.id}`, fetcher);
+  } = useSWR(
+    `http://api.hamroelectronics.com.np/api/v1/product/view/${params.id}`,
+    fetcher
+  );
 
   //? All Products Loaded
   const { data: productsData, error: productsError } = useSWR(
-    "/api/v1/products",
+    "http://api.hamroelectronics.com.np/api/v1/products",
     fetcher
   );
 
@@ -90,7 +93,7 @@ function ProductView() {
   //* For Adding to Wishlist
   function addToWishlist(id) {
     if (localStorage.getItem("token")) {
-      fetch("/api/v1/wishlist", {
+      fetch("http://api.hamroelectronics.com.np/api/v1/wishlist", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -117,7 +120,7 @@ function ProductView() {
 
   //* For Adding to Cart
   function addToCart(id, price) {
-    fetch("/api/v1/cart", {
+    fetch("http://api.hamroelectronics.com.np/api/v1/cart", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -144,7 +147,7 @@ function ProductView() {
 
   //* For Product Rating
   const productRating = (id, rating) => {
-    fetch("/api/v1/rating", {
+    fetch("http://api.hamroelectronics.com.np/api/v1/rating", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

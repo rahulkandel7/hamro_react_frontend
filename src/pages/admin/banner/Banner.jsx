@@ -12,7 +12,10 @@ function Banner() {
     fetch(...args, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
-  const { data, mutate, error } = useSWR("/api/v1/banner", fetcher);
+  const { data, mutate, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/banner",
+    fetcher
+  );
 
   //* For deleting data
   const [isDelete, setIsDelete] = useState(false);
@@ -29,13 +32,16 @@ function Banner() {
   //* For Deleteing Category
 
   async function deleteBanner(id) {
-    const category = await fetch(`/api/v1/banner/${id}`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const category = await fetch(
+      `http://api.hamroelectronics.com.np/api/v1/banner/${id}`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     category.json().then((data) => {
       toast(data.message, {
         type: "success",

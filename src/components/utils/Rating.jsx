@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 function Rating(props) {
   const [rating, setRating] = useState(0);
   useEffect(() => {
-    fetch(`/api/v1/rating/product/${props.id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `http://api.hamroelectronics.com.np/api/v1/rating/product/${props.id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setRating(data.data[0].rating);

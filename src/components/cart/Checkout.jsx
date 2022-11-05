@@ -10,7 +10,10 @@ function Checkout(props) {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     }).then((res) => res.json());
-  const { data, error } = useSWR("api/v1/user", fetcher);
+  const { data, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/user",
+    fetcher
+  );
 
   const checkoutSchema = object({
     fullname: string().required("Please Provide Your Name "),
@@ -67,15 +70,18 @@ function Checkout(props) {
                       formData.append("phone", values.phone);
                       formData.append("fullname", values.fullname);
 
-                      fetch("/api/v1/order/store", {
-                        method: "POST",
-                        headers: {
-                          Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                          )}`,
-                        },
-                        body: formData,
-                      }).then((res) => {
+                      fetch(
+                        "http://api.hamroelectronics.com.np/api/v1/order/store",
+                        {
+                          method: "POST",
+                          headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                              "token"
+                            )}`,
+                          },
+                          body: formData,
+                        }
+                      ).then((res) => {
                         res.json().then((data) => {
                           if (data.status) {
                             toast(data.message, {
@@ -85,15 +91,18 @@ function Checkout(props) {
                             props.carts.map((cart) => {
                               const formData = new FormData();
                               formData.append("ordered", 1);
-                              fetch(`/api/v1/cart/update/ordered/${cart.id}`, {
-                                method: "POST",
-                                headers: {
-                                  Authorization: `Bearer ${localStorage.getItem(
-                                    "token"
-                                  )}`,
-                                },
-                                body: formData,
-                              }).then((res) => {
+                              fetch(
+                                `http://api.hamroelectronics.com.np/api/v1/cart/update/ordered/${cart.id}`,
+                                {
+                                  method: "POST",
+                                  headers: {
+                                    Authorization: `Bearer ${localStorage.getItem(
+                                      "token"
+                                    )}`,
+                                  },
+                                  body: formData,
+                                }
+                              ).then((res) => {
                                 res.json().then((data) => {
                                   console.log(data);
                                 });

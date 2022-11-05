@@ -20,7 +20,10 @@ function EditCategory() {
     fetch(...args, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
-  const { data, error } = useSWR(`/api/v1/category/${params.id}`, fetcher);
+  const { data, error } = useSWR(
+    `http://api.hamroelectronics.com.np/api/v1/category/${params.id}`,
+    fetcher
+  );
 
   if (error) {
     return <div>{error}</div>;
@@ -58,7 +61,7 @@ function EditCategory() {
                   );
 
                   const response = await fetch(
-                    `/api/v1/category/${data.data.id}`,
+                    `http://api.hamroelectronics.com.np/api/v1/category/${data.data.id}`,
                     {
                       method: "POST",
                       body: formData,

@@ -6,6 +6,7 @@ import Navbar from "../components/Homepage/navbar/NavBar";
 import useSWR from "swr";
 import ServerError from "./500";
 import TopHeader from "../components/Homepage/TopHeader";
+import { useEffect } from "react";
 
 function Profile() {
   const fetcher = (...args) =>
@@ -15,14 +16,21 @@ function Profile() {
       },
     }).then((res) => res.json());
 
-  const { data, error } = useSWR(`/api/v1/user`, fetcher);
+  const { data, error } = useSWR(
+    `http://api.hamroelectronics.com.np/api/v1/user`,
+    fetcher
+  );
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
   if (error) {
     if (localStorage.getItem("token")) {
       return <ServerError />;
-    } else {
-      navigate("/login");
     }
   }
   if (data) {

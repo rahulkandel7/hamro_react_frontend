@@ -11,9 +11,13 @@ function Dashboard() {
       },
     }).then((res) => res.json());
 
-  const { data, error } = useSWR("/api/v1/dashboard", fetcher, {
-    refreshInterval: 1000,
-  });
+  const { data, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/dashboard",
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
+  );
 
   const [change, setChange] = useState(false);
   useEffect(() => {

@@ -28,7 +28,7 @@ function AddBrand() {
             validationSchema={brandSchema}
             validateOnChange={false}
             onSubmit={async (values) => {
-              fetch("/api/v1/brand", {
+              fetch("http://api.hamroelectronics.com.np/api/v1/brand", {
                 method: "post",
                 body: JSON.stringify(values),
                 headers: {

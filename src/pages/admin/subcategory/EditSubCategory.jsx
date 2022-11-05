@@ -21,13 +21,13 @@ function EditSubCategory() {
     }).then((res) => res.json());
   //* For Fetching Category
   const { data: categoryData, error: categoryError } = useSWR(
-    "/api/v1/category",
+    "http://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
   const id = useParams().id;
   const { data: subCategoryData, error: subCategoryError } = useSWR(
-    `/api/v1/subcategory/${id}`,
+    `http://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
     fetcher
   );
 
@@ -61,14 +61,17 @@ function EditSubCategory() {
               validateOnChange={false}
               validationSchema={subCategorySchema}
               onSubmit={(values) => {
-                fetch(`/api/v1/subcategory/${id}`, {
-                  method: "put",
-                  body: JSON.stringify(values),
-                  headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    "Content-Type": "application/json",
-                  },
-                }).then((res) => {
+                fetch(
+                  `http://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
+                  {
+                    method: "put",
+                    body: JSON.stringify(values),
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                ).then((res) => {
                   res.json().then((data) => {
                     if (data.status) {
                       toast(data.message, {

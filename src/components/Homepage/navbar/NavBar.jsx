@@ -4,12 +4,12 @@ import NavLinks from "./NavLinks";
 function Navbar() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data: categoryData, error: categoryError } = useSWR(
-    "/api/v1/fetchCategory",
+    "http://api.hamroelectronics.com.np/api/v1/fetchCategory",
     fetcher
   );
 
   const { data: subCategoryData, error: subCategoryError } = useSWR(
-    "/api/v1/fetchSubCategory",
+    "http://api.hamroelectronics.com.np/api/v1/fetchSubCategory",
     fetcher
   );
 

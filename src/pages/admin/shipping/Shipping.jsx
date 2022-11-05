@@ -12,7 +12,10 @@ function Shipping() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
 
-  const { data, mutate, error } = useSWR("/api/v1/shipping", fetcher);
+  const { data, mutate, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/shipping",
+    fetcher
+  );
   const [search, setSearch] = useState("");
 
   //* For deleting data
@@ -30,13 +33,16 @@ function Shipping() {
   //* For Deleteing Category
 
   async function deleteShipping(id) {
-    const category = await fetch(`/api/v1/shipping/${id}`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const category = await fetch(
+      `http://api.hamroelectronics.com.np/api/v1/shipping/${id}`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     category.json().then((data) => {
       toast(data.message, {
         type: "success",

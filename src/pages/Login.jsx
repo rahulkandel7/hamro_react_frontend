@@ -29,13 +29,16 @@ function Login() {
                   initialValues={{ email: "", password: "" }}
                   validationSchema={loginScheme}
                   onSubmit={async (values) => {
-                    const response = await fetch("api/v1/login", {
-                      method: "POST",
-                      body: JSON.stringify(values),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    });
+                    const response = await fetch(
+                      "http://api.hamroelectronics.com.np/api/v1/login",
+                      {
+                        method: "POST",
+                        body: JSON.stringify(values),
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                      }
+                    );
 
                     response.json().then((data) => {
                       if (data.success === false) {

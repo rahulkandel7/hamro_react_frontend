@@ -13,7 +13,10 @@ function SubCategory() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
 
-  const { data, error, mutate } = useSWR("/api/v1/subcategory", fetcher);
+  const { data, error, mutate } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/subcategory",
+    fetcher
+  );
 
   //? for Search
   const [search, setSearch] = useState("");
@@ -25,13 +28,16 @@ function SubCategory() {
   }
 
   async function deleteSubCategory(id) {
-    const sub = await fetch(`/api/v1/subcategory/${id}`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const sub = await fetch(
+      `http://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     sub.json().then((data) => {
       toast(data.message, {
         type: "success",

@@ -19,7 +19,10 @@ function EditBanner() {
     fetch(...args, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
-  const { data, error } = useSWR(`/api/v1/banner/${params.id}`, fetcher);
+  const { data, error } = useSWR(
+    `http://api.hamroelectronics.com.np/api/v1/banner/${params.id}`,
+    fetcher
+  );
 
   if (error) {
     return <div>{error}</div>;
@@ -56,7 +59,7 @@ function EditBanner() {
                   );
 
                   const response = await fetch(
-                    `/api/v1/banner/${data.data.id}`,
+                    `http://api.hamroelectronics.com.np/api/v1/banner/${data.data.id}`,
                     {
                       method: "POST",
                       body: formData,

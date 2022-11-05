@@ -12,22 +12,22 @@ function ViewProduct() {
 
   const params = useParams();
   const { data: productdata, error: productError } = useSWR(
-    `/api/v1/product/${params.id}`,
+    `http://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
     fetcher
   );
 
   const { data: categoryData, error: categoryError } = useSWR(
-    "/api/v1/category",
+    "http://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
   const { data: subcategoryData, error: subcategoryError } = useSWR(
-    "/api/v1/subcategory",
+    "http://api.hamroelectronics.com.np/api/v1/subcategory",
     fetcher
   );
 
   const { data: brandData, error: brandError } = useSWR(
-    "/api/v1/brand",
+    "http://api.hamroelectronics.com.np/api/v1/brand",
     fetcher
   );
 

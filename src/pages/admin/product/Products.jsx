@@ -12,7 +12,10 @@ function Category() {
     fetch(...args, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
-  const { data, mutate, error } = useSWR("/api/v1/product", fetcher);
+  const { data, mutate, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/product",
+    fetcher
+  );
 
   //* For searching data
   const [search, setSearch] = useState("");
@@ -32,7 +35,7 @@ function Category() {
   //* For Deleteing Category
 
   async function deleteCategory(id) {
-    fetch(`/api/v1/product/${id}`, {
+    fetch(`http://api.hamroelectronics.com.np/api/v1/product/${id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -232,11 +235,11 @@ function Category() {
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.flashsale ? "Yes" : "No"}
+                                {dat.flashsale == 1 ? "Yes" : "No"}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600">
-                                {dat.deleted ? "Yes" : "No"}
+                                {dat.deleted == 0 ? "Yes" : "No"}
                               </td>
 
                               <td className="py-2 px-5 text-gray-600 flex">

@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import CartItem from "../components/cart/CartItem";
@@ -21,18 +22,21 @@ function Cart() {
     }).then((res) => res.json());
 
   //* SWR hook to fetch user cart
-  const { data, mutate, error } = useSWR("/api/v1/cart", fetcher);
+  const { data, mutate, error } = useSWR(
+    "http://api.hamroelectronics.com.np/api/v1/cart",
+    fetcher
+  );
 
   //* SWR hook to fetch shipping address
   const {
     data: shippingdata,
     mutate: shippingMutate,
     error: shippingError,
-  } = useSWR("/api/v1/shipping", fetcher);
+  } = useSWR("http://api.hamroelectronics.com.np/api/v1/shipping", fetcher);
 
   //* SWR hook to fetch coupon code
   const { data: couponData, error: couponErrors } = useSWR(
-    "/api/v1/coupon",
+    "http://api.hamroelectronics.com.np/api/v1/coupon",
     fetcher
   );
 
@@ -104,7 +108,7 @@ function Cart() {
 
   //* function to Delete Cart Item
   const deleteCartItem = (id) => {
-    fetch(`/api/v1/cart/${id}`, {
+    fetch(`http://api.hamroelectronics.com.np/api/v1/cart/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -121,7 +125,7 @@ function Cart() {
 
   //* Update Cart quantity */
   const updateCartQuantity = (id, quantity) => {
-    fetch(`/api/v1/cart/update/${id}`, {
+    fetch(`http://api.hamroelectronics.com.np/api/v1/cart/update/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -137,6 +141,13 @@ function Cart() {
     });
     mutate();
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
 
   //* It show error page while loading the data
   if (error) {

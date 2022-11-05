@@ -17,22 +17,22 @@ function EditProduct() {
 
   const params = useParams();
   const { data: productdata, error: productError } = useSWR(
-    `/api/v1/product/${params.id}`,
+    `http://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
     fetcher
   );
 
   const { data: categoryData, error: categoryError } = useSWR(
-    "/api/v1/category",
+    "http://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
   const { data: subcategoryData, error: subcategoryError } = useSWR(
-    "/api/v1/subcategory",
+    "http://api.hamroelectronics.com.np/api/v1/subcategory",
     fetcher
   );
 
   const { data: brandData, error: brandError } = useSWR(
-    "/api/v1/brand",
+    "http://api.hamroelectronics.com.np/api/v1/brand",
     fetcher
   );
 
@@ -127,15 +127,18 @@ function EditProduct() {
                     formData.append("size", values.size);
                     formData.append("_method", "put");
 
-                    const res = await fetch(`/api/v1/product/${params.id}`, {
-                      method: "post",
-                      body: formData,
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "token"
-                        )}`,
-                      },
-                    });
+                    const res = await fetch(
+                      `http://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
+                      {
+                        method: "post",
+                        body: formData,
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    );
 
                     res.json().then((data) => {
                       if (data.status) {

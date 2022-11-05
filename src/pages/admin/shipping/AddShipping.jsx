@@ -29,7 +29,7 @@ function AddShipping() {
             validationSchema={shippingSchema}
             validateOnChange={false}
             onSubmit={async (values) => {
-              fetch("/api/v1/shipping", {
+              fetch("http://api.hamroelectronics.com.np/api/v1/shipping", {
                 method: "post",
                 body: JSON.stringify(values),
                 headers: {

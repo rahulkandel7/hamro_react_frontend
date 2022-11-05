@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 function Sidebar() {
   const navigate = useNavigate();
   const logout = async () => {
-    await fetch("/api/v1/logout", {
+    await fetch("http://api.hamroelectronics.com.np/api/v1/logout", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

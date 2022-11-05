@@ -14,7 +14,10 @@ function EditShipping() {
     }).then((res) => res.json());
 
   const params = useParams();
-  const { data, error } = useSWR(`/api/v1/shipping/${params.id}`, fetcher);
+  const { data, error } = useSWR(
+    `http://api.hamroelectronics.com.np/api/v1/shipping/${params.id}`,
+    fetcher
+  );
 
   const shippingSchema = object({
     area_name: string().required("Shipping Area Name is required"),
@@ -43,14 +46,17 @@ function EditShipping() {
               validationSchema={shippingSchema}
               validateOnChange={false}
               onSubmit={async (values) => {
-                fetch(`/api/v1/shipping/${params.id}`, {
-                  method: "put",
-                  body: JSON.stringify(values),
-                  headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    "Content-Type": "application/json",
-                  },
-                }).then((res) => {
+                fetch(
+                  `http://api.hamroelectronics.com.np/api/v1/shipping/${params.id}`,
+                  {
+                    method: "put",
+                    body: JSON.stringify(values),
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                ).then((res) => {
                   res.json().then((data) => {
                     console.log(data);
                     if (data.status) {

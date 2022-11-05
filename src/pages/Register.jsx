@@ -62,10 +62,13 @@ function Register() {
                     formData.append("profile_photo", values.profile_photo);
                     formData.append("gender", values.gender);
 
-                    const response = await fetch("api/v1/register", {
-                      body: formData,
-                      method: "POST",
-                    });
+                    const response = await fetch(
+                      "http://api.hamroelectronics.com.np/api/v1/register",
+                      {
+                        body: formData,
+                        method: "POST",
+                      }
+                    );
 
                     response.json().then((data) => {
                       if (data.token) {

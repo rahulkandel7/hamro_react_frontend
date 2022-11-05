@@ -10,14 +10,16 @@ function SecondHeader() {
     if (search === "") {
       setSearchResults([]);
     } else {
-      fetch("/api/v1/products").then((response) => {
-        response.json().then((data) => {
-          let results = data.data.filter((product) =>
-            product.name.toLowerCase().includes(search.toLowerCase())
-          );
-          setSearchResults(results);
-        });
-      });
+      fetch("http://api.hamroelectronics.com.np/api/v1/products").then(
+        (response) => {
+          response.json().then((data) => {
+            let results = data.data.filter((product) =>
+              product.name.toLowerCase().includes(search.toLowerCase())
+            );
+            setSearchResults(results);
+          });
+        }
+      );
     }
   }, [search]);
 

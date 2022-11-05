@@ -45,7 +45,7 @@ function AddCoupon() {
             validateOnChange={false}
             onSubmit={async (values) => {
               console.log(values);
-              fetch("/api/v1/coupon", {
+              fetch("http://api.hamroelectronics.com.np/api/v1/coupon", {
                 method: "post",
                 body: JSON.stringify(values),
                 headers: {
