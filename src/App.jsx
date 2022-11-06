@@ -5,6 +5,7 @@ import SecondHeader from "./components/Homepage/SecondHeader";
 import Slideshow from "./components/Homepage/Slideshow";
 import TopHeader from "./components/Homepage/TopHeader";
 import ItemWrapper from "./components/Items/ItemWrapper";
+import Spinner from "./components/utils/Spinner";
 import ServerError from "./pages/500";
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
   );
 
   if (categoryError || productError) return <ServerError />;
+
+  if (!productData || !categoryData) return <Spinner />;
 
   if (categoryData && productData) {
     const saleProduct = productData.data.filter((product) => {
@@ -69,9 +72,10 @@ function App() {
         </div>
         {categoryData.categories.map((category) => {
           const products = productData.data.filter((product) => {
-            return product.category_id === category.id;
+            return product.category_id == category.id;
           });
 
+          console.log(products);
           return (
             <ItemWrapper
               key={category.id}

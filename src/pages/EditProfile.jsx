@@ -7,6 +7,7 @@ import Navbar from "../components/Homepage/navbar/NavBar";
 import TopHeader from "../components/Homepage/TopHeader";
 import useSWR from "swr";
 import { toast } from "react-toastify";
+import Spinner from "../components/utils/Spinner";
 
 function EditProfile() {
   const fetcher = (...args) =>
@@ -36,6 +37,18 @@ function EditProfile() {
   });
 
   const navigate = useNavigate();
+
+  if (error) {
+    if (localStorage.getItem("token")) {
+      navigate("/500");
+    } else {
+      navigate("/login");
+    }
+  }
+
+  if (!data) {
+    return <Spinner />;
+  }
 
   if (data) {
     return (

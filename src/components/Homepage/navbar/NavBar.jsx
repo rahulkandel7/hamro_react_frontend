@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import NavLinks from "./NavLinks";
+import MobileNav from "./MobileNav";
 
 function Navbar() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -19,7 +20,7 @@ function Navbar() {
     );
     return (
       <>
-        <div className="w-full bg-indigo-600 ">
+        <div className=" hidden md:block w-full bg-indigo-600 ">
           <div className="w-11/12 mx-auto flex justify-center items-center py-1">
             {priorityCategories.map((category) => {
               return (
@@ -34,6 +35,8 @@ function Navbar() {
             })}
           </div>
         </div>
+
+        <MobileNav />
       </>
     );
   }

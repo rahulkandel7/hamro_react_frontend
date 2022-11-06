@@ -7,6 +7,7 @@ import useSWR from "swr";
 import ServerError from "./500";
 import TopHeader from "../components/Homepage/TopHeader";
 import { useEffect } from "react";
+import Spinner from "../components/utils/Spinner";
 
 function Profile() {
   const fetcher = (...args) =>
@@ -33,10 +34,15 @@ function Profile() {
       return <ServerError />;
     }
   }
+
+  if (!data) {
+    return <Spinner />;
+  }
+
   if (data) {
     console.log(data);
     return (
-      <div className="bg-gray-50 h-full">
+      <div className="   h-full">
         <TopHeader />
         <SecondHeader />
         <Navbar />

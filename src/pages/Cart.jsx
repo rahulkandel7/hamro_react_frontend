@@ -10,6 +10,7 @@ import Navbar from "../components/Homepage/navbar/NavBar";
 
 import SecondHeader from "../components/Homepage/SecondHeader";
 import TopHeader from "../components/Homepage/TopHeader";
+import Spinner from "../components/utils/Spinner";
 import ServerError from "./500";
 
 function Cart() {
@@ -24,7 +25,10 @@ function Cart() {
   //* SWR hook to fetch user cart
   const { data, mutate, error } = useSWR(
     "http://api.hamroelectronics.com.np/api/v1/cart",
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
   );
 
   //* SWR hook to fetch shipping address
@@ -157,6 +161,9 @@ function Cart() {
     }
   }
 
+  if (!data) {
+    return <Spinner />;
+  }
   //* Show data when fetching finished
   if (data) {
     let totalPrice = 0;
@@ -302,7 +309,10 @@ function Cart() {
                 <div className="flex justify-between w-full px-4 my-2 text-lg">
                   <p className="text-gray-800 font-bold">Total Payable</p>
                   <p className="text-gray-500">
-                    Rs {totalPrice + shippingPrice - couponDiscount}
+                    Rs{" "}
+                    {totalPrice +
+                      parseInt(shippingPrice) -
+                      parseInt(couponDiscount)}
                   </p>
                 </div>
 

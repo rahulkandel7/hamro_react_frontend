@@ -21,7 +21,6 @@ function Checkout(props) {
     shipping_address: string().required("Please Provide Your Shipping Address"),
   });
   if (data) {
-    console.log(data);
     return (
       <>
         <div>

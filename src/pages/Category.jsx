@@ -6,6 +6,7 @@ import Items from "../components/Items/Items";
 import ServerError from "../pages/500";
 import TopHeader from "../components/Homepage/TopHeader";
 import { useEffect, useState } from "react";
+import Spinner from "../components/utils/Spinner";
 
 function Category() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -29,23 +30,18 @@ function Category() {
         setLoading(false);
       });
     });
-  }, []);
+  }, [params.id]);
 
-  const navigate = useNavigate();
-  // if (error) {
-  //   if (localStorage.getItem("token")) {
-  //     return <ServerError />;
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }
+  if (loading) {
+    return <Spinner />;
+  }
 
   let dBrands = [];
   if (!loading && brandData) {
     {
       products.data.map((product) => {
         brandData.data.map((brand) => {
-          if (product.brand_id === brand.id) {
+          if (product.brand_id == brand.id) {
             dBrands.push(brand);
           }
         });

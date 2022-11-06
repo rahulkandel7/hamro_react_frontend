@@ -12,9 +12,9 @@ function NavLinks(props) {
         </NavLink>
 
         {props.sub > 0 ? (
-          <div className="absolute w-32 rounded-md shadow-lg   bg-indigo-600 text-gray-100 text-sm px-2 py-2 hidden group-hover:block z-50">
+          <div className="absolute w-48 rounded-md shadow-lg   bg-indigo-600 text-gray-100 text-sm px-2 py-2 hidden group-hover:block z-50">
             {props.subCategories.map((subCategory) => {
-              if (subCategory.category_id === props.id) {
+              if (subCategory.category_id == props.id) {
                 return (
                   <NavLink
                     key={subCategory.id}

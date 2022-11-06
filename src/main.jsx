@@ -54,7 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ToastContainer />
 
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route exact path="/" element={<App />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />

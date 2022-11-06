@@ -6,6 +6,7 @@ import Items from "../components/Items/Items";
 import ServerError from "../pages/500";
 import TopHeader from "../components/Homepage/TopHeader";
 import { useEffect, useState } from "react";
+import Spinner from "../components/utils/Spinner";
 
 function UserSubCategory() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -29,9 +30,11 @@ function UserSubCategory() {
         setLoading(false);
       });
     });
-  }, []);
+  }, [params.id]);
 
-  const navigate = useNavigate();
+  if (loading) {
+    return <Spinner />;
+  }
   // if (error) {
   //   if (localStorage.getItem("token")) {
   //     return <ServerError />;
@@ -45,7 +48,7 @@ function UserSubCategory() {
     {
       products.data.map((product) => {
         brandData.data.map((brand) => {
-          if (product.brand_id === brand.id) {
+          if (product.brand_id == brand.id) {
             dBrands.push(brand);
           }
         });
@@ -125,7 +128,7 @@ function UserSubCategory() {
           </div>
           <div className="w-fit">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
-              {products.category.category_name}
+              {products.sub.subcategory_name}
             </h1>
             {filter.length > 0 ? (
               <div>

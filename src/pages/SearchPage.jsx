@@ -51,7 +51,7 @@ function SearchPage() {
     {
       data.data.map((product) => {
         brandData.data.map((brand) => {
-          if (product.brand_id === brand.id) {
+          if (product.brand_id == brand.id) {
             dBrands.push(brand);
           }
         });

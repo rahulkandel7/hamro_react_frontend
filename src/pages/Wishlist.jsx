@@ -7,6 +7,7 @@ import Navbar from "../components/Homepage/navbar/Navbar";
 
 import SecondHeader from "../components/Homepage/SecondHeader";
 import TopHeader from "../components/Homepage/TopHeader";
+import Spinner from "../components/utils/Spinner";
 
 import WishlistItem from "../components/wishlist/WishlistItem";
 import ServerError from "./500";
@@ -55,12 +56,17 @@ function Wishlist() {
     }
   }
 
+  if (!data) {
+    return <Spinner />;
+  }
+
   if (data) {
     return (
       <>
         <TopHeader />
         <SecondHeader />
         <Navbar />
+
         <div className="w-11/12 mx-auto">
           <h1 className="text-3xl font-bold  text-gray-700 mt-5 mb-2">
             My Wishlist

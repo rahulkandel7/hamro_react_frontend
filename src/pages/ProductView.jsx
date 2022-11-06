@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import Comment from "../components/utils/Comment";
 import WriteComment from "../components/utils/WriteComment";
 import ServerError from "./500";
+import Spinner from "../components/utils/Spinner";
 
 function ProductView() {
   //* Parameter for getting the product id
@@ -176,6 +177,10 @@ function ProductView() {
     } else {
       navigate("/login");
     }
+  }
+
+  if (!productData) {
+    return <Spinner />;
   }
 
   if (productData && productsData) {
