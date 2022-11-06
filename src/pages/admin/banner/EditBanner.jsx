@@ -20,7 +20,7 @@ function EditBanner() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/banner/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/banner/${params.id}`,
     fetcher
   );
 
@@ -59,7 +59,7 @@ function EditBanner() {
                   );
 
                   const response = await fetch(
-                    `http://api.hamroelectronics.com.np/api/v1/banner/${data.data.id}`,
+                    `https://api.hamroelectronics.com.np/api/v1/banner/${data.data.id}`,
                     {
                       method: "POST",
                       body: formData,
@@ -126,7 +126,7 @@ function EditBanner() {
                             />
                           ) : (
                             <img
-                              src={`http://api.hamroelectrics.com.np/storage/${data.data.photopath}`}
+                              src={`https://api.hamroelectronics.com.np/public/${data.data.photopath}`}
                               className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1 object-cover"
                               alt=""
                             />

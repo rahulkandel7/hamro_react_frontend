@@ -11,7 +11,7 @@ function TopHeader() {
   });
 
   const logout = () => {
-    fetch("http://api.hamroelectronics.com.np/api/v1/logout", {
+    fetch("https://api.hamroelectronics.com.np/api/v1/logout", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

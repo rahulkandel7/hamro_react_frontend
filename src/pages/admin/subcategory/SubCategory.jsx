@@ -14,7 +14,7 @@ function SubCategory() {
     }).then((res) => res.json());
 
   const { data, error, mutate } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/subcategory",
+    "https://api.hamroelectronics.com.np/api/v1/subcategory",
     fetcher
   );
 
@@ -29,7 +29,7 @@ function SubCategory() {
 
   async function deleteSubCategory(id) {
     const sub = await fetch(
-      `http://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
+      `https://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
       {
         method: "delete",
         headers: {

@@ -10,7 +10,7 @@ function SecondHeader() {
     if (search === "") {
       setSearchResults([]);
     } else {
-      fetch("http://api.hamroelectronics.com.np/api/v1/products").then(
+      fetch("https://api.hamroelectronics.com.np/api/v1/products").then(
         (response) => {
           response.json().then((data) => {
             let results = data.data.filter((product) =>

@@ -12,7 +12,7 @@ function Dashboard() {
     }).then((res) => res.json());
 
   const { data, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/dashboard",
+    "https://api.hamroelectronics.com.np/api/v1/dashboard",
     fetcher,
     {
       refreshInterval: 1000,

@@ -11,7 +11,7 @@ function Slideshow() {
     fetch(...args).then((response) => response.json());
 
   const { data, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/fetchbanner",
+    "https://api.hamroelectronics.com.np/api/v1/fetchbanner",
     fetcher
   );
   if (data) {
@@ -35,7 +35,7 @@ function Slideshow() {
               return (
                 <SwiperSlide key={banner.id}>
                   <img
-                    src={`http://api.hamroelectrics.com.np/storage/${banner.photopath}`}
+                    src={`https://api.hamroelectronics.com.np/public/${banner.photopath}`}
                     alt=""
                     className="rounded-md shadow-md"
                   />

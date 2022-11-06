@@ -11,7 +11,7 @@ function Checkout(props) {
       },
     }).then((res) => res.json());
   const { data, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/user",
+    "https://api.hamroelectronics.com.np/api/v1/user",
     fetcher
   );
 
@@ -70,7 +70,7 @@ function Checkout(props) {
                       formData.append("fullname", values.fullname);
 
                       fetch(
-                        "http://api.hamroelectronics.com.np/api/v1/order/store",
+                        "https://api.hamroelectronics.com.np/api/v1/order/store",
                         {
                           method: "POST",
                           headers: {
@@ -91,7 +91,7 @@ function Checkout(props) {
                               const formData = new FormData();
                               formData.append("ordered", 1);
                               fetch(
-                                `http://api.hamroelectronics.com.np/api/v1/cart/update/ordered/${cart.id}`,
+                                `https://api.hamroelectronics.com.np/api/v1/cart/update/ordered/${cart.id}`,
                                 {
                                   method: "POST",
                                   headers: {

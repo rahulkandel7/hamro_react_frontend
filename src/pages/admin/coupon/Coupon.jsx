@@ -13,7 +13,7 @@ function Coupon() {
     }).then((res) => res.json());
 
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/coupon",
+    "https://api.hamroelectronics.com.np/api/v1/coupon",
     fetcher
   );
   const [search, setSearch] = useState("");
@@ -34,7 +34,7 @@ function Coupon() {
 
   async function deleteCoupon(id) {
     const category = await fetch(
-      `http://api.hamroelectronics.com.np/api/v1/coupon/${id}`,
+      `https://api.hamroelectronics.com.np/api/v1/coupon/${id}`,
       {
         method: "delete",
         headers: {

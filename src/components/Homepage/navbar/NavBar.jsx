@@ -5,12 +5,12 @@ import MobileNav from "./MobileNav";
 function Navbar() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data: categoryData, error: categoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/fetchCategory",
+    "https://api.hamroelectronics.com.np/api/v1/fetchCategory",
     fetcher
   );
 
   const { data: subCategoryData, error: subCategoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/fetchSubCategory",
+    "https://api.hamroelectronics.com.np/api/v1/fetchSubCategory",
     fetcher
   );
 

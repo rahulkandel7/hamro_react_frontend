@@ -15,7 +15,7 @@ function EditCoupon() {
 
   const params = useParams();
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/coupon/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/coupon/${params.id}`,
     fetcher
   );
 
@@ -59,7 +59,7 @@ function EditCoupon() {
               validateOnChange={false}
               onSubmit={async (values) => {
                 fetch(
-                  `http://api.hamroelectronics.com.np/api/v1/coupon/${params.id}`,
+                  `https://api.hamroelectronics.com.np/api/v1/coupon/${params.id}`,
                   {
                     method: "put",
                     body: JSON.stringify(values),

@@ -12,12 +12,12 @@ function App() {
   const fetcher = (...args) =>
     fetch(...args).then((response) => response.json());
   const { data: productData, error: productError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/products",
+    "https://api.hamroelectronics.com.np/api/v1/products",
     fetcher
   );
 
   const { data: categoryData, error: categoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/fetchCategory",
+    "https://api.hamroelectronics.com.np/api/v1/fetchCategory",
     fetcher
   );
 

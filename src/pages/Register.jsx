@@ -63,7 +63,7 @@ function Register() {
                     formData.append("gender", values.gender);
 
                     const response = await fetch(
-                      "http://api.hamroelectronics.com.np/api/v1/register",
+                      "https://api.hamroelectronics.com.np/api/v1/register",
                       {
                         body: formData,
                         method: "POST",

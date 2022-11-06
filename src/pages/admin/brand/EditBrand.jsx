@@ -19,7 +19,7 @@ function EditBrand() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/brand/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/brand/${params.id}`,
     fetcher
   );
 
@@ -47,7 +47,7 @@ function EditBrand() {
                 validationSchema={brandSchema}
                 onSubmit={async (values) => {
                   const response = await fetch(
-                    `http://api.hamroelectronics.com.np/api/v1/brand/${data.data.id}`,
+                    `https://api.hamroelectronics.com.np/api/v1/brand/${data.data.id}`,
                     {
                       method: "PUT",
                       body: JSON.stringify(values),

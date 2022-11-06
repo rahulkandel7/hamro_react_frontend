@@ -18,13 +18,13 @@ function WriteComment(props) {
     }).then((res) => res.json());
 
   const { data, error, mutate } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/comment/product/${props.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/comment/product/${props.id}`,
     fetcher
   );
 
   //* Function for posting comment
   function postComment() {
-    fetch("http://api.hamroelectronics.com.np/api/v1/comment", {
+    fetch("https://api.hamroelectronics.com.np/api/v1/comment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function WriteComment(props) {
 
   //* Function for updating comment
   function updateComment(id) {
-    fetch(`http://api.hamroelectronics.com.np/api/v1/comment/${id}`, {
+    fetch(`https://api.hamroelectronics.com.np/api/v1/comment/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function WriteComment(props) {
 
   //* Function for deleting comment
   function deleteComment(id) {
-    fetch(`http://api.hamroelectronics.com.np/api/v1/comment/${id}`, {
+    fetch(`https://api.hamroelectronics.com.np/api/v1/comment/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

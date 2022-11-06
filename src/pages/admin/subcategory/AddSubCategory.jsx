@@ -22,7 +22,7 @@ function AddSubCategory() {
     }).then((res) => res.json());
   //* For Fetching Category
   const { data: categoryData, error: categoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/category",
+    "https://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
@@ -49,7 +49,7 @@ function AddSubCategory() {
             validateOnChange={false}
             validationSchema={subCategorySchema}
             onSubmit={(values) => {
-              fetch("http://api.hamroelectronics.com.np/api/v1/subcategory", {
+              fetch("https://api.hamroelectronics.com.np/api/v1/subcategory", {
                 method: "post",
                 body: JSON.stringify(values),
                 headers: {

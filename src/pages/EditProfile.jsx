@@ -16,7 +16,7 @@ function EditProfile() {
     }).then((res) => res.json());
 
   const { data, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/user",
+    "https://api.hamroelectronics.com.np/api/v1/user",
     fetcher
   );
 
@@ -84,7 +84,7 @@ function EditProfile() {
 
                     console.log(values);
                     fetch(
-                      "http://api.hamroelectronics.com.np/api/v1/user/update",
+                      "https://api.hamroelectronics.com.np/api/v1/user/update",
                       {
                         method: "Post",
                         body: formData,
@@ -120,7 +120,7 @@ function EditProfile() {
                             <img
                               src={
                                 values.profile_photo == ""
-                                  ? `http://api.hamroelectrics.com.np/storage/${data.user.profile_photo}`
+                                  ? `https://api.hamroelectronics.com.np/public/${data.user.profile_photo}`
                                   : URL.createObjectURL(values.profile_photo)
                               }
                               alt=""
@@ -257,7 +257,7 @@ function EditProfile() {
                     formData.append("new_password", values.new_password);
                     formData.append("re_password", values.re_password);
                     fetch(
-                      "http://api.hamroelectronics.com.np/api/v1/user/changepass",
+                      "https://api.hamroelectronics.com.np/api/v1/user/changepass",
                       {
                         method: "Post",
                         body: formData,

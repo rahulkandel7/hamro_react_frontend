@@ -21,12 +21,12 @@ function Wishlist() {
     }).then((res) => res.json());
 
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/wishlist",
+    "https://api.hamroelectronics.com.np/api/v1/wishlist",
     fetcher
   );
 
   function deleteItem(id) {
-    fetch(`http://api.hamroelectronics.com.np/api/v1/wishlist/${id}`, {
+    fetch(`https://api.hamroelectronics.com.np/api/v1/wishlist/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

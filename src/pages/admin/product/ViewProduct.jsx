@@ -12,22 +12,22 @@ function ViewProduct() {
 
   const params = useParams();
   const { data: productdata, error: productError } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
     fetcher
   );
 
   const { data: categoryData, error: categoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/category",
+    "https://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
   const { data: subcategoryData, error: subcategoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/subcategory",
+    "https://api.hamroelectronics.com.np/api/v1/subcategory",
     fetcher
   );
 
   const { data: brandData, error: brandError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/brand",
+    "https://api.hamroelectronics.com.np/api/v1/brand",
     fetcher
   );
 
@@ -54,7 +54,7 @@ function ViewProduct() {
                     <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
                       {productdata.data.photopath1 ? (
                         <img
-                          src={`http://api.hamroelectrics.com.np/${productdata.data.photopath1}`}
+                          src={`https://api.hamroelectronics.com.np/${productdata.data.photopath1}`}
                           className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1"
                           alt=""
                         />
@@ -68,7 +68,7 @@ function ViewProduct() {
                     <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
                       {productdata.data.photopath2 ? (
                         <img
-                          src={`http://api.hamroelectrics.com.np/${productdata.data.photopath2}`}
+                          src={`https://api.hamroelectronics.com.np/${productdata.data.photopath2}`}
                           className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1"
                           alt=""
                         />
@@ -82,7 +82,7 @@ function ViewProduct() {
                     <div className="w-[250px] h-[300px] border-2 border-dashed flex items-center justify-center ">
                       {productdata.data.photopath3 ? (
                         <img
-                          src={`http://api.hamroelectrics.com.np/${productdata.data.photopath3}`}
+                          src={`https://api.hamroelectronics.com.np/${productdata.data.photopath3}`}
                           className="w-full h-full border border-gray-200 rounded-lg shadow-lg p-1"
                           alt=""
                         />

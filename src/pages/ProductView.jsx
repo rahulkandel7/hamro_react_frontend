@@ -28,13 +28,13 @@ function ProductView() {
     error: productError,
     mutate: productMutate,
   } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/product/view/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/product/view/${params.id}`,
     fetcher
   );
 
   //? All Products Loaded
   const { data: productsData, error: productsError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/products",
+    "https://api.hamroelectronics.com.np/api/v1/products",
     fetcher
   );
 
@@ -94,7 +94,7 @@ function ProductView() {
   //* For Adding to Wishlist
   function addToWishlist(id) {
     if (localStorage.getItem("token")) {
-      fetch("http://api.hamroelectronics.com.np/api/v1/wishlist", {
+      fetch("https://api.hamroelectronics.com.np/api/v1/wishlist", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -121,7 +121,7 @@ function ProductView() {
 
   //* For Adding to Cart
   function addToCart(id, price) {
-    fetch("http://api.hamroelectronics.com.np/api/v1/cart", {
+    fetch("https://api.hamroelectronics.com.np/api/v1/cart", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -148,7 +148,7 @@ function ProductView() {
 
   //* For Product Rating
   const productRating = (id, rating) => {
-    fetch("http://api.hamroelectronics.com.np/api/v1/rating", {
+    fetch("https://api.hamroelectronics.com.np/api/v1/rating", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -191,12 +191,12 @@ function ProductView() {
 
     //* Storing all images for showing
     const product = [
-      `http://api.hamroelectrics.com.np/storage/${productData.data.photopath1}`,
+      `https://api.hamroelectronics.com.np/public/${productData.data.photopath1}`,
       productData.data.photopath2 !== null
-        ? `http://api.hamroelectrics.com.np/storage/${productData.data.photopath2}`
+        ? `https://api.hamroelectronics.com.np/public/${productData.data.photopath2}`
         : null,
       productData.data.photopath3 !== null
-        ? `http://api.hamroelectrics.com.np/storage/${productData.data.photopath3}`
+        ? `https://api.hamroelectronics.com.np/public/${productData.data.photopath3}`
         : null,
     ];
 

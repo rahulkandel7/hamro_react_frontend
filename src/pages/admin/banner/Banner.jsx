@@ -13,7 +13,7 @@ function Banner() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/banner",
+    "https://api.hamroelectronics.com.np/api/v1/banner",
     fetcher
   );
 
@@ -33,7 +33,7 @@ function Banner() {
 
   async function deleteBanner(id) {
     const category = await fetch(
-      `http://api.hamroelectronics.com.np/api/v1/banner/${id}`,
+      `https://api.hamroelectronics.com.np/api/v1/banner/${id}`,
       {
         method: "delete",
         headers: {
@@ -109,7 +109,7 @@ function Banner() {
 
                         <td className="py-2 px-5 text-gray-600">
                           <img
-                            src={`http://api.hamroelectrics.com.np/storage/${banner.photopath}`}
+                            src={`https://api.hamroelectronics.com.np/public/${banner.photopath}`}
                             alt=""
                             className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                           />

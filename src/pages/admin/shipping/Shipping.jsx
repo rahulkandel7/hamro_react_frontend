@@ -13,7 +13,7 @@ function Shipping() {
     }).then((res) => res.json());
 
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/shipping",
+    "https://api.hamroelectronics.com.np/api/v1/shipping",
     fetcher
   );
   const [search, setSearch] = useState("");
@@ -34,7 +34,7 @@ function Shipping() {
 
   async function deleteShipping(id) {
     const category = await fetch(
-      `http://api.hamroelectronics.com.np/api/v1/shipping/${id}`,
+      `https://api.hamroelectronics.com.np/api/v1/shipping/${id}`,
       {
         method: "delete",
         headers: {

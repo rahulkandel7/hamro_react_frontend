@@ -9,7 +9,7 @@ function AdminLayout(props) {
     if (!localStorage.getItem("token")) {
       navigation("/login");
     } else {
-      fetch("http://api.hamroelectronics.com.np/api/v1/user", {
+      fetch("https://api.hamroelectronics.com.np/api/v1/user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

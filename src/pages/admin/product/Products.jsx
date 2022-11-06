@@ -13,7 +13,7 @@ function Category() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/product",
+    "https://api.hamroelectronics.com.np/api/v1/product",
     fetcher
   );
 
@@ -35,7 +35,7 @@ function Category() {
   //* For Deleteing Category
 
   async function deleteCategory(id) {
-    fetch(`http://api.hamroelectronics.com.np/api/v1/product/${id}`, {
+    fetch(`https://api.hamroelectronics.com.np/api/v1/product/${id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -134,7 +134,7 @@ function Category() {
 
                             <td className="py-2 px-5 text-gray-600">
                               <img
-                                src={`http://api.hamroelectrics.com.np/storage/${product.photopath1}`}
+                                src={`https://api.hamroelectronics.com.np/public/${product.photopath1}`}
                                 alt=""
                                 className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                               />
@@ -216,7 +216,7 @@ function Category() {
                               </td>
                               <td className="py-2 px-5 text-gray-600">
                                 <img
-                                  src={`http://api.hamroelectrics.com.np/storage/${dat.photopath1}`}
+                                  src={`https://api.hamroelectronics.com.np/public/${dat.photopath1}`}
                                   alt=""
                                   className="w-32 border border-gray-400 rounded-md shadow-md p-1"
                                 />

@@ -4,7 +4,7 @@ function Rating(props) {
   const [rating, setRating] = useState(0);
   useEffect(() => {
     fetch(
-      `http://api.hamroelectronics.com.np/api/v1/rating/product/${props.id}`,
+      `https://api.hamroelectronics.com.np/api/v1/rating/product/${props.id}`,
       {
         method: "GET",
         headers: {

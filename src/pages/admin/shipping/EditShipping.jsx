@@ -15,7 +15,7 @@ function EditShipping() {
 
   const params = useParams();
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/shipping/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/shipping/${params.id}`,
     fetcher
   );
 
@@ -47,7 +47,7 @@ function EditShipping() {
               validateOnChange={false}
               onSubmit={async (values) => {
                 fetch(
-                  `http://api.hamroelectronics.com.np/api/v1/shipping/${params.id}`,
+                  `https://api.hamroelectronics.com.np/api/v1/shipping/${params.id}`,
                   {
                     method: "put",
                     body: JSON.stringify(values),

@@ -18,7 +18,7 @@ function Profile() {
     }).then((res) => res.json());
 
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/user`,
+    `https://api.hamroelectronics.com.np/api/v1/user`,
     fetcher
   );
 
@@ -50,7 +50,7 @@ function Profile() {
           <div>
             <div className="flex items-center">
               <img
-                src={`http://api.hamroelectrics.com.np/storage/${data.user.profile_photo}`}
+                src={`https://api.hamroelectronics.com.np/public/${data.user.profile_photo}`}
                 alt=""
                 className="w-16 h-16 md:w-28 md:h-28 object-cover rounded-full shadow-md"
               />

@@ -6,8 +6,8 @@ export default defineConfig({
   server: {
     host: true,
     // proxy: {
-    //   "http://api.hamroelectronics.com.np/api/v1": {
-    //     target: "http://api.hamroelectronics.com.np",
+    //   "https://api.hamroelectronics.com.np/api/v1": {
+    //     target: "https://api.hamroelectronics.com.np",
     //   },
     // },
   },

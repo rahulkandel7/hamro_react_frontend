@@ -13,7 +13,7 @@ function Category() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/brand",
+    "https://api.hamroelectronics.com.np/api/v1/brand",
     fetcher
   );
 
@@ -36,7 +36,7 @@ function Category() {
 
   async function deleteCategory(id) {
     const category = await fetch(
-      `http://api.hamroelectronics.com.np/api/v1/brand/${id}`,
+      `https://api.hamroelectronics.com.np/api/v1/brand/${id}`,
       {
         method: "delete",
         headers: {

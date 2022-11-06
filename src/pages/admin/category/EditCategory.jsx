@@ -21,7 +21,7 @@ function EditCategory() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }).then((res) => res.json());
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/category/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/category/${params.id}`,
     fetcher
   );
 
@@ -61,7 +61,7 @@ function EditCategory() {
                   );
 
                   const response = await fetch(
-                    `http://api.hamroelectronics.com.np/api/v1/category/${data.data.id}`,
+                    `https://api.hamroelectronics.com.np/api/v1/category/${data.data.id}`,
                     {
                       method: "POST",
                       body: formData,

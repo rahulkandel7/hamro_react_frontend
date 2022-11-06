@@ -17,22 +17,22 @@ function EditProduct() {
 
   const params = useParams();
   const { data: productdata, error: productError } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
+    `https://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
     fetcher
   );
 
   const { data: categoryData, error: categoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/category",
+    "https://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
   const { data: subcategoryData, error: subcategoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/subcategory",
+    "https://api.hamroelectronics.com.np/api/v1/subcategory",
     fetcher
   );
 
   const { data: brandData, error: brandError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/brand",
+    "https://api.hamroelectronics.com.np/api/v1/brand",
     fetcher
   );
 
@@ -128,7 +128,7 @@ function EditProduct() {
                     formData.append("_method", "put");
 
                     const res = await fetch(
-                      `http://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
+                      `https://api.hamroelectronics.com.np/api/v1/product/${params.id}`,
                       {
                         method: "post",
                         body: formData,

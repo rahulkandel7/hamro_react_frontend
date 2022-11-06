@@ -3,7 +3,7 @@ function Items(props) {
     <>
       <div className="w-full bg-gray-50 rounded-md shadow-md pb-4 hover:bg-white hover:shadow-xl hover:scale-105 transition duration-200 ease-in-out relative">
         <img
-          src={`http://api.hamroelectrics.com.np/storage/${props.image}`}
+          src={`https://api.hamroelectronics.com.np/public/${props.image}`}
           alt="Items"
           className="rounded-md 2"
         />

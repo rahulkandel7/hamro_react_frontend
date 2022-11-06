@@ -21,13 +21,13 @@ function EditSubCategory() {
     }).then((res) => res.json());
   //* For Fetching Category
   const { data: categoryData, error: categoryError } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/category",
+    "https://api.hamroelectronics.com.np/api/v1/category",
     fetcher
   );
 
   const id = useParams().id;
   const { data: subCategoryData, error: subCategoryError } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
+    `https://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
     fetcher
   );
 
@@ -62,7 +62,7 @@ function EditSubCategory() {
               validationSchema={subCategorySchema}
               onSubmit={(values) => {
                 fetch(
-                  `http://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
+                  `https://api.hamroelectronics.com.np/api/v1/subcategory/${id}`,
                   {
                     method: "put",
                     body: JSON.stringify(values),

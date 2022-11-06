@@ -30,7 +30,7 @@ function AddCategory() {
               formData.append("photopath", values.photopath);
 
               const response = await fetch(
-                "http://api.hamroelectronics.com.np/api/v1/category",
+                "https://api.hamroelectronics.com.np/api/v1/category",
                 {
                   method: "post",
                   body: formData,

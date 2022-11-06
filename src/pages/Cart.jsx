@@ -24,7 +24,7 @@ function Cart() {
 
   //* SWR hook to fetch user cart
   const { data, mutate, error } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/cart",
+    "https://api.hamroelectronics.com.np/api/v1/cart",
     fetcher,
     {
       refreshInterval: 1000,
@@ -36,11 +36,11 @@ function Cart() {
     data: shippingdata,
     mutate: shippingMutate,
     error: shippingError,
-  } = useSWR("http://api.hamroelectronics.com.np/api/v1/shipping", fetcher);
+  } = useSWR("https://api.hamroelectronics.com.np/api/v1/shipping", fetcher);
 
   //* SWR hook to fetch coupon code
   const { data: couponData, error: couponErrors } = useSWR(
-    "http://api.hamroelectronics.com.np/api/v1/coupon",
+    "https://api.hamroelectronics.com.np/api/v1/coupon",
     fetcher
   );
 
@@ -112,7 +112,7 @@ function Cart() {
 
   //* function to Delete Cart Item
   const deleteCartItem = (id) => {
-    fetch(`http://api.hamroelectronics.com.np/api/v1/cart/${id}`, {
+    fetch(`https://api.hamroelectronics.com.np/api/v1/cart/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -129,7 +129,7 @@ function Cart() {
 
   //* Update Cart quantity */
   const updateCartQuantity = (id, quantity) => {
-    fetch(`http://api.hamroelectronics.com.np/api/v1/cart/update/${id}`, {
+    fetch(`https://api.hamroelectronics.com.np/api/v1/cart/update/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

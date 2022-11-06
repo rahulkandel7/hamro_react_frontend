@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Login() {
     password: string().required(),
   });
 
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <SecondHeader />
@@ -29,8 +31,9 @@ function Login() {
                   initialValues={{ email: "", password: "" }}
                   validationSchema={loginScheme}
                   onSubmit={async (values) => {
+                    setLoading(true);
                     const response = await fetch(
-                      "http://api.hamroelectronics.com.np/api/v1/login",
+                      "https://api.hamroelectronics.com.np/api/v1/login",
                       {
                         method: "POST",
                         body: JSON.stringify(values),
@@ -55,6 +58,7 @@ function Login() {
                         navigate("/");
                       }
                     });
+                    setLoading(false);
                   }}
                 >
                   {({ errors, handleChange, handleSubmit }) => {
@@ -107,7 +111,8 @@ function Login() {
                         </div>
                         <button
                           type="submit"
-                          className="w-full rounded-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 my-5"
+                          disabled={loading}
+                          className="w-full rounded-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 my-5 disabled:bg-indigo-300 disabled:hover:bg-indigo-300 disabled:cursor-not-allowed"
                         >
                           Login
                         </button>

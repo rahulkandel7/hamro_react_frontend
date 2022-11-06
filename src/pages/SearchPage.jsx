@@ -12,7 +12,7 @@ function SearchPage() {
   const params = useParams();
 
   const { data: brandData, error: brandError } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/fetchBrand`,
+    `https://api.hamroelectronics.com.np/api/v1/fetchBrand`,
     fetcher
   );
 
@@ -21,7 +21,7 @@ function SearchPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://api.hamroelectronics.com.np/api/v1/products").then((res) => {
+    fetch("https://api.hamroelectronics.com.np/api/v1/products").then((res) => {
       res.json().then((data) => {
         let results = data.data.filter((product) =>
           product.name.toLowerCase().includes(params.query.toLowerCase())
@@ -33,7 +33,7 @@ function SearchPage() {
   }, [params.query]);
 
   const { data, error } = useSWR(
-    `http://api.hamroelectronics.com.np/api/v1/products`,
+    `https://api.hamroelectronics.com.np/api/v1/products`,
     fetcher
   );
 

@@ -29,7 +29,7 @@ function AddBanner() {
               formData.append("photopath", values.photopath);
 
               const response = await fetch(
-                "http://api.hamroelectronics.com.np/api/v1/banner",
+                "https://api.hamroelectronics.com.np/api/v1/banner",
                 {
                   method: "post",
                   body: formData,
