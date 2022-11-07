@@ -48,6 +48,7 @@ function ProductView() {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [number, setNumber] = useState(0);
 
   //* For Displaying images
   function printIndex(id) {
@@ -141,6 +142,7 @@ function ProductView() {
           toast(data.message, {
             type: "success",
           });
+          setNumber(number + 1);
         }
       });
     });
@@ -208,7 +210,7 @@ function ProductView() {
     return (
       <div>
         <TopHeader />
-        <SecondHeader />
+        <SecondHeader clength={number} />
         <Navbar />
         <div className="w-11/12 mx-auto">
           {/* //* For Showing Product Details */}

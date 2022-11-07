@@ -4,6 +4,8 @@ import SecondHeader from "../components/Homepage/SecondHeader";
 import { string, object, number, ref, mixed } from "yup";
 import { Formik } from "formik";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Register() {
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ function Register() {
     profile_photo: mixed().nullable("Profile Photo is Required"),
     gender: string().required(),
   });
+
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <SecondHeader />
@@ -48,7 +52,7 @@ function Register() {
                   validationSchema={registerScheme}
                   validateOnChange={false}
                   onSubmit={async (values) => {
-                    console.log(values);
+                    setLoading(true);
                     const formData = new FormData();
                     formData.append("email", values.email);
                     formData.append("password", values.password);
@@ -76,10 +80,14 @@ function Register() {
                         navigate("/");
                       }
                       if (data.details) {
-                        const email = data.details["email"];
-                        console.log(email);
+                        if (data.details["email"]) {
+                          toast("The email has already been taken.", {
+                            type: "error",
+                          });
+                        }
                       }
                     });
+                    setLoading(false);
                   }}
                 >
                   {({
@@ -276,7 +284,8 @@ function Register() {
 
                         <button
                           type="submit"
-                          className="w-full rounded-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 my-5"
+                          disabled={loading}
+                          className="w-full rounded-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 my-5 disabled:bg-indigo-300 disabled:hover:bg-indigo-300 disabled:cursor-not-allowed"
                         >
                           Register
                         </button>

@@ -125,7 +125,7 @@ function Category() {
             </h1>
             {filter.length > 0 ? (
               <div>
-                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-5">
                   {filter.map((product) => {
                     let off;
                     if (product.discountedprice !== undefined) {
@@ -156,7 +156,7 @@ function Category() {
               </div>
             ) : (
               <div>
-                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-5">
                   {products.data.length < 1 ? (
                     <div className="col-span-3 md:col-span-5">
                       <h1 className="text-center text-4xl font-bold text-gray-600">

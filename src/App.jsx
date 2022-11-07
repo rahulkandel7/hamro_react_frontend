@@ -50,6 +50,7 @@ function App() {
           title="Top Picks"
           description="Get the best deals on the top picks of the week. We have the best"
           slide={5}
+          products={saleProduct}
         />
         <div className="w-[98%] mx-auto">
           <div className="grid md:grid-cols-2 gap-7">

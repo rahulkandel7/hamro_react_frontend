@@ -1,13 +1,13 @@
 function Items(props) {
   return (
     <>
-      <div className="w-full bg-gray-50 rounded-md shadow-md pb-4 hover:bg-white hover:shadow-xl hover:scale-105 transition duration-200 ease-in-out relative">
+      <div className="w-full bg-gray-50 rounded-md shadow-md pb-4 hover:bg-white hover:shadow-xl group transition duration-200 ease-in-out relative">
         <img
           src={`https://api.hamroelectronics.com.np/public/${props.image}`}
           alt="Items"
-          className="rounded-md 2"
+          className="rounded-lg  group-hover:scale-105 overflow-hidden transition duration-200 ease-in-out p-3 "
         />
-        <p className="text-sm text-gray-600 text-center py-4 px-2">
+        <p className="text-sm text-gray-600 text-center pb-2 pt-2 px-2.5 truncate">
           {props.item_name}
         </p>
 

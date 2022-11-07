@@ -192,7 +192,7 @@ function Cart() {
                       image={cart.product.photopath1}
                       name={cart.product.name}
                       price={cart.price}
-                      quantity={cart.quantity}
+                      quantity={parseInt(cart.quantity)}
                       remove={deleteCartItem}
                       id={cart.id}
                       size={cart.size}
