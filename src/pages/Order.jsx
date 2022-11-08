@@ -1,3 +1,4 @@
+import Navbar from "../components/Homepage/navbar/Navbar";
 import SecondHeader from "../components/Homepage/SecondHeader";
 import TopHeader from "../components/Homepage/TopHeader";
 
@@ -7,7 +8,7 @@ function Order() {
       <div>
         <TopHeader />
         <SecondHeader />
-        <NavBar />
+        <Navbar />
         <div className="w-11/12 mx-auto my-5">
           <h1 className="text-4xl font-bold text-gray-600">My Order</h1>
           <hr className="my-2" />

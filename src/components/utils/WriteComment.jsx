@@ -95,13 +95,13 @@ function WriteComment(props) {
       return (
         <>
           {isEdit ? (
-            <div className=" w-5/12 relative">
+            <div className=" w-full relative">
               <textarea
                 name="comment"
                 id="comment"
                 onChange={(e) => setComment(e.target.value)}
-                className="w-full border border-indigo-200 rounded-md shadow-md shadow-indigo-100 p-2 outline-none focus-visible:border-indigo-400 pr-20 py-2"
-                rows="1"
+                className="max-h-32 w-full border border-gray-200 rounded-md shadow-md  p-2 outline-none focus-visible:border-indigo-400 pr-20 py-2"
+                rows="2"
                 placeholder="Write a review"
               >
                 {data.data.comment
@@ -132,7 +132,7 @@ function WriteComment(props) {
               </div>
             </div>
           ) : (
-            <div className="relative border my-4 border-indigo-200 rounded-md shadow-md shadow-indigo-50 p-2 w-5/12">
+            <div className="relative border-b my-4 border-gray-200 rounded-md shadow-sm  p-2 w-full">
               <p className="text-sm text-gray-600">{data.data.comment}</p>
               <div className="flex justify-end text-xs font-bold">
                 <button onClick={() => setOptions(!options)}>
@@ -156,13 +156,13 @@ function WriteComment(props) {
     } else {
       return (
         <>
-          <div className=" w-5/12 relative">
+          <div className=" w-full relative">
             <textarea
               name="comment"
               id="comment"
               onChange={(e) => setComment(e.target.value)}
-              className="w-full border border-indigo-200 rounded-md shadow-md shadow-indigo-100 p-2 outline-none focus-visible:border-indigo-400 pr-20 py-2"
-              rows="1"
+              className="max-h-32 w-full border border-indigo-200 rounded-md shadow-md  p-2 outline-none focus-visible:border-indigo-400 pr-20 py-2"
+              rows="2"
               placeholder="Write a review"
             >
               {comment == "" ? "" : comment}

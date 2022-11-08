@@ -41,7 +41,9 @@ function CartItem(props) {
               <button
                 className="p-2 w-7 h-7 items-center flex justify-center text-white rounded-full bg-indigo-500"
                 onClick={() => {
-                  setQuantity(quantity + 1);
+                  if (quantity < props.stock) {
+                    setQuantity(quantity + 1);
+                  }
                 }}
               >
                 +

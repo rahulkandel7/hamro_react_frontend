@@ -38,7 +38,7 @@ function Rating(props) {
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
           >
-            <span>&#9733;</span>
+            <span className="text-2xl">&#9733;</span>
           </button>
         );
       })}

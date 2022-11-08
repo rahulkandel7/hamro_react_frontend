@@ -192,12 +192,17 @@ function Cart() {
                       image={cart.product.photopath1}
                       name={cart.product.name}
                       price={cart.price}
-                      quantity={parseInt(cart.quantity)}
+                      quantity={
+                        cart.product.stock < cart.quantity
+                          ? parseInt(cart.product.stock)
+                          : parseInt(cart.quantity)
+                      }
                       remove={deleteCartItem}
                       id={cart.id}
                       size={cart.size}
                       color={cart.color}
                       update={updateCartQuantity}
+                      stock={cart.product.stock}
                     />
                   );
                 })

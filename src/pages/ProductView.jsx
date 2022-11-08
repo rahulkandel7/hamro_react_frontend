@@ -38,6 +38,22 @@ function ProductView() {
     fetcher
   );
 
+  //? Fetch user info
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    fetch("https://api.hamroelectronics.com.np/api/v1/user", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setUserId(data.user.id);
+        });
+      }
+    });
+  }, []);
+
   //* References
   const imageRef = useRef();
   const colorRef = useRef();
@@ -144,6 +160,18 @@ function ProductView() {
           });
           setNumber(number + 1);
         }
+        if (data.details) {
+          if (data.details.color) {
+            toast(data.details.color[0], {
+              type: "error",
+            });
+          }
+          if (data.details.size) {
+            toast(data.details.size[0], {
+              type: "error",
+            });
+          }
+        }
       });
     });
   }
@@ -188,9 +216,19 @@ function ProductView() {
   if (productData && productsData) {
     //* For Displaying Related Products
     const relatedProducts = productsData.data.filter((product) => {
-      return product.category_id === productData.data.category_id;
+      if (
+        product.category_id === productData.data.category_id &&
+        product.id !== productData.data.id
+      ) {
+        return product;
+      }
     });
 
+    //* For displaying comments
+
+    const comments = productData.comments.filter((comment) => {
+      return comment.user_id != userId;
+    });
     //* Storing all images for showing
     const product = [
       `https://api.hamroelectronics.com.np/public/${productData.data.photopath1}`,
@@ -221,13 +259,9 @@ function ProductView() {
               {productData.data.name}
             </span>
           </h4>
-          <div className="grid md:grid-cols-2 my-5 gap-5">
+          <div className="grid md:grid-cols-4 my-5 gap-5">
             <div className="">
-              <ReactPanzoom
-                src={product[index]}
-                alt="AC"
-                className="w-full h-96"
-              />
+              <ReactPanzoom src={product[index]} alt="AC" className=" h-96" />
 
               <div className="flex" ref={imageRef}>
                 {product.map((imge, index) => {
@@ -246,7 +280,7 @@ function ProductView() {
                 <div></div>
               </div>
             </div>
-            <div className="px-6">
+            <div className="px-6 md:col-span-2">
               <h1 className="text-2xl font-bold">{productData.data.name}</h1>
               <p className="text-gray-400 py-2">
                 Brand:{" "}
@@ -320,7 +354,9 @@ function ProductView() {
                   <button
                     className="p-2 w-7 h-7 items-center flex justify-center text-white rounded-full bg-indigo-500"
                     onClick={() => {
-                      setQuantity(quantity + 1);
+                      if (quantity < productData.data.stock) {
+                        setQuantity(quantity + 1);
+                      }
                     }}
                   >
                     +
@@ -436,8 +472,9 @@ function ProductView() {
                   __html: productData.data.description,
                 }}
               ></p>
-
-              <h1 className="text-xl text-gray-700 font-semibold mt-8">
+            </div>
+            <div>
+              <h1 className="text-xl text-gray-700 font-semibold mb-4">
                 Shipping Information
               </h1>
               <table>
@@ -482,50 +519,79 @@ function ProductView() {
           {/* //* Product Details End */}
 
           {/* //* Product Rating and Reviews Started */}
-          <div>
-            <h1 className="text-xl text-gray-700 font-semibold mt-8 mb-4">
-              Rating and Reviews
-            </h1>
-            <h3 className="text-base text-gray-700 font-bold italic ">
-              {productData.data.name}
-            </h3>
-            <div className="flex items-center">
-              <div>
-                <h1 className="text-4xl text-center font-bold mt-5 mb-3">
-                  {Math.floor(productData.data.rating)}.0
-                </h1>
-                <p className="text-gray-500 text-xs">
-                  {productData.ratings.length} Ratings
-                </p>
+          <div className="grid grid-cols-3">
+            <div>
+              <h1 className="text-2xl text-gray-700 font-semibold mt-8 mb-4">
+                Rating
+              </h1>
+
+              <hr className="mb-2 w-6/12" />
+
+              <h3 className="text-base text-gray-700 font-bold  ">
+                Average Rating
+              </h3>
+
+              <div className="flex items-center">
                 <div>
-                  <div className="flex items-center text-lg ">
+                  <h1 className="text-6xl text-center font-bold mt-5 mb-3">
+                    {Math.floor(productData.data.rating)}.0
+                  </h1>
+
+                  <div>
                     {localStorage.getItem("token") ? (
-                      <Rating id={productData.data.id} rate={productRating} />
+                      <h3 className="text-base text-gray-700 font-bold  ">
+                        My Rating
+                      </h3>
                     ) : null}
+
+                    <div className="flex items-center text-lg ">
+                      {localStorage.getItem("token") ? (
+                        <Rating id={productData.data.id} rate={productRating} />
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
+              {/* //* Rating End Here */}
             </div>
-            {/* //* Rating End Here */}
+            <div className="col-span-2">
+              {/* //* Reviews Startes */}
+              <h1 className="text-2xl text-gray-700 font-semibold mt-8 mb-4">
+                Reviews
+              </h1>
 
-            {/* //* Reviews Startes */}
-            <h1 className="text-xl text-gray-700 font-semibold mt-8 mb-1">
-              Reviews
-            </h1>
-            <hr className="my-2" />
-            {localStorage.getItem("token") ? (
-              <WriteComment
-                id={productData.data.id}
-                mutate={() => productMutate()}
-              />
-            ) : null}
-            {productData.comments.map((comment) => {
-              return (
-                <Comment author={comment.user_name} comment={comment.comment} />
-              );
-            })}
+              {localStorage.getItem("token") ? (
+                <div>
+                  <hr />
+                  <div>
+                    <h1 className=" text-gray-600 font-semibold mt-2 ">
+                      Your Review
+                    </h1>
+                    <WriteComment
+                      id={productData.data.id}
+                      mutate={() => productMutate()}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <h2 className="capitalize text-xl text-gray-400 text-center">
+                  This Product has no review yet
+                </h2>
+              )}
+              <hr className="my-2" />
+              <div className="max-h-44 overflow-scroll">
+                {comments.map((comment) => {
+                  return (
+                    <Comment
+                      author={comment.user_name}
+                      comment={comment.comment}
+                    />
+                  );
+                })}
+              </div>
 
-            {/* //* Reviews End here */}
+              {/* //* Reviews End here */}
+            </div>
           </div>
         </div>
         <div className="w-11/12 mx-auto pb-6">
