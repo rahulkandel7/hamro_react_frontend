@@ -52,7 +52,6 @@ function SubCategory() {
     return <h1>Error</h1>;
   }
 
-  console.log(data);
   if (data) {
     const orderSubcategory = [...data.data].sort(
       (a, b) => a.priority - b.priority

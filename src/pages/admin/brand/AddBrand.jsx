@@ -37,7 +37,6 @@ function AddBrand() {
                 },
               }).then((res) => {
                 res.json().then((data) => {
-                  console.log(data);
                   if (data.status) {
                     toast(data.message, {
                       type: "success",

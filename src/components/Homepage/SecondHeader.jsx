@@ -65,7 +65,10 @@ function SecondHeader(props) {
                   onKeyUp={(e) => {
                     if (e.key === "Enter") {
                       setShowSuggestions(false);
-                      navigate(`/search/${search}`);
+
+                      if (search.length > 0) {
+                        navigate(`/search/${search}`);
+                      }
                     }
                     if (e.key === "Escape") {
                       setSearch("");
@@ -151,7 +154,9 @@ function SecondHeader(props) {
                   onKeyUp={(e) => {
                     if (e.key === "Enter") {
                       setShowSuggestions(false);
-                      navigate(`/search/${search}`);
+                      if (search.length > 0) {
+                        navigate(`/search/${search}`);
+                      }
                     }
                     if (e.key === "Escape") {
                       setSearch("");

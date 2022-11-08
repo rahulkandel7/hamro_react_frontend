@@ -76,7 +76,6 @@ function App() {
             return product.category_id == category.id;
           });
 
-          console.log(products);
           return (
             <ItemWrapper
               key={category.id}

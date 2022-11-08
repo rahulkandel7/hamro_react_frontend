@@ -38,7 +38,6 @@ function EditSubCategory() {
     return <h1>Error While Loading</h1>;
   }
 
-  console.log(subCategoryData);
   if (subCategoryData) {
     return (
       <>

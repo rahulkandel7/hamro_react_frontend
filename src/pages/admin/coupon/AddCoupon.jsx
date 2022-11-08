@@ -44,7 +44,6 @@ function AddCoupon() {
             validationSchema={couponSchema}
             validateOnChange={false}
             onSubmit={async (values) => {
-              console.log(values);
               fetch("https://api.hamroelectronics.com.np/api/v1/coupon", {
                 method: "post",
                 body: JSON.stringify(values),
@@ -54,7 +53,6 @@ function AddCoupon() {
                 },
               }).then((res) => {
                 res.json().then((data) => {
-                  console.log(data);
                   if (data.status) {
                     toast(data.message, {
                       type: "success",

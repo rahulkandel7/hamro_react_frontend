@@ -59,7 +59,6 @@ function EditProduct() {
     size: string().required("Size is required"),
   });
 
-  console.log(productdata);
   if (productdata) {
     return (
       <>

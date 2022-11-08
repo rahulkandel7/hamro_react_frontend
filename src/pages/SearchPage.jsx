@@ -11,14 +11,7 @@ function SearchPage() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const params = useParams();
 
-  const { data: brandData, error: brandError } = useSWR(
-    `https://api.hamroelectronics.com.np/api/v1/fetchBrand`,
-    fetcher
-  );
-
   const [products, setProducts] = useState([]);
-  const [filter, setFilter] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://api.hamroelectronics.com.np/api/v1/products").then((res) => {
@@ -27,7 +20,6 @@ function SearchPage() {
           product.name.toLowerCase().includes(params.query.toLowerCase())
         );
         setProducts(results);
-        setLoading(false);
       });
     });
   }, [params.query]);
@@ -38,6 +30,8 @@ function SearchPage() {
   );
 
   const navigate = useNavigate();
+
+  console.log(error);
   if (error) {
     if (localStorage.getItem("token")) {
       return <ServerError />;
@@ -46,30 +40,15 @@ function SearchPage() {
     }
   }
 
-  let dBrands = [];
-  if (data && brandData) {
-    {
-      data.data.map((product) => {
-        brandData.data.map((brand) => {
-          if (product.brand_id == brand.id) {
-            dBrands.push(brand);
-          }
-        });
-      });
-    }
-
-    let dBrand = dBrands.filter((item, index) => {
-      return dBrands.indexOf(item) === index;
-    });
-
+  if (data) {
     return (
       <div>
         <TopHeader />
         <SecondHeader />
         <Navbar />
 
-        <div className="flex w-11/12 mx-auto my-3">
-          <div className="hidden md:block w-64 shadow-md px-5 py-2">
+        <div className=" w-11/12 mx-auto my-3">
+          {/* <div className="hidden md:block w-64 shadow-md px-5 py-2">
             <h1 className="text-2xl text-gray-700 font-bold">Filter By</h1>
             <hr className="my-2" />
             <h3 className="text-gray-500 text-lg">Brands</h3>
@@ -100,7 +79,6 @@ function SearchPage() {
                         }
 
                         setFilter(filteredData);
-                        console.log(filter);
                       }}
                     />{" "}
                     {brand.brand_name}
@@ -128,15 +106,22 @@ function SearchPage() {
                 $200+
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="w-fit">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
               You have searched for {params.query}
             </h1>
-            {filter.length > 0 ? (
-              <div>
-                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
-                  {filter.map((product) => {
+
+            <div>
+              <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+                {products.length < 1 ? (
+                  <div className="col-span-3 md:col-span-5">
+                    <h1 className="text-center text-4xl font-bold text-gray-600">
+                      No Products Yet! Comming Soon New Products
+                    </h1>
+                  </div>
+                ) : (
+                  products.map((product) => {
                     let off;
                     if (product.discountedprice !== undefined) {
                       off =
@@ -161,49 +146,10 @@ function SearchPage() {
                         />
                       </NavLink>
                     );
-                  })}
-                </div>
+                  })
+                )}
               </div>
-            ) : (
-              <div>
-                <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
-                  {products.length < 1 ? (
-                    <div className="col-span-3 md:col-span-5">
-                      <h1 className="text-center text-4xl font-bold text-gray-600">
-                        No Products Yet! Comming Soon New Products
-                      </h1>
-                    </div>
-                  ) : (
-                    products.map((product) => {
-                      let off;
-                      if (product.discountedprice !== undefined) {
-                        off =
-                          ((product.price - product.discountedprice) /
-                            product.price) *
-                          100;
-                      }
-                      return (
-                        <NavLink
-                          to={`/product/view/${product.id}`}
-                          key={product.id}
-                        >
-                          <Items
-                            item_name={product.name}
-                            price={product.price}
-                            key={product.id}
-                            image={product.photopath1}
-                            discount_price={product.discountedprice}
-                            off={Math.floor(off)}
-                            avg_rating={Math.floor(product.rating)}
-                            rating={Math.floor(product.rating_number)}
-                          />
-                        </NavLink>
-                      );
-                    })
-                  )}
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

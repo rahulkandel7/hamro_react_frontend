@@ -52,7 +52,6 @@ function Shipping() {
     toggleIsDelete();
   }
   if (data) {
-    console.log(data);
     return (
       <>
         <AdminLayout>

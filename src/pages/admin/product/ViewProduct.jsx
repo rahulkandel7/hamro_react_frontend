@@ -34,7 +34,6 @@ function ViewProduct() {
   const navigate = useNavigate();
 
   if (brandData) {
-    console.log(productdata);
     return (
       <>
         <AdminLayout>

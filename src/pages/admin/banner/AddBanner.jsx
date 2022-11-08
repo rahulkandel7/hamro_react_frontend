@@ -23,7 +23,6 @@ function AddBanner() {
             validateOnChange={false}
             validationSchema={bannerSchema}
             onSubmit={async (values) => {
-              console.log(values);
               const formData = new FormData();
               formData.append("priority", values.priority);
               formData.append("photopath", values.photopath);

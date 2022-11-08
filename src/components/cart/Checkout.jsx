@@ -101,11 +101,7 @@ function Checkout(props) {
                                   },
                                   body: formData,
                                 }
-                              ).then((res) => {
-                                res.json().then((data) => {
-                                  console.log(data);
-                                });
-                              });
+                              );
                             });
                           }
                         });

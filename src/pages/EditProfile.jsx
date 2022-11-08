@@ -82,7 +82,6 @@ function EditProfile() {
                     formData.append("address", values.address);
                     formData.append("profile_photo", values.profile_photo);
 
-                    console.log(values);
                     fetch(
                       "https://api.hamroelectronics.com.np/api/v1/user/update",
                       {
@@ -96,7 +95,6 @@ function EditProfile() {
                       }
                     ).then((res) => {
                       res.json().then((data) => {
-                        console.log(data);
                         if (data.status) {
                           toast(data.message, {
                             type: "success",
@@ -270,7 +268,6 @@ function EditProfile() {
                       }
                     ).then((res) => {
                       res.json().then((data) => {
-                        console.log(data);
                         if (data.status) {
                           toast(data.message, {
                             type: "success",
