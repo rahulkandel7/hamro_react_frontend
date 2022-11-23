@@ -145,42 +145,48 @@ function ProductView() {
 
   //* For Adding to Cart
   function addToCart(id, price) {
-    fetch("https://api.hamroelectronics.com.np/api/v1/cart", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        product_id: id,
-        color: color,
-        size: size,
-        price: price,
-        quantity: quantity,
-        ordered: false,
-      }),
-    }).then((res) => {
-      res.json().then((data) => {
-        if (data.status) {
-          toast(data.message, {
-            type: "success",
-          });
-          setNumber(number + 1);
-        }
-        if (data.details) {
-          if (data.details.color) {
-            toast(data.details.color[0], {
-              type: "error",
+    if (localStorage.getItem("token")) {
+      fetch("https://api.hamroelectronics.com.np/api/v1/cart", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product_id: id,
+          color: color,
+          size: size,
+          price: price,
+          quantity: quantity,
+          ordered: false,
+        }),
+      }).then((res) => {
+        res.json().then((data) => {
+          if (data.status) {
+            toast(data.message, {
+              type: "success",
             });
+            setNumber(number + 1);
           }
-          if (data.details.size) {
-            toast(data.details.size[0], {
-              type: "error",
-            });
+          if (data.details) {
+            if (data.details.color) {
+              toast(data.details.color[0], {
+                type: "error",
+              });
+            }
+            if (data.details.size) {
+              toast(data.details.size[0], {
+                type: "error",
+              });
+            }
           }
-        }
+        });
       });
-    });
+    } else {
+      toast("Please Login First", {
+        type: "error",
+      });
+    }
   }
 
   //* For Product Rating

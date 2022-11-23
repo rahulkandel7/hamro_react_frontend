@@ -26,6 +26,11 @@ function App() {
     fetcher
   );
 
+  const { data: toppicks, error: toppickserror } = useSWR(
+    "https://api.hamroelectronics.com.np/api/v1/toppicks",
+    fetcher
+  );
+
   if (categoryError || productError) return <ServerError />;
 
   if (!productData || !categoryData) return <Spinner />;
