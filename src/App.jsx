@@ -41,7 +41,8 @@ function App() {
       return a.priority - b.priority;
     });
 
-    let i = 4;
+    let i = 2;
+    let adsNumber = 3;
 
     return (
       <>
@@ -123,20 +124,22 @@ function App() {
                 slide={5}
                 products={products}
               />
-
-              {adsData.data.map((ad) => {
-                if (ad.ad_code == `A${i}`) {
-                  return (
-                    <div className="w-[98%] mx-auto">
-                      <img
-                        src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
-                        alt="ads"
-                        className="rounded-md shadow-md"
-                      />
-                    </div>
-                  );
-                }
-              }, i++)}
+              {i % 2 === 0
+                ? adsData.data.map((ad) => {
+                    if (ad.ad_code == `A${adsNumber}`) {
+                      return (
+                        <div className="w-[98%] mx-auto">
+                          <img
+                            src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
+                            alt="ads"
+                            className="rounded-md shadow-md"
+                          />
+                        </div>
+                      );
+                    }
+                  }, adsNumber++)
+                : null}
+              <p className="hidden">{i++}</p>
             </div>
           );
         })}
