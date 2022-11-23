@@ -15,13 +15,14 @@ function MobileNav() {
               </div>
             </NavLink>
 
-            <div>
-              <div className="flex justify-center">
-                <i className="ri-menu-3-line text-base text-gray-600 "></i>
+            <NavLink to="/all-category">
+              <div>
+                <div className="flex justify-center">
+                  <i className="ri-menu-3-line text-base text-gray-600 "></i>
+                </div>
+                <p className="text-gray-600 text-xs text-center">Categories</p>
               </div>
-              <p className="text-gray-600 text-xs text-center">Categories</p>
-            </div>
-
+            </NavLink>
             <NavLink to="/cart">
               <div>
                 <div className="flex justify-center">

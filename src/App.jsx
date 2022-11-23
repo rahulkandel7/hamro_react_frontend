@@ -21,6 +21,11 @@ function App() {
     fetcher
   );
 
+  const { data: adsData, error: adsError } = useSWR(
+    "https://api.hamroelectronics.com.np/api/v1/ads/list",
+    fetcher
+  );
+
   if (categoryError || productError) return <ServerError />;
 
   if (!productData || !categoryData) return <Spinner />;
@@ -31,6 +36,13 @@ function App() {
         return product;
       }
     });
+
+    const priorityCategory = categoryData.categories.sort((a, b) => {
+      return a.priority - b.priority;
+    });
+
+    let i = 4;
+
     return (
       <>
         <TopHeader />
@@ -46,6 +58,20 @@ function App() {
           slide={5}
           products={saleProduct}
         />
+        {adsData.data.map((ad) => {
+          if (ad.ad_code == "A1") {
+            return (
+              <div className="w-11/12 mx-auto">
+                <img
+                  src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
+                  alt="ads"
+                  className="rounded-md shadow-md"
+                />
+              </div>
+            );
+          }
+        })}
+
         <ItemWrapper
           title="Top Picks"
           description="Get the best deals on the top picks of the week. We have the best"
@@ -54,36 +80,64 @@ function App() {
         />
         <div className="w-[98%] mx-auto">
           <div className="grid md:grid-cols-2 gap-7">
-            <div>
-              <img
-                src="/slide1.jpeg"
-                alt="ads"
-                className="rounded-md shadow-md"
-              />
-            </div>
+            {adsData.data.map((ad) => {
+              if (ad.ad_code == "A2") {
+                return (
+                  <div>
+                    <img
+                      src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
+                      alt="ads"
+                      className="rounded-md shadow-md"
+                    />
+                  </div>
+                );
+              }
+            })}
 
-            <div>
-              <img
-                src="/slide1.jpeg"
-                alt="ads"
-                className="rounded-md shadow-md"
-              />
-            </div>
+            {adsData.data.map((ad) => {
+              if (ad.ad_code == "A3") {
+                return (
+                  <div>
+                    <img
+                      src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
+                      alt="ads"
+                      className="rounded-md shadow-md"
+                    />
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
-        {categoryData.categories.map((category) => {
+        {priorityCategory.map((category) => {
           const products = productData.data.filter((product) => {
             return product.category_id == category.id;
           });
 
           return (
-            <ItemWrapper
-              key={category.id}
-              title={category.category_name}
-              description={`Get the best deals on ${category.category_name}. We have the best`}
-              slide={5}
-              products={products}
-            />
+            <div>
+              <ItemWrapper
+                key={category.id}
+                title={category.category_name}
+                description={`Get the best deals on ${category.category_name}. We have the best`}
+                slide={5}
+                products={products}
+              />
+
+              {adsData.data.map((ad) => {
+                if (ad.ad_code == `A${i}`) {
+                  return (
+                    <div className="w-[98%] mx-auto">
+                      <img
+                        src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
+                        alt="ads"
+                        className="rounded-md shadow-md"
+                      />
+                    </div>
+                  );
+                }
+              }, i++)}
+            </div>
           );
         })}
 

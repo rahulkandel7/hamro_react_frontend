@@ -77,7 +77,7 @@ function Wishlist() {
               No Items In Wishlist
             </h1>
           ) : (
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-10 my-10">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-10 my-10">
               {data.data.map((wishlist) => {
                 let off;
 

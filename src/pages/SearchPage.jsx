@@ -113,7 +113,7 @@ function SearchPage() {
             </h1>
 
             <div>
-              <div className="grid grid-cols-3 md:grid-cols-5 gap-10 px-5">
+              <div className="grid grid-cols-3 xl:grid-cols-5 md:grid-cols-4 gap-10 px-5">
                 {products.length < 1 ? (
                   <div className="col-span-3 md:col-span-5">
                     <h1 className="text-center text-4xl font-bold text-gray-600">

@@ -35,7 +35,6 @@ function Category() {
     ).then((res) => {
       res.json().then((data) => {
         setProducts(data.data);
-        console.log(data.data);
         setCategoryName(data.category.category_name);
         setCategoryId(data.category.id);
         setLoading(false);
@@ -64,7 +63,7 @@ function Category() {
       setMaxPrice(max);
       setMinPrice(min);
     }
-  }, [products]);
+  }, [products, params.id]);
 
   function changePrice() {
     let productData = products.map((product) => {
@@ -208,13 +207,13 @@ function Category() {
               </div>
             ) : null}
           </div>
-          <div className="w-fit">
+          <div className="w-full flex-1">
             <h1 className="text-2xl text-gray-700 font-bold px-4 py-5">
               {categoryName}
             </h1>
             {filter.length > 0 ? (
               <div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-5">
+                <div className="grid grid-cols-2 xl:grid-cols-5 md:grid-cols-4 gap-10 px-5">
                   {filter.map((product) => {
                     let off;
                     if (product.discountedprice !== undefined) {
@@ -245,7 +244,7 @@ function Category() {
               </div>
             ) : (
               <div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-5">
+                <div className="grid grid-cols-2 xl:grid-cols-5 md:grid-cols-4 gap-10 px-5">
                   {products.length < 1 ? (
                     <div className="col-span-3 md:col-span-5">
                       <h1 className="text-center text-4xl font-bold text-gray-600">

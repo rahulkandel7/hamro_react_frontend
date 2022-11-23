@@ -7,7 +7,7 @@ function WishlistItem(props) {
           alt="Items"
           className="rounded-md 2"
         />
-        <p className="text-sm text-gray-600 text-center py-2 px-2">
+        <p className="text-sm text-gray-600 text-center py-2 px-2 truncate">
           {props.item_name}
         </p>
 

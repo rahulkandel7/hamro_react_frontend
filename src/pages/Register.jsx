@@ -19,7 +19,7 @@ function Register() {
       .oneOf([ref("password"), null], "Confirm Password doesn't must match")
       .required("Confirm Password is Required"),
     address: string().required(),
-    profile_photo: mixed().nullable("Profile Photo is Required"),
+    profile_photo: mixed().nullable(),
     gender: string().required(),
   });
 
