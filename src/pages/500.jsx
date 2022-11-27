@@ -1,4 +1,9 @@
+import { useEffect } from "react";
+
 function ServerError() {
+  useEffect(() => {
+    localStorage.removeItem("token");
+  }, []);
   return (
     <>
       <div className="w-full h-screen bg-gray-100">

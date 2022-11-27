@@ -61,6 +61,7 @@ function Profile() {
         <TopHeader />
         <SecondHeader />
         <Navbar />
+
         <div className="w-11/12 md:w-9/12 mx-auto bg-white shadow-md rounded-md  my-10 p-10 relative">
           <div>
             <div className="flex items-center">

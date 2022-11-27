@@ -35,7 +35,7 @@ function App() {
 
   if (!productData || !categoryData) return <Spinner />;
 
-  if (categoryData && productData) {
+  if (categoryData && productData && toppicks) {
     const saleProduct = productData.data.filter((product) => {
       if (product.flashsale == 1) {
         return product;
@@ -82,7 +82,7 @@ function App() {
           title="Top Picks"
           description="Get the best deals on the top picks of the week. We have the best"
           slide={5}
-          products={saleProduct}
+          products={toppicks.data}
         />
         <div className="w-[98%] mx-auto">
           <div className="grid md:grid-cols-2 gap-7">

@@ -193,7 +193,7 @@ function Cart() {
                       name={cart.product.name}
                       price={cart.price}
                       quantity={
-                        cart.product.stock < cart.quantity
+                        cart.quantity > cart.product.stock
                           ? parseInt(cart.product.stock)
                           : parseInt(cart.quantity)
                       }
