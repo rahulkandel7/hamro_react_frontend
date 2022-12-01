@@ -6,6 +6,7 @@ import Items from "../components/Items/Items";
 import ServerError from "../pages/500";
 import TopHeader from "../components/Homepage/TopHeader";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 function SearchPage() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -152,6 +153,8 @@ function SearchPage() {
             </div>
           </div>
         </div>
+
+        <Footer />
       </div>
     );
   }

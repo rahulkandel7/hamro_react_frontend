@@ -31,11 +31,11 @@ function App() {
     fetcher
   );
 
-  if (categoryError || productError) return <ServerError />;
+  if (categoryError || productError || toppickserror || adsError) return <ServerError />;
 
   if (!productData || !categoryData) return <Spinner />;
 
-  if (categoryData && productData && toppicks) {
+  if (categoryData && productData && toppicks && adsData) {
     const saleProduct = productData.data.filter((product) => {
       if (product.flashsale == 1) {
         return product;

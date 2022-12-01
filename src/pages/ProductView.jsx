@@ -68,8 +68,8 @@ function ProductView() {
 
   //* States for image, color, size and quantity
   const [index, setIndex] = useState(0);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
+  const [pcolor, setPcolor] = useState("");
+  const [psize, setPsize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [number, setNumber] = useState(0);
 
@@ -98,7 +98,7 @@ function ProductView() {
     }
     colors[id].className =
       "mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded border border-indigo-500";
-    setColor(colors[id].textContent);
+    setPcolor(colors[id].textContent);
   }
 
   //* For Selecting Size
@@ -112,7 +112,7 @@ function ProductView() {
     }
     sizes[id].className =
       "mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded border border-indigo-500";
-    setSize(sizes[id].textContent);
+    setPsize(sizes[id].textContent);
   }
 
   //* For Adding to Wishlist
@@ -145,6 +145,8 @@ function ProductView() {
 
   //* For Adding to Cart
   function addToCart(id, price) {
+    const checkSize = productData.data.size.split(",");
+
     if (localStorage.getItem("token")) {
       fetch("https://api.hamroelectronics.com.np/api/v1/cart", {
         method: "POST",
@@ -154,8 +156,8 @@ function ProductView() {
         },
         body: JSON.stringify({
           product_id: id,
-          color: color,
-          size: size,
+          color: pcolor,
+          size: checkSize.length == 1 && checkSize[0] == "Free Size" ? 'Free Size' : psize,
           price: price,
           quantity: quantity,
           ordered: false,
@@ -408,20 +410,24 @@ function ProductView() {
                 })}
               </p>
 
-              <p className="text-gray-400 py-2 " ref={sizeRef}>
-                Size:{" "}
-                {size.map((size, index) => {
-                  return (
-                    <span
-                      className=" mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded"
-                      key={index}
-                      onClick={() => selectSize(index)}
-                    >
-                      {size}
-                    </span>
-                  );
-                })}
-              </p>
+              {
+                size.length == 1 && size[0] == "Free Size" ? null : <p className="text-gray-400 py-2 " ref={sizeRef}>
+                  Size:{" "}
+                  {size.map((size, index) => {
+                    return (
+                      <span
+                        className=" mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded"
+                        key={index}
+                        onClick={() => selectSize(index)}
+                      >
+                        {size}
+                      </span>
+                    );
+                  })}
+                </p>
+              }
+
+
 
               <p className="text-gray-400 py-4 flex">
                 Quantity:{" "}
@@ -459,9 +465,9 @@ function ProductView() {
                   onClick={() =>
                     productData.data.discountedprice !== null
                       ? addToCart(
-                          productData.data.id,
-                          productData.data.discountedprice
-                        )
+                        productData.data.id,
+                        productData.data.discountedprice
+                      )
                       : addToCart(productData.data.id, productData.data.price)
                   }
                   className="bg-indigo-500 hover:bg-indigo-700 text-white rounded-md py-2"
@@ -552,7 +558,7 @@ function ProductView() {
           {/* //* Product Rating and Reviews Started */}
           <div className="grid grid-cols-4 gap-5">
             <div className="col-span-3">
-              <div className="bg-gray-100 p-2 rounded-md max-h-72 scroll-auto">
+              <div className="bg-gray-100 p-2 rounded-md max-h-72 scroll-auto overflow-auto">
                 <h1 className="text-xl text-gray-700 font-semibold mt-3">
                   Description
                 </h1>
