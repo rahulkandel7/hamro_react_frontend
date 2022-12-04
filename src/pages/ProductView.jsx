@@ -14,7 +14,6 @@ import Comment from "../components/utils/Comment";
 import WriteComment from "../components/utils/WriteComment";
 import ServerError from "./500";
 import Spinner from "../components/utils/Spinner";
-import Items from "../components/Items/Items";
 
 function ProductView() {
   //* Parameter for getting the product id
@@ -92,7 +91,7 @@ function ProductView() {
 
     for (let i = 0; i < colors.length; i++) {
       colors[i].className = colors[i].className.replace(
-        "border border-indigo-500",
+        " border-indigo-500",
         ""
       );
     }
@@ -106,7 +105,7 @@ function ProductView() {
     let sizes = sizeRef.current.children;
     for (let i = 0; i < sizes.length; i++) {
       sizes[i].className = sizes[i].className.replace(
-        "border border-indigo-500",
+        " border-indigo-500",
         ""
       );
     }
@@ -400,7 +399,7 @@ function ProductView() {
                 {color.map((color, index) => {
                   return (
                     <span
-                      className=" mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded"
+                      className=" mx-1 text-gray-800 font-bold border border-indigo-200  py-2 px-4 cursor-pointer rounded"
                       key={index}
                       onClick={() => selectColor(index)}
                     >
@@ -416,7 +415,7 @@ function ProductView() {
                   {size.map((size, index) => {
                     return (
                       <span
-                        className=" mx-1 text-gray-800 font-bold  py-2 px-4 cursor-pointer rounded"
+                        className=" mx-1 text-gray-800 font-bold border border-indigo-200 py-2 px-4 cursor-pointer rounded"
                         key={index}
                         onClick={() => selectSize(index)}
                       >
