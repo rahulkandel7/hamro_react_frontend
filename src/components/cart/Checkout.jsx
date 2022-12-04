@@ -101,8 +101,12 @@ function Checkout(props) {
                                   },
                                   body: formData,
                                 }
-                              );
+                              ).then((res) => {
+                                props.hide();
+                              });
                             });
+
+
                           }
                         });
                       });
