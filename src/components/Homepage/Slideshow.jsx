@@ -32,15 +32,17 @@ function Slideshow() {
             modules={[Autoplay, Pagination]}
           >
             {banner.map((banner) => {
-              return (
-                <SwiperSlide key={banner.id}>
-                  <img
-                    src={`https://api.hamroelectronics.com.np/public/${banner.photopath}`}
-                    alt=""
-                    className="rounded-md shadow-md"
-                  />
-                </SwiperSlide>
-              );
+              if (banner.available == 1) {
+                return (
+                  <SwiperSlide key={banner.id}>
+                    <img
+                      src={`https://api.hamroelectronics.com.np/public/${banner.photopath}`}
+                      alt=""
+                      className="rounded-md shadow-md"
+                    />
+                  </SwiperSlide>
+                );
+              }
             })}
           </Swiper>
         </div>
