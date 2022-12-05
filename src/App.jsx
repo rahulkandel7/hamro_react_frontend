@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import Footer from "./components/Footer";
 import Navbar from "./components/Homepage/navbar/NavBar";
@@ -31,6 +32,8 @@ function App() {
     fetcher
   );
 
+  const navigate = useNavigate();
+
   if (categoryError || productError || toppickserror || adsError) return <ServerError />;
 
   if (!productData || !categoryData) return <Spinner />;
@@ -55,12 +58,13 @@ function App() {
         <hr />
         <div className="sticky top-0 z-10">
           <SecondHeader />
+          <Navbar />
+
         </div>
-        <Navbar />
         <Slideshow />
         <ItemWrapper
-          title="Sale"
-          description="Get the best sale"
+          title="Flash Sale"
+          description="Get the best Flash Sale"
           slide={5}
           products={saleProduct}
         />
@@ -115,6 +119,11 @@ function App() {
                 slide={5}
                 products={products}
               />
+              <div className="text-center mb-4">
+                <button className="bg-indigo-500 hover:bg-indigo-600 px-4 py-1 rounded-md text-white" onClick={() => navigate(`/category/${category.id}`)}>
+                  See More
+                </button>
+              </div>
               {i % 2 === 0
                 ? adsData.data.map((ad) => {
                   if (ad.ad_code == `A${adsNumber}`) {
