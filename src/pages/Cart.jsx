@@ -176,8 +176,8 @@ function Cart() {
         <SecondHeader />
         <Navbar />
         <div className="w-11/12 mx-auto my-10">
-          <div className="grid md:grid-cols-3 gap-10">
-            <div className="col-span-2">
+          <div className="grid md:grid-cols-3 md:gap-10">
+            <div className="md:col-span-2">
               <h1 className="text-xl md:text-2xl font-bold">Shopping Cart</h1>
               <hr className="my-2" />
               {data.data.length < 1 ? (
@@ -250,12 +250,12 @@ function Cart() {
                     </option>
                     {shippingdata
                       ? shippingdata.data.map((shipping) => {
-                          return (
-                            <option value={shipping.id} key={shipping.id}>
-                              {shipping.area_name}
-                            </option>
-                          );
-                        })
+                        return (
+                          <option value={shipping.id} key={shipping.id}>
+                            {shipping.area_name}
+                          </option>
+                        );
+                      })
                       : null}
                   </select>
                 </div>
@@ -265,14 +265,14 @@ function Cart() {
 
                   {shippingdata
                     ? shippingdata.data.map((area) => {
-                        if (area.id == shipping) {
-                          return (
-                            <p className="text-gray-500" key={area.id}>
-                              Rs {area.price}
-                            </p>
-                          );
-                        }
-                      })
+                      if (area.id == shipping) {
+                        return (
+                          <p className="text-gray-500" key={area.id}>
+                            Rs {area.price}
+                          </p>
+                        );
+                      }
+                    })
                     : null}
                 </div>
                 <hr className="my-3" />

@@ -572,8 +572,8 @@ function ProductView() {
           {/* //* Product Details End */}
 
           {/* //* Product Rating and Reviews Started */}
-          <div className="grid grid-cols-4 gap-5">
-            <div className="col-span-3">
+          <div className="grid md:grid-cols-4 gap-5">
+            <div className="md:col-span-3">
               <div className="bg-gray-100 p-2 rounded-md max-h-72 scroll-auto overflow-y-auto">
                 <h1 className="text-xl text-gray-700 font-semibold mt-3">
                   Description
@@ -625,7 +625,7 @@ function ProductView() {
                 {/* //* Reviews End here */}
               </div>
             </div>
-            <div className="bg-gray-0">
+            <div className="bg-gray-0 hidden md:block">
               {adsData.data.map((ad) => {
                 if (ad.ad_code == "P1") {
                   return (

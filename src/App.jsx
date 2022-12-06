@@ -75,7 +75,7 @@ function App() {
                 <img
                   src={`https://api.hamroelectronics.com.np/public/${ad.photopath}`}
                   alt="ads"
-                  className="rounded-md shadow-md"
+                  className="rounded-md shadow-md w-full"
                 />
               </div>
             );
