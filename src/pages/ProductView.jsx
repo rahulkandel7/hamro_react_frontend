@@ -258,6 +258,16 @@ function ProductView() {
     const color = productData.data.color.split(",");
     const size = productData.data.size.split(",");
     //? ----------------------------------------------
+    let off = 0;
+
+
+
+    if (productData.data.discountedprice !== undefined) {
+      off =
+        ((productData.data.price - productData.data.discountedprice) / productData.data.price) *
+        100;
+    }
+
 
     return (
       <div>
@@ -367,11 +377,18 @@ function ProductView() {
                     Rs. {productData.data.price} /-
                   </p>
                 )}
-                <div className="h-12 mt-[8%] ml-4">
-                  <div className="bg-indigo-500 rounded-md text-xs py-1 w-18 px-2 text-white">
-                    - 30% off
-                  </div>
-                </div>
+                {
+
+                  off < 100 ? <div className="h-12 mt-[8%] ml-4">
+                    <div className="bg-indigo-500 rounded-md text-xs py-1 w-18 px-2 text-white">
+                      - {parseInt(off)}  off
+                    </div>
+                  </div> : null
+
+
+
+                }
+
               </div>
               <p className="text-gray-400 py-2">
                 Brand:{" "}
