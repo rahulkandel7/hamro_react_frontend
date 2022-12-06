@@ -56,7 +56,7 @@ function CartItem(props) {
               <p className="text-gray-400 flex">Price: </p>
               <h1 className="text-gray-700 mx-2">Rs {props.price}</h1>
             </div>
-            {props.size ? (
+            {props.size != "Free Size" ? (
               <div className="flex  items-center  my-1 mx-2">
                 <p className="text-gray-400 flex">Size: </p>
                 <h1 className="text-gray-700 mx-2">{props.size}</h1>

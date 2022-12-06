@@ -86,7 +86,7 @@ function SecondHeader(props) {
                 </div>
                 <div>
                   {showSuggestions ? (
-                    <div className="bg-gray-50  shadow-md w-full  h-fit max-h-28 overflow-scroll absolute">
+                    <div className="bg-gray-50  shadow-md w-full  h-fit max-h-28 overflow-y-scroll z-50 absolute">
                       {searchResults.map((product) => (
                         <NavLink
                           to={`/product/view/${product.id}`}

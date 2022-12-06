@@ -99,6 +99,7 @@ function EditProfile() {
                           toast(data.message, {
                             type: "success",
                           });
+                          navigate('/profile');
                         }
                       });
                     });

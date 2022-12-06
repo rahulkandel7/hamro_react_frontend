@@ -574,7 +574,7 @@ function ProductView() {
           {/* //* Product Rating and Reviews Started */}
           <div className="grid grid-cols-4 gap-5">
             <div className="col-span-3">
-              <div className="bg-gray-100 p-2 rounded-md max-h-72 scroll-auto overflow-auto">
+              <div className="bg-gray-100 p-2 rounded-md max-h-72 scroll-auto overflow-y-auto">
                 <h1 className="text-xl text-gray-700 font-semibold mt-3">
                   Description
                 </h1>
@@ -604,13 +604,14 @@ function ProductView() {
                       />
                     </div>
                   </div>
-                ) : (
-                  <h2 className="capitalize text-xl text-gray-400 text-center">
-                    This Product has no review yet
-                  </h2>
-                )}
+                ) :
+                  comments.length == 0 ?
+                    <h2 className="capitalize text-xl text-gray-400 text-center">
+                      This Product has no review yet
+                    </h2> : null
+                }
                 <hr className="my-2" />
-                <div className="max-h-44 overflow-scroll">
+                <div className="max-h-44 overflow-y-scroll">
                   {comments.map((comment) => {
                     return (
                       <Comment
